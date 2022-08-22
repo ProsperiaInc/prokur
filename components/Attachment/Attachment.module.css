@@ -1,0 +1,32 @@
+.MultiAttachment-single-file-title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.MultiAttachment-file-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 25px;
+}
+
+.MultiAttachment-single-file-name {
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #6c6c6c;
+}
+
+.MultiAttachment-single-file-size {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #6c6c6c;
+}

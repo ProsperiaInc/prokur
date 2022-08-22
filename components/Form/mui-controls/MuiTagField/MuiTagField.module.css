@@ -1,0 +1,60 @@
+.tagfield-main {
+  display: flex;
+  min-height: 80px;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 3px;
+  border: solid 1px #d4d4d4;
+  background-color: #fff;
+  cursor: text;
+}
+
+.tagfield-input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  box-sizing: content-box;
+}
+
+.tagfield-suggested-tags-container {
+  margin-top: 16px;
+}
+
+.react-tags__selected-tag {
+  margin: 0 9px 9px 0;
+  padding: 4px 11px 4px 12px;
+  background-color: #6980A5;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #fff;
+  border: none;
+  transition: .5s transform;
+  background: #6980A5;
+  padding-right: 32px;
+  height: 32px;
+  border-radius: 38px;
+}
+
+.react-tags__selected-tag:hover {
+  transform: scale(1.08);
+}
+
+.react-tags__selected-tag:after {
+  content: '\2715';
+  position: absolute;
+  color: #6980A5;
+  background-color: #fff;
+  margin-left: 8px;
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+}
+
+.tag-suggestion {
+  font-size: 12px;
+  color: #afafaf;
+}

@@ -1,0 +1,42 @@
+{
+  "common": {
+    "continue": "Continue"
+  },
+  "login": {
+    "text": "Don't have an account?",
+    "header": "Data Visualization RFP",
+    "subheader": "START FOR FREE",
+    "cta": "Sign up",
+    "incorrect_credentials": "Incorrect Credentials."
+  },
+  "signup": {
+    "text": "Don't have an account?",
+    "header": "Data Visualization RFP",
+    "subheader": "START FOR FREE",
+    "cta": "Sign up",
+    "incorrect_credentials": "Incorrect Credentials."
+  },
+  "rfp": {
+    "nav_title": "My RFPs",
+    "add_rfp": "Create RFP",
+    "table": {
+      "header": {
+        "column_1": "Title",
+        "column_2": "Date Created",
+        "column_3": "Deadline",
+        "column_4": "Close Date",
+        "column_5": "Proposals",
+        "column_6": "Status",
+        "column_7": ""
+      },
+      "menu": {
+        "edit_rfp": "Edit RFP",
+        "view": "View as PDF",
+        "overview": "RFP Overview",
+        "share": "Share",
+        "delete": "Delete",
+        "archive": "Archive"
+      }
+    }
+  }
+}

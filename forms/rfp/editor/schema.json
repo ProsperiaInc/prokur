@@ -1,0 +1,101 @@
+[
+  {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "inquiryDeadline": {
+        "type": "string",
+        "format": "date"
+      },
+      "closeDate": {
+        "type": "string",
+        "format": "date"
+      },
+      "budgetCurrency": {
+        "type": "string"
+      },
+      "rfpPrimaryCategory": {
+        "type": "string",
+        "enum": [
+          "Never",
+          "Daily",
+          "Weekly",
+          "Monthly"
+        ]
+      },
+      "rfpSecondaryCategory": {
+        "type": "string",
+        "enum": [
+          "Never",
+          "Daily",
+          "Weekly",
+          "Monthly"
+        ]
+      },
+      "RFPDetailsTags": {
+        "type": "string"
+      }
+    }
+  },
+  {
+    "type": "object",
+    "properties": {
+      "scopeOfWork": {
+        "type": "string"
+      },
+      "requirements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "requirements": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "object",
+    "properties": {
+      "evaluationSummary": {
+        "type": "string"
+      },
+      "evaluationCriteria": {
+        "type": "string"
+      },
+      "evaluationMetrics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "evaluationMetrics": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "string",
+              "enum": [
+                "2",
+                "3",
+                "4",
+                "5"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "object",
+    "properties": {
+      "fileMultipleUpload": {
+        "type": "array"
+      }
+    }
+  }
+]

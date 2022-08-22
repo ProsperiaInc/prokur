@@ -1,0 +1,77 @@
+.MultiAttachment-container {
+  width: 100%;
+}
+
+.MultiAttachment-container-component {
+  width: 100%;
+  border-radius: 3px;
+  height: 80px;
+  min-height: unset !important;
+  background-color: transparent !important;
+}
+
+.MultiAttachment-container-text, .MultiAttachment-container-subtext {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.MultiAttachment-container-subtext {
+  font-size: 18px;
+}
+
+.MultiAttachment-text {  
+  margin-left: 15px !important;
+  font-size: 14px !important;
+}
+
+.MultiAttachment-single-file-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  margin-top: 10px;
+  padding: 23px 25px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: solid 1px #fff;
+}
+
+.text-field-viewer-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.text-field-viewer-container:first {
+  border-top: 1px solid #d4d4d4;
+}
+
+.text-field-viewer-text {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1a1a1a;
+}
+
+.text-field-viewer-description {
+  width: 40%;
+  border-left: 1px solid #d4d4d4;
+}
+
+.text-field-viewer-title {
+  width: 60%;
+}
+
+.MultiAttachment-link {
+  color: #007aff;
+}
