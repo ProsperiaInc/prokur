@@ -58,3 +58,46 @@ export type Auth = {
   expires_in: number,
   user: User
 }
+
+export type RFP = {
+  "id": string,
+  "name": string,
+  "deadline_date": string,
+  "closed_date": string,
+  "created_at": string,
+  "updated_at": string,
+  "created_by_user_id": number,
+  "proposals_count": number,
+  "status": string,
+  "company": object | null,
+  "share_links": [
+    {
+      "id": number,
+      "rfp_id": string,
+      "channel_id": number,
+      "token": string,
+      "name": string | null,
+      "password": string | null,
+      "created_at": string,
+      "updated_at": string,
+      "share_link": string,
+      "channel": {
+          "id": number,
+          "name": string,
+          "created_at": string,
+          "updated_at": string
+      }
+    }
+  ],
+  "created_by": {
+      "id": number,
+      "email": string,
+      "first_name": string,
+      "last_name": string,
+      "full_name": string,
+      "avatar_url": string,
+      "assigned_role": string,
+      "usage_type": any,
+      "company": object | null
+  }
+}

@@ -1,4 +1,6 @@
-{
+import { COUNTRIES_LIST } from 'utils/constants'
+
+export default {
   "type": "object",
   "properties": {
     "firstName": {
@@ -13,12 +15,7 @@
     },
     "country": {
       "type": "string",
-      "enum": [
-        "Never",
-        "Daily",
-        "Weekly",
-        "Monthly"
-      ]
+      "enum": COUNTRIES_LIST
     },
     "password": {
       "type": "string",

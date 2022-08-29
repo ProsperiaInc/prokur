@@ -13,7 +13,6 @@ export default function Document() {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
         <link rel="icon" href="/favicon.png" />
-        <title>Prokur</title>
       </Head>
       <body>
         <Main />

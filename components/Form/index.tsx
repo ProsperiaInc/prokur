@@ -56,7 +56,9 @@ import {
   MaterialTagsControl, 
   materialTagsControlTester,
   MaterialFileUploadControl,
-  materialFileUploadControlTester
+  materialFileUploadControlTester,
+  MaterialMediaUploadControl,
+  materialMediaUploadControlTester
 } from './controls';
 import {
   MaterialArrayLayout,
@@ -100,6 +102,8 @@ import { selectForms } from 'store/features/forms/formsSlice';
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'next-i18next';
 import { Alert } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { get } from 'lodash';
 
 const renderers: JsonFormsRendererRegistryEntry[] = [
   // controls
@@ -137,6 +141,7 @@ const renderers: JsonFormsRendererRegistryEntry[] = [
   { tester: materialCurrencyControlTester, renderer: MaterialCurrencyControl },
   { tester: materialTagsControlTester, renderer: MaterialTagsControl },
   { tester: materialFileUploadControlTester, renderer: MaterialFileUploadControl },
+  { tester: materialMediaUploadControlTester, renderer: MaterialMediaUploadControl },
 ];
 
 export const materialCells: JsonFormsCellRendererRegistryEntry[] = [
@@ -158,10 +163,31 @@ function Form(
   JsonFormsReactProps & 
   { initialData?: Pick<JsonFormsCore, 'data'>, name: string }
 ) {
-  
+
+  const [additionalErrors, setAdditionalErrors] = useState<any>([])
   const { t } = useTranslation('common')
-  const forms = useSelector(selectForms)
+  const forms = useSelector(selectForms) as any
   const error = forms?.[props.name]?.formError
+  const hasFieldErrors = error?.data?.errors
+
+  useEffect(() => {
+    const fieldErrors = get(error, 'data.errors', {})
+    const fieldErrorsKeys = Object.keys(fieldErrors)
+    setAdditionalErrors((errors: any[]) => []);
+    fieldErrorsKeys.map((errorKey: any) => {
+      const newError = {
+          // AJV style path to the property in the schema
+          instancePath: `/${errorKey}`,
+          // message to display
+          message: fieldErrors[errorKey].join(', '),
+          schemaPath: '',
+          keyword: '',
+          params: {},
+      };
+      setAdditionalErrors((errors: any[]) => [...errors, newError]);
+    })
+  }, [hasFieldErrors])
+
 
   return (
     <FormContext.Consumer>
@@ -175,13 +201,15 @@ function Form(
               setForm({
                 [props.name]: {
                   data: cellsData,
+                  formError: null,
                   errors
                 }
               })
             }}
+            additionalErrors={additionalErrors}
             {...props}
           />
-          {error && <Alert variant="standard" severity="error">{t(`${props.name}.${(error as any)?.data?.error}`)}</Alert>}
+          {error && <Alert variant="standard" severity="error">{(error as any)?.data?.message || t(`${props.name}.${(error as any)?.data?.error}`)}</Alert>}
         </>
       )}
     </FormContext.Consumer>

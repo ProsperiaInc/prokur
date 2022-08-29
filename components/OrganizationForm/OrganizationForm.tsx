@@ -1,0 +1,67 @@
+import styled from "@emotion/styled"
+import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography, Paper, alpha, Chip, chipClasses } from "@mui/material"
+import { useTranslation } from "next-i18next"
+import { MdFace } from 'react-icons/md'
+
+const StyledList = styled(ListItem)(({ theme }: any) => `
+  width: 100%;
+  border: 1px solid ${theme.palette.secondary.dark};
+  max-width: 640px;
+  margin: 10px;
+  padding: 2px;
+  border-radius: 4px;
+  min-height: 72px;
+  &:hover {
+    cursor: pointer;
+    background-color: ${alpha(theme.palette.secondary.dark, 0.1)};
+    border-color: ${alpha(theme.palette.secondary.dark, 0.1)};
+  }
+`)
+
+const StyledChip = styled(Chip)(({ theme }: any) => `
+  border-radius: 6px;
+  border-width: 2px;
+  font-size: 20px;
+  height: 25px;
+  width: 25px;
+  & .${chipClasses.label} {
+    padding: 0
+  }
+`)
+
+
+const OrganizationForm = ({ onRegisterCompany }: any) => {
+  const organizationFound = true
+  const { t } = useTranslation('common')
+  const key = organizationFound ? 'found' : 'not_found'
+
+  return (
+    <Grid container>
+      <Grid container justifyContent='center' sx={{ marginBottom: '10px' }}>
+        <Typography variant='h4'>{t(`organization.${key}.title`)}</Typography>
+      </Grid>
+      <Grid container justifyContent='center' sx={{ marginBottom: '95px' }}>
+        <Typography variant='body1' color='#4f4f4f'>{t(`organization.${key}.subtitle`)}</Typography>
+      </Grid>
+      <Grid container justifyContent='center'>
+        <StyledList>
+          <ListItem secondaryAction={<Typography variant='body2' sx={{ color: 'rgba(0, 0, 0, 0.6)' }}>{t(`organization.sendJoinRequest`)}</Typography>}>
+            <ListItemAvatar><Avatar>{" "}</Avatar></ListItemAvatar>
+            <ListItemText primary="Company name" secondary='companyOwner@companydomain.com' />
+          </ListItem>
+        </StyledList>
+      </Grid>
+      <Grid container justifyContent='center'>
+        <StyledList onClick={onRegisterCompany}>
+          <ListItem secondaryAction={
+            <StyledChip variant="outlined" color="secondary" size="small" label='+' />
+          }>
+            <ListItemText primary="Register “Elite Technology”" />
+          </ListItem>
+        </StyledList>
+      </Grid>
+    </Grid>
+  )
+}
+
+export default OrganizationForm

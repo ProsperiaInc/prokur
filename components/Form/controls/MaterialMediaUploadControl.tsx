@@ -23,11 +23,15 @@
   THE SOFTWARE.
 */
 import React from 'react';
-import { rankWith, scopeEndsWith } from '@jsonforms/core';
+import {
+  isStringControl,
+  rankWith,
+  scopeEndsWith
+} from '@jsonforms/core';
 import { withJsonFormsControlProps } from '@jsonforms/react';
-import MultiAttachment from 'components/MultiAttachment/MultiAttachment';
+import SwipeableAttachment from 'components/SwipeableAttachment/SwipeableAttachment';
 
-export const MaterialFileUploadControl = (props) => {
+export const MaterialMediaUploadControl = (props) => {
   const [value, setValue] = React.useState(props.value);
   const onChange = (ev) => {
     const updatedValue = [...(Array.isArray(props.value) ? props.value: !!props.value ? [props.value]: []), ...ev.target.value]
@@ -36,27 +40,26 @@ export const MaterialFileUploadControl = (props) => {
   }
 
   return (
-    <MultiAttachment
-      {...props}
-      rfpId={5}
-      sectionIndex={5}
+    <SwipeableAttachment 
+      label={props.label}
       field={{
         label: props.label,
         name: props.name,
       }}
-      value={value || []}
+      value={value}
       onChange={onChange}
+      error=''
+      acceptedFiles={['image/*']}
+      type="image"
       required={props.required}
       name={props.name}
-      // ={ev => props.handleChange(props.path, ev.target.value || undefined)}
-      // required={required}
-      // error={error ? helperText : ''}
+      filesLimit={1}
     />
   )
 };
 
-export const materialFileUploadControlTester = rankWith(
+export const materialMediaUploadControlTester = rankWith(
   3, // increase rank as needed
-  scopeEndsWith('MultipleUpload')
+  scopeEndsWith('MediaUpload')
 );
-export default withJsonFormsControlProps(MaterialFileUploadControl);
+export default withJsonFormsControlProps(MaterialMediaUploadControl);

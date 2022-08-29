@@ -25,11 +25,21 @@ const formSlice = createSlice({
           formError: payload as IError
         }
       }
+    ),
+    builder.addMatcher(
+      authApi.endpoints.signup.matchRejected,
+      (state, { payload }) => {
+        state.signup = {
+          ...(state.signup || {}),
+          formError: payload as IError
+        }
+      }
     )
   },
 })
 
 export const { setForm } = formSlice.actions;
 export const selectForms = (state: RootState) => state.forms
+export const selectForm = (name: string) => (state: RootState) => state.forms[name] || { data: {}, errors: [] }
 
 export default formSlice.reducer

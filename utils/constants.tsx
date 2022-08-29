@@ -155,7 +155,7 @@ export const COMPANY_SIZE = [
   '10,001+',
 ];
 
-export const COUNTRIES_LIST = ['USA'];
+export const COUNTRIES_LIST = ['United States of America'];
 
 export const STATES_LIST = [
   'Alabama',

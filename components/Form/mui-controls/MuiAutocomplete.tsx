@@ -82,7 +82,6 @@ export const MuiAutocomplete = (props: ControlProps & EnumCellProps & WithClassn
     ? errors
     : null;
   const secondFormHelperText = showDescription && !isValid ? errors : null;
-
   return (
     <Hidden xsUp={!visible}>
       <Autocomplete
@@ -102,7 +101,7 @@ export const MuiAutocomplete = (props: ControlProps & EnumCellProps & WithClassn
         autoComplete
         fullWidth
         options={options}
-        getOptionLabel={getOptionLabel || (option => option?.label)}
+        // getOptionLabel={getOptionLabel || (option => option?.label)}
         freeSolo={false}
         renderInput={params => { 
           return(

@@ -1,5 +1,5 @@
-import uischema from 'forms/signup/uischema.json';
-import schema from 'forms/signup/schema.json';
+import uischema from 'forms/signup/uischema';
+import schema from 'forms/signup/schema';
 import Form from 'components/Form';
 import { Button } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -32,7 +32,10 @@ const SignupForm = ({ isLoading, onSubmit, ...props }: any) => {
       )}
       {!isLoading && (
         <Button
-          onClick={() => !isDisabled && onSubmit(data)}
+          onClick={() => !isDisabled && onSubmit({
+            ...data,
+            usage_type: 'buyer'
+          })}
           disabled={isDisabled}
           variant="contained"
           sx={{ mt: '8px' }}

@@ -24,7 +24,7 @@
 */
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { Card, CardContent, CardHeader, Hidden } from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Hidden } from '@mui/material';
 import {
   GroupLayout,
   LayoutProps,
@@ -40,26 +40,30 @@ import {
 import { withJsonFormsLayoutProps } from '@jsonforms/react';
 
 export const groupTester: RankedTester = rankWith(1, uiTypeIs('Group'));
-const style: { [x: string]: any } = { marginBottom: '10px' };
+const style: { [x: string]: any } =  { marginBottom: '10px', border: '0', display: 'flex', width: '100%' };
 
 const GroupComponent = React.memo(({ visible, enabled, uischema, label, ...props }: MaterialLabelableLayoutRendererProps) => {
   const groupLayout = uischema as GroupLayout;
   return (
     <Hidden xsUp={!visible}>
-      <Card style={style}>
-        {!isEmpty(label) && (
-          <CardHeader title={label} />
-        )}
-        <CardContent>
-          <MaterialLayoutRenderer {...props} visible={visible} enabled={enabled} elements={groupLayout.elements} />
-        </CardContent>
+      <Card style={style} variant='outlined'>
+        <Grid item xs={4}>
+          {!isEmpty(label) && (
+            <CardHeader title={label} />
+          )}
+        </Grid>
+        <Grid item xs={8}>
+          <CardContent>
+            <MaterialLayoutRenderer {...props} visible={visible} enabled={enabled} elements={groupLayout.elements} />
+          </CardContent>
+        </Grid>
       </Card>
     </Hidden>
   );
 });
 
 export const MaterializedGroupLayoutRenderer = ({ uischema, schema, path, visible, enabled, renderers, cells, direction, label }: LayoutProps) => {
-  const groupLayout = uischema as GroupLayout;
+  const groupLayout = uischema;
 
   return (
     <GroupComponent

@@ -5,11 +5,14 @@ import Typography from '@mui/material/Typography';
 import { Grid, Stepper, useMediaQuery } from '@mui/material';
 import { VerticalStepperLabel, VerticalStepperConnector, VerticalStep, TopBottomConnector, VerticalStepperButton, Dot } from './VerticalStepper.styles'
 
-export const VerticalStepper = ({ children, steps }: any) => {
+export const VerticalStepper = ({ children, steps, onSubmit }: any) => {
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const matches = useMediaQuery(`(max-width:${theme.breakpoints.values.md}px)`)
-  const handleNext = () => setActiveStep((prevActiveStep) => prevActiveStep + 1)
+  const handleNext = () => {
+    if(activeStep >= steps.length - 1) onSubmit && onSubmit()
+    if(activeStep < steps.length - 1) setActiveStep((prevActiveStep) => prevActiveStep + 1)
+  }
   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1)
 
   return (
@@ -46,7 +49,7 @@ export const VerticalStepper = ({ children, steps }: any) => {
       <Grid item container md={10} xs={12} pl={{ md: 17 }} pr={{ md: 10 }} pt={{ md: '0', xs: 4 }}>
         {children(activeStep)}
         <Grid container justifyContent='space-between'>
-          <Grid container item md={6} xs={12} alignItems='center' justifyContent='flex-start'>
+          <Grid container item md={6} xs={12} alignItems='flex-start' justifyContent='flex-start'>
             <VerticalStepperButton
               disabled={activeStep === 0}
               onClick={handleBack}

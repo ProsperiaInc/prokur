@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import { VerticalStepper } from 'components/VerticalStepper/VerticalStepper'
 import PageHeader from 'components/PageHeader/PageHeader'
-// import { setCategories } from 'store/slices/rfp'
 import { useSelector } from 'react-redux'
-import get from 'lodash/get'
-// import Logger from 'utils/logger'
-import { useDispatch } from 'react-redux'
 import Form from 'components/Form'
-import schema from 'forms/rfp/editor/schema.json'
-import uischema from 'forms/rfp/editor/uischema.json'
+import schema from 'forms/rfp/editor/schema'
+import uischema from 'forms/rfp/editor/uischema'
+import { selectForm } from 'store/features/forms/formsSlice'
+import { selectUser } from 'store/features/auth/authSlice'
+import RFPViewer from 'components/RfpViewer/RfpViewer'
+
+const FORM_NAME = 'rfp_editor'
 
 const steps = [
   {
@@ -47,21 +48,75 @@ const steps = [
   }
 ]
 
-export default function RfpEditor({ id }: any) {
-  const [data, setData] = useState([]);
-  const dispatch = useDispatch()
-  
-  // const loadSetCategories = useCallback(
-  //   async () => {
-  //     try {
-  //       await dispatch(setCategories())
-  //     } catch (err) {
-  //       console.error(err)
-  //     }
-  //   }, 
-  // []);
-  
-  // useEffect(() => { loadSetCategories() }, [])
+export default function RfpEditor({ id, categories }: any) {
+  const { data } = useSelector(selectForm(FORM_NAME))
+  const user = useSelector(selectUser)
+  // const [saveRfpMutation] = useSaveRfpMutation()
+  const [isSummary, setIsSummary] = useState(false)
+  const onSubmit = () => {
+    setIsSummary(true)
+    // saveRfpMutation({
+    //   "name": "Template 1",
+    //   "template": {
+    //     "icon": "location-arrow",
+    //     "title": "My Title",
+    //     "sections": steps.map(({ json: { schema } }) => ({
+    //       title: "",
+    //       fields: Object.keys(schema.properties).map(field => ({
+    //         [field.replace('Tags', '').replace('Upload', '')]: {
+    //           "meta": {
+    //             "type": "text",
+    //             "source": null,
+    //             "options": [],
+    //             "multiple": false,
+    //             "placeholder": null
+    //           },
+    //           "name": field,
+    //           "label": "label",
+    //           "value": data[field],
+    //           "column": 6
+    //         }
+    //       })),
+    //       "required": true,
+    //       "description": "Provide a detailed timeline for your project and establish boundaries to help improve the correlative accuracy of your RFP for potential vendors.",
+    //       "not_included": false
+    //     }))
+    //   },
+    //   "validation": {
+    //     "tags": {
+    //       "required": true
+    //     },
+    //     "title": {
+    //       "required": true
+    //     },
+    //     "budget": {
+    //       "required": true
+    //     },
+    //     "categories": {
+    //       "required": true
+    //     },
+    //     "close_date": {
+    //       "min": "field_inquiry_deadline",
+    //       "required": true
+    //     },
+    //     "scope_summary": {
+    //       "required": true
+    //     },
+    //     "inquiry_deadline": {
+    //       "required": true
+    //     },
+    //     "evaluation_summary": {
+    //       "required": true
+    //     },
+    //     "scope_requirements": {
+    //       "required": true
+    //     },
+    //     "evaluation_criteria": {
+    //       "required": true
+    //     }
+    //   }
+    // })
+  }
 
   return (
     <Box mt='88px'>
@@ -72,21 +127,47 @@ export default function RfpEditor({ id }: any) {
         flexDirection='column'
         height={'100%'}
       >
-        <PageHeader
-          backButton
-          title='Salesforce, Inc.'
-          subtitle='Data Visualization RFP'
-        />
-        <VerticalStepper steps={steps} >
-          {(activeStep: any) => (
-            <Form
-              name='rfp_editor'
-              initialData={data?.[activeStep]}
-              schema={steps?.[activeStep]?.json.schema}
-              uischema={steps?.[activeStep]?.json.uischema}
+        {!isSummary && (
+          <>
+            <PageHeader
+              backButton
+              title='Salesforce, Inc.'
+              subtitle='Data Visualization RFP'
             />
-          )}
-        </VerticalStepper>
+            {!!steps.length && (
+              <VerticalStepper steps={steps} onSubmit={onSubmit}>
+                {(activeStep: any) => (
+                  <Form
+                    name={FORM_NAME}
+                    schema={steps?.[activeStep]?.json.schema}
+                    uischema={steps?.[activeStep]?.json.uischema}
+                  />
+                )}
+              </VerticalStepper>
+            )}
+          </>
+        )}
+        {isSummary && (
+          <>
+            <RFPViewer
+              data={{
+                created_by: user,
+                company: user?.company,
+                fieldData: data
+              }}
+              isLoading={false}
+            />
+            <Grid container justifyContent='space-between'>
+              <Grid container item md={6} xs={12} alignItems='center' justifyContent='flex-start'>
+                <Button variant='outlined' sx={{ margin: '10px 0' }}>Back</Button>
+              </Grid>
+              <Grid item container md={6} xs={12} justifyContent={{ xs: 'flex-start', md: 'flex-end' }} flexDirection={{ xs: 'column-reverse', md: 'row' }}>
+                <Button sx={{ margin: '10px' }}>Save draft</Button>
+                <Button variant="contained" sx={{ margin: '10px 0' }}>Finish</Button>
+              </Grid>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Box>
   );

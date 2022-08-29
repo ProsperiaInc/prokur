@@ -1,12 +1,11 @@
 import { MdArrowBack } from "react-icons/md";
 import { Grid, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { ROUTES } from "utils/constants";
 import { BackButton } from "./PageHeader.styles";
 
 const PageHeader = (
-    { title, subtitle, backButton, cta, titlesContainer, ...props } :
-    { title?: string, subtitle?: string, backButton?: boolean, cta?: any, titlesContainer?: any }
+    { title, subtitle, backButton, cta, titlesContainer, height } :
+    { title?: string | { text: string, [x: string]: any }, subtitle?: string, backButton?: boolean, cta?: any, titlesContainer?: any, height?: string }
   ) => {
   const router = useRouter()
 
@@ -23,12 +22,10 @@ const PageHeader = (
 
   return (
     <Grid
-      // sx={{ padding: { md: '0', xs: '25px' }}}
       container 
       height='164px'
       mb='64px'
       rowSpacing={1}
-      {...props}
     >
       {backButton && (
         <Grid container item xs={12} md={2} justifyContent={{ xs: 'flex-start', md: 'flex-end' }}>

@@ -18,7 +18,7 @@ const StyledButton = styled(Button)`
 `
 
 
-const CTA = ({ children, href, ...props } : { children: ReactElement, href: string }) => {
+const CTA = ({ children, href, ...props } : { children: any, href?: string }) => {
   return (
     <StyledButton
       variant="text"
@@ -26,11 +26,8 @@ const CTA = ({ children, href, ...props } : { children: ReactElement, href: stri
       disableRipple
       {...props}
     >
-      <Link
-        href={href}
-      >
-        {children}
-      </Link>
+      {href && <Link href={href}>{children}</Link>}
+      {!href && children}
     </StyledButton>
   )
 }

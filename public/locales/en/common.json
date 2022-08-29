@@ -13,7 +13,7 @@
     "text": "Don't have an account?",
     "header": "Data Visualization RFP",
     "subheader": "START FOR FREE",
-    "cta": "Sign up",
+    "cta": "Log in",
     "incorrect_credentials": "Incorrect Credentials."
   },
   "rfp": {
@@ -37,6 +37,40 @@
         "delete": "Delete",
         "archive": "Archive"
       }
+    },
+    "empty_page": {
+      "add_rfp": "Create RFP",
+      "main_text": "You have not created any RFPs yet",
+      "sub_text": "Would you like to create an RFP?"
     }
+  },
+  "dropzone": {
+    "dropzone_area_text": "Drop files here to upload or ",
+    "dropzone_area_text_before_upload": "Save RFP form before uploading files",
+    "dropzone_area_choose_file": "Choose File"
+  },
+  "verification": {
+    "verification_field": "Verification",
+    "verification_subtext": "Please check your email for the verification code",
+    "resend_message": "Did not receive the code?",
+    "resend_code": "Resend",
+    "verify_button": "Verify",
+    "return_link": "Return to login",
+    "error": {
+      "invalid_code": "Invalid code. Please try again.",
+      "send": "Fail to send verification code. Please try again.",
+      "resend": "Fail to resend verification code. Please try again."
+    },
+    "success": {
+      "send": "The verification code has been send to the email provided.",
+      "resend": "The verification code has been resend to the email provided."
+    }
+  },
+  "organization": {
+    "found.title": "We found  this organization",
+    "found.subtitle": "Send a request to join your organization or register a new one",
+    "not_found": "Your organization wasn’t found",
+    "not_found.subtitle": "Register a new organization",
+    "sendJoinRequest": "Send Join Request"
   }
 }

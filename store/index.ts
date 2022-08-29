@@ -6,6 +6,8 @@ import { batchedSubscribe } from 'redux-batched-subscribe'
 import { debounce } from 'lodash'
 import formsReducer from './features/forms/formsSlice'
 import authReducer from './features/auth/authSlice'
+import rfpReducer from './features/rfp/rfpSlice'
+import { rfpApi } from 'services/rfp'
 
 const debounceNotify = debounce(notify => notify());
 
@@ -13,10 +15,13 @@ export const store = configureStore({
   reducer: {
     forms: formsReducer,
     auth: authReducer,
+    rfp: rfpReducer,
     [authApi.reducerPath]: authApi.reducer,
+    [rfpApi.reducerPath]: rfpApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
     authApi.middleware,
+    rfpApi.middleware,
     logger,
   ),
   devTools: process.env.NODE_ENV !== 'production',

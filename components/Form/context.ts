@@ -4,6 +4,7 @@ type ISetForm = {
   [x: string]: {
     data: any,
     errors: any[],
+    formError?: any
   }
 }
 

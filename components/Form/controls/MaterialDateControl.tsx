@@ -35,7 +35,7 @@ import { withJsonFormsControlProps } from '@jsonforms/react';
 import { FormHelperText, Hidden } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   createOnChangeHandler,
   getData,
@@ -90,7 +90,7 @@ export const MaterialDateControl = (props: ControlProps)=> {
 
   return (
     <Hidden xsUp={!visible}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           label={label}
           value={value}

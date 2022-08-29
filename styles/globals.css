@@ -1,7 +1,10 @@
 html,
-body {
+body,
+#__next {
   padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, 'Lato', Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -24,3 +27,196 @@ a {
     background: black;
   } */
 }
+
+
+.swipeable-attachment h2 {
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #6c6c6c;
+  margin-bottom: 20px;
+}
+
+.swipeable-attachment-wrapper {
+  display: flex;
+  gap: 14px;
+}
+
+.swipeable-attachment-wrapper .swiper {
+  margin: 0;
+}
+
+.swipeable-attachment .swiper-wrapper .swiper-slide:hover > button {
+  opacity: 1;
+}
+
+.swipeable-attachment .swiper-wrapper .swiper-slide > button {
+  opacity: 0;
+  position: absolute;
+  z-index: 10000;
+  right: 4px;
+  top: 4px;
+  padding: 4px;
+}
+
+.swipeable-attachment .swiper-wrapper .swiper-slide > button svg {
+  font-size: 20px;
+}
+
+.swipeable-attachment .swiper-wrapper .swiper-slide {
+  width: 165px;
+  height: 91px;
+  position: relative;
+}
+
+.swipeable-attachment .swiper-wrapper .swiper-slide video,
+.swipeable-attachment .swiper-wrapper .swiper-slide img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 4px;
+}
+
+.swipeable-attachment .swiper-wrapper .swiper-slide video:fullscreen {
+  object-fit: contain;
+}
+
+.swipeable-attachment .MuiDropzoneArea-root {
+  min-height: inherit;
+  border-width: 3px;
+  width: 165px;
+  height: 91px;
+  flex-shrink: 0;
+}
+
+.swipeable-attachment .MuiDropzoneArea-root .MuiDropzoneArea-textContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  gap: 2px;
+}
+
+.swipeable-attachment .MuiDropzoneArea-root .MuiDropzoneArea-textContainer .MuiDropzoneArea-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #494949;
+}
+
+.swipeable-attachment .MuiDropzoneArea-root .MuiDropzoneArea-textContainer .MuiSvgIcon-root {
+  font-size: 24px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #494949;
+}
+
+.MultiAttachment-link {
+  color: #007aff;
+}
+
+
+.verify-form {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(244, 245, 247);;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+/* @include phone {
+  max-width: none;
+} */
+.verify-form-container {
+  width: 100%;
+  max-width: 525px;
+  height: 630px;
+  margin-top: 70px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+}
+.verify-form-input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.verify-form-title {
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 139px;
+  color: #252525;
+}
+.verify-form-subtext {
+  font-size: 14px;
+  line-height: 1.21;
+  padding-top: 16px;
+  padding-bottom: 29px;
+  letter-spacing: 0;
+  color: #252525;
+}
+.verify-form-button {
+  width: 311px;
+  height: 44px;
+  border-radius: 2px;
+}
+.verify-form-code-container {
+  display: flex;
+  flex-direction: row;
+}
+.verify-form-link-container {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+.verify-form-return-container {
+  padding-top: 169px;
+  padding-bottom: 32px;
+}
+.verify-form span {
+  letter-spacing: 0;
+}
+.verify-form-code-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 31px;
+}
+.verify-form-code-input .character {
+  width: 34px;
+  height: 54px;
+  line-height: 44px;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0;
+  color: #252525;
+  background-color: #f8f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  align-items: center;
+}
+.verify-form-code-input .character--selected {
+  border: 2px solid #15355a;
+}
+

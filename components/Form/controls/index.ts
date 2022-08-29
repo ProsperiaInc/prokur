@@ -101,6 +101,11 @@ import MaterialFileUploadControl, {
   MaterialFileUploadControl as MaterialFileUploadControlUnwrapped
 } from './MaterialFileUploadControl'
 
+import MaterialMediaUploadControl, {
+  materialMediaUploadControlTester,
+  MaterialMediaUploadControl as MaterialMediaUploadControlUnwrapped
+} from './MaterialMediaUploadControl'
+
 export const Unwrapped = {
   MaterialBooleanControl: MaterialBooleanControlUnwrapped,
   MaterialBooleanToggleControl: MaterialBooleanToggleControlUnwrapped,
@@ -119,7 +124,8 @@ export const Unwrapped = {
   MaterialOneOfRadioGroupControl: MaterialOneOfRadioGroupControlUnwrapped,
   MaterialCurrencyControl: MaterialCurrencyControlUnwrapped,
   MaterialTagsControl: MaterialTagsControlUnwrapped,
-  MaterialFileUploadControl: MaterialFileUploadControlUnwrapped
+  MaterialFileUploadControl: MaterialFileUploadControlUnwrapped,
+  MaterialMediaUploadControl: MaterialMediaUploadControlUnwrapped
 };
 
 export {
@@ -158,7 +164,9 @@ export {
   MaterialTagsControl,
   materialTagsControlTester,
   MaterialFileUploadControl,
-  materialFileUploadControlTester
+  materialFileUploadControlTester,
+  MaterialMediaUploadControl,
+  materialMediaUploadControlTester
 };
 
 export * from './MaterialInputControl';

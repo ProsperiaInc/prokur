@@ -1,34 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { Button } from '@mui/material';
 import Attachment from 'components/Attachment/Attachment';
 import CustomIcon from 'components/CustomIcon/CustomIcon';
-// import api from 'api';
 import pdfImage from 'assets/images/pdf-file.png';
 import classes from './MultiAttachment.module.css';
 import { useTranslation } from 'next-i18next';
+import { useUploadRfpAttachementMutation } from 'services/rfp';
 
-const fileIconMapping = {
-  pdf: pdfImage,
-};
-
+const fileIconMapping = { pdf: pdfImage }
 export default function MultiAttachment({ sectionIndex, rfpId, sectionToggled }: any = {}) {
-  const [files, setFiles] = React.useState([]);
+  const [files, setFiles] = useState<any[]>([]);
   const { t } = useTranslation('common');
+  const [uploadRfpAttachement] = useUploadRfpAttachementMutation()
 
-  const onFileAdd = async (e) => {
-    const filesToAdd = [];
-    // eslint-disable-next-line no-plusplus
+  const onFileAdd = async (e: any) => {
+    const filesToAdd: any[] = [];
     for (let index = 0; index < e.length; index++) {
       const element = e[index];
-      // eslint-disable-next-line no-await-in-loop
-      // const attachment = await api.Rfp.uploadRfpAttachement({ rfpId, sectionIndex }, element);
+
+      const attachment = uploadRfpAttachement({ rfpId, sectionIndex, element });
       // filesToAdd.push(attachment);
     }
 
-    const fil = [...files, ...filesToAdd];
-    setFiles(fil);
+    const file = [...files, ...filesToAdd];
+    setFiles(file);
   };
 
   // const fetchRfpAttachments = async () => {
@@ -44,14 +41,14 @@ export default function MultiAttachment({ sectionIndex, rfpId, sectionToggled }:
   //   fetchRfpAttachments();
   // }, []);
 
-  const onDelete = async (index, file) => {
+  const onDelete = async (index: any, file: any) => {
     const fil = files.find((_, idx) => idx === index);
     // await api.Rfp.deleteRfpAttachement({ rfpId, sectionIndex, fileId: fil.id });
 
     setFiles(files.filter((f) => f.id !== fil.id));
   };
 
-  const renderFile = (file, index) => (
+  const renderFile = (file: any, index: any) => (
     <div key={`${file.name}_${index}`} className={classes["MultiAttachment-single-file-container"]}>
       <Attachment src={fileIconMapping.pdf} name={file?.name} />
       <Button onClick={() => onDelete(index, file)}>
@@ -62,11 +59,9 @@ export default function MultiAttachment({ sectionIndex, rfpId, sectionToggled }:
 
   const chooseFile = () => (
     <span>
-      {/* {I18n.t('dropzone_area_text')} */}
-      Drop files here to upload or&nbsp;
-      <span className={classes["MultiAttachment-link"]}>
-        Chose file
-        {/* {I18n.t('dropzone_area_choose_file')} */}
+      {t('dropzone.dropzone_area_text')}&nbsp;
+      <span className='MultiAttachment-link'>
+        {t('dropzone.dropzone_area_choose_file')}
       </span>
     </span>
   );
@@ -94,7 +89,7 @@ export default function MultiAttachment({ sectionIndex, rfpId, sectionToggled }:
         )
       ) : (
         <div className={classes["MultiAttachment-container-subtext"]}>
-          {/* {t('dropzone_area_text_before_upload')} */}
+          {t('dropzone.dropzone_area_text_before_upload')}
         </div>
       )}
       <div>{files.map(renderFile)}</div>

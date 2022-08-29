@@ -1,5 +1,5 @@
-import uischema from 'forms/login/uischema.json';
-import schema from 'forms/login/schema.json';
+import uischema from 'forms/login/uischema';
+import schema from 'forms/login/schema';
 import Form from 'components/Form';
 import { Button } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';

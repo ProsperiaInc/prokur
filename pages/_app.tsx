@@ -8,6 +8,7 @@ import { light } from 'utils/theme'
 import Form from 'components/Form'
 import { store } from 'store'
 import 'styles/globals.css'
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,6 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
         <Form.Provider>
           <PageWrapper>
+            <Head>
+              <title>Prokur</title>
+            </Head>
             <Component {...pageProps} />
           </PageWrapper>
         </Form.Provider>

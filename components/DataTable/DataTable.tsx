@@ -79,7 +79,7 @@ function CustomNoRowsOverlay() {
   );
 }
 
-export default function DataTable({ rows, columns }: { rows: any[], columns: any[] }) {
+export default function DataTable({ rows, columns, onRowClick }: { rows: any[], columns: any[], onRowClick: (args: any) => any}) {
   const [sortedCell, setSortedCell] = useState<string | undefined>(undefined);
   return (
     <Root sortedCell={sortedCell}>
@@ -111,6 +111,7 @@ export default function DataTable({ rows, columns }: { rows: any[], columns: any
             quickFilterProps: { debounceMs: 500 },
           },
         }}
+        onRowClick={onRowClick}
       />
     </Root>
   );

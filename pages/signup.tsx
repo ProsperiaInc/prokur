@@ -1,19 +1,22 @@
 import React from 'react';
-import Image from 'next/image'
 import { Box, Grid, Typography } from '@mui/material';
-import loginImage from 'assets/images/login-image.svg';
+import LoginImage from 'assets/images/login-image.svg';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import CTA from 'components/CTA/CTA';
 import SignupForm from 'components/SignupForm/SignupForm';
+import { useSignupMutation } from 'services/auth';
 
 const Signup = () => {
   const { t } = useTranslation('common');
-  
+  const [signup, result] = useSignupMutation()
+  const { isLoading } = result || {}
+  const onSubmit = (data: any) => signup(data)
+
   return (
     <Grid container alignItems='center'>
       <Grid className='image-container' item md={5}>
-        <Image src={loginImage} alt="Login Image" />
+        <LoginImage />
       </Grid>
       <Grid flexDirection='column' container item md={7} sx={{ padding: '30px' }}>
         <Box height='100px' sx={{ width: '100%', maxWidth: '500px', margin: '50px auto' }}>
@@ -27,7 +30,7 @@ const Signup = () => {
           </Grid>
         </Box>
         <Box sx={{ width: '100%', maxWidth: '500px', margin: '0 auto' }}>
-          <SignupForm />
+          <SignupForm onSubmit={onSubmit} isLoading={isLoading} />
         </Box>
       </Grid>
     </Grid>

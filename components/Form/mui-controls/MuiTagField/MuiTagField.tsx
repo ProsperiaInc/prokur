@@ -142,17 +142,3 @@ export default function MuiTagField({ field, name, onChange, value, error, requi
     </Root>)
   );
 }
-
-MuiTagField.defaultProps = {
-  required: false,
-  error: '',
-};
-
-MuiTagField.propTypes = {
-  field: fieldType.isRequired,
-  name: fieldName.isRequired,
-  onChange: fieldOnChange.isRequired,
-  value: fieldValue.isRequired,
-  required: PropTypes.bool,
-  error: PropTypes.string,
-};

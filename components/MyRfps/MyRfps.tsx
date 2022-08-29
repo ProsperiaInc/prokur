@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SvgIcon,
   Typography,
@@ -7,11 +7,9 @@ import {
   Tab,
   Grid,
 } from '@mui/material';
-import emptyRFP from 'assets/images/empty_rfp.svg';
-import { ROUTES } from 'utils/constants';
+import EmptyRFP from 'assets/images/empty_rfp.svg';
 import parseDate from 'utils/dateHelper';
 import EmptyPage from 'components/EmptyPage/EmptyPage';
-import useMyRfpInintData from 'hooks/useMyRfpInitData';
 import useMyRfpComparators from 'hooks/useMyRfpComparators';
 import PageHeader from 'components/PageHeader/PageHeader';
 import DataTable from 'components/DataTable/DataTable';
@@ -20,6 +18,10 @@ import ActivityCard from './ActivityCard';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { selectRFPData } from 'store/features/rfp/rfpSlice';
+import { useLazyGetCompanyRfpsQuery } from 'services/rfp';
+import PageLoader from 'components/PageLoader/PageLoader';
 
 const statusColorMap: any = {
   draft: 'info',
@@ -32,7 +34,7 @@ const columns = [
   { field: 'deadlineDate', headerName: 'DEADLINE', width: 200  },
   { field: 'closedDate', headerName: 'CLOSE DATE', width: 200  },
   { field: 'proposalsCount', headerName: 'PROPOSALS', width: 200  },
-  { field: 'status', headerName: 'STATUS', renderCell: (params: any) => ( <StatusChip label={params.value} color={statusColorMap[params.value]} variant='contained' />)  },
+  { field: 'status', headerName: 'STATUS', renderCell: (params: any) => ( <StatusChip label={params.value} color={statusColorMap[params.value]} variant='filled' />)  },
 ]
 
 function TabPanel(props: any) {
@@ -62,42 +64,17 @@ function a11yProps(index: any) {
   };
 }
 
-export default function MyRfps({ history } : any) {
+const MyRfps = () => {
   const { t } = useTranslation('common');
   const router = useRouter()
-  const {
-    loadingRfps,
-    rfpNumber,
-    myRfps,
-    order,
-  } = useMyRfpInintData();
-  const { getComparator } = useMyRfpComparators();
   const [value, setValue] = useState(0);
-  const handleChange = (event: any, newValue: any) => {
-    setValue(newValue)
-  }
-
-  const navigateToRfpEditor = async (id: any) => {
-    // if (id !== 0) {
-    //   try {
-    //     await dispatch(getCompanyRfpsDetails(id));
-    //   } catch (e: any) {
-    //     newSnackbar({
-    //       type: 'error',
-    //       title: 'Error',
-    //       caption: e.message,
-    //     });
-    //   }
-    // }
-
-    router.push(`/rfp_editor?id=${id}`);
-  };
-
-  const renderEmptyIcon = () => (
-    <SvgIcon viewBox="0 0 322 322">
-      <Image src={emptyRFP} />
-    </SvgIcon>
-  );
+  const [getCompanyRfps] = useLazyGetCompanyRfpsQuery()
+  const { loadingRfps, rfpNumber, myRfps, order } = useSelector(selectRFPData)
+  const { getComparator } = useMyRfpComparators();
+  useEffect(() => { getCompanyRfps('') }, [])
+  const handleChange = (event: any, newValue: any) => setValue(newValue)
+  const navigateToRfp = async ({ row: { id } }: { row: { id: any }}) => router.push(`/rfp_viewer?id=${id}`);
+  const navigateToRfpEditor = async (id: number) => router.push(`/rfp_editor?id=${id}`);
 
   const renderRfpEmpty = () => (
     <EmptyPage
@@ -106,7 +83,7 @@ export default function MyRfps({ history } : any) {
       subText={t('rfp.empty_page.sub_text')}
       buttonText={t('rfp.empty_page.add_rfp')}
       handleButtonClick={() => navigateToRfpEditor(0)}
-      icon={renderEmptyIcon()}
+      icon={<EmptyRFP />}
     />
   );
 
@@ -119,21 +96,22 @@ export default function MyRfps({ history } : any) {
             .map((row: any) => ({ 
               ...row, 
               status: ['active', 'closed'].includes(row.status.toLowerCase()) ? row.status : 'draft',
-              createdAt: parseDate(row.createdAt),
-              deadlineDate: parseDate(row.deadlineDate),
-              closedDate: parseDate(row.closedDate),
+              createdAt: parseDate(row.created_at),
+              deadlineDate: parseDate(row.deadline_date),
+              closedDate: parseDate(row.closed_date),
               proposalsCount: row.proposalsCount
             }))
             .sort(getComparator(order.orderBy, order.direction))
             .filter(row => filter ? row[filter?.key] === filter?.value : true)
         }
         columns={columns}
+        onRowClick={navigateToRfp}
       />
     )
   }
 
   const renderRfpTable = () => (
-    <Box className="myrfps-table-container">
+    <Box>
       <PageHeader
         title={{
           text: t('rfp.nav_title'),
@@ -196,10 +174,8 @@ export default function MyRfps({ history } : any) {
     return renderRfpTable();
   };
 
-  if (loadingRfps) {
-    // return <PageLoader />;
-    return (<div>Loading...</div>)
-  }
+  if (loadingRfps) return <PageLoader />;
+    // return (<div>Loading...</div>)
 
   return (
     <div className="myrfps-container">
@@ -207,3 +183,6 @@ export default function MyRfps({ history } : any) {
     </div>
   );
 }
+
+
+export default MyRfps

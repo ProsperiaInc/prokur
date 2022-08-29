@@ -1,0 +1,29 @@
+<svg width="322" height="322" viewBox="0 0 322 322" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter x="-8.8%" y="-7.3%" width="117.6%" height="114.7%" filterUnits="objectBoundingBox" id="a">
+            <feOffset dx="-3" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" in="shadowBlurOuter1" result="shadowMatrixOuter1"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <circle fill="#E7E9EA" cx="161" cy="161" r="161"/>
+            <rect stroke="#252525" stroke-width="5" fill="#8896AB" x="105.5" y="95.5" width="92" height="127" rx="4"/>
+            <rect stroke="#252525" stroke-width="5" fill="#C5D5E3" x="121.5" y="106.5" width="92" height="127" rx="4"/>
+            <path stroke="#252525" stroke-width="5" stroke-linecap="round" d="M134.415 129.5h38.17M134.418 150.5h65.164M134.418 167.5h65.164M134.418 190.5h65.164M134.419 138.5h56.162M134.418 159.5h65.164M134.418 175.5h65.164M134.418 199.5h65.164M134.418 207.5h65.164"/>
+            <circle stroke="#252525" stroke-width="5" fill="#C5D5E3" cx="91" cy="237" r="8.5"/>
+            <circle stroke="#252525" stroke-width="5" fill="#C5D5E3" cx="222" cy="87" r="8.5"/>
+            <ellipse fill="#E63846" transform="rotate(-120 92.872 83.467)" cx="92.872" cy="83.467" rx="2.509" ry="2.508"/>
+            <ellipse fill="#252525" transform="rotate(-120 112.101 77.612)" cx="112.101" cy="77.612" rx="5.018" ry="5.017"/>
+            <ellipse fill="#E63846" transform="rotate(-120 216.61 248.23)" cx="216.609" cy="248.23" rx="2.509" ry="2.508"/>
+            <circle fill="#8896AB" cx="122" cy="251" r="3"/>
+            <circle fill="#252525" cx="233" cy="229" r="5"/>
+        </g>
+        <g filter="url(#a)" transform="translate(85 70.085)"/>
+    </g>
+</svg>

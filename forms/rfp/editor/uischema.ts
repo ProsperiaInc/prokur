@@ -1,4 +1,4 @@
-[
+export default [
   {
     "type": "VerticalLayout",
     "elements": [
@@ -13,7 +13,7 @@
           {
             "type": "Control",
             "label": "Inquiry Deadline",
-            "scope": "#/properties/inquiryDeadline"
+            "scope": "#/properties/inquiry_deadline"
           }
         ]
       },
@@ -23,7 +23,7 @@
           {
             "type": "Control",
             "label": "Close Date",
-            "scope": "#/properties/closeDate"
+            "scope": "#/properties/close_date"
           },
           {
             "type": "Control",
@@ -38,7 +38,7 @@
           {
             "type": "Control",
             "label": "RFP Primary Category",
-            "scope": "#/properties/rfpPrimaryCategory"
+            "scope": "#/properties/categories"
           },
           {
             "type": "Control",
@@ -61,7 +61,7 @@
           {
             "type": "Control",
             "label": "Tags",
-            "scope": "#/properties/RFPDetailsTags"
+            "scope": "#/properties/tagsTags"
           }
         ]
       }
@@ -72,7 +72,7 @@
     "elements": [
       {
         "type": "Control",
-        "scope": "#/properties/scopeOfWork",
+        "scope": "#/properties/scope_summary",
         "options": {
           "multi": true,
           "rows": "4"
@@ -80,7 +80,7 @@
       },
       {
         "type": "Control",
-        "scope": "#/properties/requirements"
+        "scope": "#/properties/scope_requirements"
       }
     ]
   },
@@ -89,7 +89,7 @@
     "elements": [
       {
         "type": "Control",
-        "scope": "#/properties/evaluationSummary",
+        "scope": "#/properties/evaluation_summary",
         "options": {
           "multi": true,
           "rows": 4
@@ -97,7 +97,7 @@
       },
       {
         "type": "Control",
-        "scope": "#/properties/evaluationCriteria",
+        "scope": "#/properties/evaluation_criteria",
         "options": {
           "multi": true,
           "rows": 4
@@ -114,7 +114,7 @@
     "elements": [
       {
         "type": "Control",
-        "scope": "#/properties/fileMultipleUpload"
+        "scope": "#/properties/multi_attachmentMultipleUpload"
       }
     ]
   }

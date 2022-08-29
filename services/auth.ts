@@ -7,6 +7,7 @@ export const authApi = createApi({
     baseUrl: '/api',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token')
+      headers.set('Accept', 'application/json')
       if (token) headers.set('Authorization', `Bearer ${token}`)
       return headers
     },
@@ -22,12 +23,31 @@ export const authApi = createApi({
     getUserInfo: builder.query({ 
       query: () => ({
         url: '/user',
-        method: 'GET',
-        headers: { Accept: 'application/json' }
+        method: 'GET'
       })
-    })
+    }),
+    signup: builder.mutation({ 
+      query: (body) => ({
+        url: '/signup',
+        method: 'POST',
+        body
+      })
+    }),
+    resendEmail: builder.query({ 
+      query: () => ({
+        url: '/email/resend/',
+        method: 'GET'
+      })
+    }),
+    verifyEmail: builder.mutation({ 
+      query: (code) => ({
+        url: '/email/verify/',
+        method: 'POST',
+        body: { code }
+      })
+    }),
   }),
 })
 
 export { Auth, User }
-export const { useLoginMutation, useGetUserInfoQuery } = authApi
+export const { useLoginMutation, useLazyGetUserInfoQuery, useSignupMutation, useLazyResendEmailQuery, useVerifyEmailMutation } = authApi

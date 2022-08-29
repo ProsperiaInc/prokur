@@ -12,6 +12,7 @@ import { MdMenu } from 'react-icons/md'
 import styled from '@emotion/styled';
 import logo from 'assets/images/prokur-logo.png';
 import Image from 'next/image';
+import { User } from 'services/types';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -22,11 +23,21 @@ const StyledAppBar = styled(AppBar)(({ theme }: { theme?: any }) => `
   padding: 12px;
 `)
 
-const Header = ({ drawerWidth, handleDrawerToggle } : { drawerWidth: number, handleDrawerToggle: () => any }) => {
+type IHeader = {
+  drawerWidth: number,
+  withLogo: boolean,
+  handleDrawerToggle: () => any,
+  onLogout: () => any,
+  user: User | null
+}
+
+const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: IHeader) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => setAnchorElUser(event.currentTarget);
-  const handleCloseUserMenu = () => setAnchorElUser(null);
-
+  const handleCloseUserMenu = (index: number) => {
+    if(settings[index] === 'Logout') onLogout()
+    setAnchorElUser(null)
+  };
 
   return (
     <StyledAppBar
@@ -57,7 +68,6 @@ const Header = ({ drawerWidth, handleDrawerToggle } : { drawerWidth: number, han
             letterSpacing: '.3rem',
             color: 'inherit',
             textDecoration: 'none',
-            height: '40px',
             width: '126px'
           }}
         >
@@ -76,38 +86,41 @@ const Header = ({ drawerWidth, handleDrawerToggle } : { drawerWidth: number, han
             width: '160px'
           }}
         >
-          My Rfps
+          {withLogo && <Image src={logo} alt="logo" />}
+          {!withLogo && 'My Rfps'}
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{ mt: '45px' }}
-            id="menu-appbar"
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
+        {user && (
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt={user?.first_name + ' ' + user?.last_name} src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting, index) => (
+                <MenuItem key={setting} onClick={() => handleCloseUserMenu(index)}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        )}
       </Toolbar>
     </StyledAppBar>
   );

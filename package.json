@@ -23,6 +23,7 @@
     "@mui/x-data-grid": "^5.15.3",
     "@mui/x-date-pickers": "^5.0.0-beta.6",
     "@reduxjs/toolkit": "^1.8.5",
+    "@svgr/webpack": "^6.3.1",
     "@types/i18n-js": "^3.8.2",
     "@types/react-tag-autocomplete": "^6.1.1",
     "@types/redux-batched-subscribe": "^0.1.4",
@@ -39,8 +40,10 @@
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
     "react-tag-autocomplete": "^6.3.0",
+    "react-verification-input": "^3.0.0",
     "redux-batched-subscribe": "^0.1.6",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "swiper": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
