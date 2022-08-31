@@ -19,6 +19,11 @@ import { MdMoveToInbox, MdOutlineDescription, MdSaveAlt, MdSettings } from "reac
 import logo from 'assets/images/prokur-logo.png';
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { BiPackage } from 'react-icons/bi'
+import { FaEnvelopeOpenText } from 'react-icons/fa'
+import { BsGrid } from 'react-icons/bs'
+import { GiOfficeChair } from 'react-icons/gi'
+import { useRouter } from "next/router";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => (`
   @media (min-width: 600px) {
@@ -53,26 +58,35 @@ const StyledListItemIcon = styled(ListItemIcon)(
 )
 
 const StyledListItemButton = styled(ListItemButton)(
-  ({ theme } : any) => `
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-left: 0;
-    padding-right: 0;
-    border: none;
-    text-decoration: none;
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
-    white-space: nowrap;
-    width: 100%;
-    width: -webkit-fill-available;
-    font-size: 14px;
-    &:hover { background-color: transparent; }
-    &.${listItemButtonClasses.root}:hover .${listItemTextClasses.root},
-    &.${listItemButtonClasses.root}:hover .${listItemIconClasses.root} {
-      color: ${theme.palette.primary.main};
-      transition: color .3s;
-    }
-  `
+  ({ theme, active } : any) => {
+    return `
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 0;
+      padding-right: 0;
+      border: none;
+      text-decoration: none;
+      transition: all 0.5s ease-in-out;
+      cursor: pointer;
+      white-space: nowrap;
+      width: 100%;
+      width: -webkit-fill-available;
+      font-size: 14px;
+      &:hover { background-color: transparent; }
+      &.${listItemButtonClasses.root}:hover .${listItemTextClasses.root},
+      &.${listItemButtonClasses.root}:hover .${listItemIconClasses.root} {
+        color: ${theme.palette.primary.main};
+        transition: color .3s;
+      }
+      ${(active && `
+        .${listItemTextClasses.root},
+        .${listItemIconClasses.root} {
+          color: ${theme.palette.primary.main};
+          transition: color .3s;
+        }
+      `)}
+    `
+  }
 )
 
 
@@ -87,6 +101,8 @@ const Drawer = (
     handleDrawerToggle: () => any
   }
 ) => {
+  const router = useRouter()
+  const { pathname } = router
 
   const drawer = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', p: '16px 32px' }}>
@@ -110,19 +126,21 @@ const Drawer = (
       </StyledToolbar>
       <List>
         {[
-          { label: 'Dashboard', icon: <MdSaveAlt /> },
-          { label: 'My RFPs', icon: <MdOutlineDescription /> },
-          { label: 'Templates', icon: <MdMoveToInbox /> },
-          { label: 'Proposals', icon: <MdSaveAlt /> }
-        ].map(({ icon, label }, index) => (
-          <ListItem key={label} disablePadding>
-            <StyledListItemButton disableRipple>
-              <StyledListItemIcon>
-                {icon}
-              </StyledListItemIcon>
-              <StyledListItemText primary={label} />
-            </StyledListItemButton>
-          </ListItem>
+          { label: 'Dashboard', icon: <BsGrid /> },
+          { label: 'My RFPs', icon: <GiOfficeChair />, href: '/' },
+          { label: 'Templates', icon: <FaEnvelopeOpenText /> },
+          { label: 'Proposals', icon: <BiPackage /> }
+        ].map(({ icon, label, href }, index) => (
+          <Link href={href || '/'}>
+            <ListItem key={label} disablePadding>
+              <StyledListItemButton active={href === pathname} disableRipple>
+                <StyledListItemIcon>
+                  {icon}
+                </StyledListItemIcon>
+                <StyledListItemText primary={label} />
+              </StyledListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Box sx={{ display: 'flex', flexGrow: 1 }} />

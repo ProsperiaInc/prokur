@@ -36,22 +36,15 @@ export const MaterialCurrencyControl = (props: any) => {
   const {
     data,
     config,
-    className,
     id,
     enabled,
     uischema,
-    isValid,
-    path,
-    handleChange,
     schema,
-    muiInputProps,
-    label,
-    inputComponent
   } = props
   const maxLength = schema.maxLength;
   const [value, setValue] = React.useState(data);
   const appliedUiSchemaOptions = merge({}, config, uischema.options);
-  const onChange = (ev) => {
+  const onChange = (ev: any) => {
     setValue(ev.target.value.replace(',', ''));
     props.handleChange(props.path, ev.target.value.replace(',', ''));
   }
@@ -59,7 +52,6 @@ export const MaterialCurrencyControl = (props: any) => {
   return (
     <CurrencyTextField
       {...props}
-      // fullWidth
       variant='outlined'
       name='price'
       currencySymbol='$'
@@ -69,9 +61,7 @@ export const MaterialCurrencyControl = (props: any) => {
       margin='dense'
       digitGroupSeparator=','
       modifyValueOnWheel={false}
-      // InputLabelProps={{ shrink: true }}
       value={value}
-      // error={!isValid}
       onBlur={onChange}
       id={id}
       disabled={!enabled}

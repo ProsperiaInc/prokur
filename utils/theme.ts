@@ -130,11 +130,11 @@ const light = createTheme({
     //   backgroundColor: '#fff',
     //   shadow: '0 2px 5px 0 rgba(43, 43, 43, 0.3)',
     // },
-    // menuButton: {
-    //   backgroundColor: '#e0e0e0',
-    //   color: 'rgba(0, 0, 0, 0.87);',
-    //   backgroundColorHover: '#d5d5d5',
-    // },
+    menuButton: {
+      backgroundColor: '#e0e0e0',
+      color: 'rgba(0, 0, 0, 0.87);',
+      backgroundColorHover: '#d5d5d5',
+    },
     // tableHeadBackgroundColor: '#f4f5f7',
     // textArea: {
     //   border: '1px solid rgba(0, 0, 0, 0.23)',

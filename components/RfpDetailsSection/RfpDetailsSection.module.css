@@ -1,0 +1,104 @@
+.rfp-details-section {
+  background-color: #fff;
+  padding: 20px 20px 25px 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: solid 1px #e3e3e3;
+}
+
+.rfp-details-section-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rfp-details-section-top h3 {
+  font-size: 21px;
+  font-weight: 500;
+}
+.rfp-details-section-status {
+  padding-top: 12px;
+  display: flex;
+  width: 100px;
+  font-size: 14px;
+}
+
+.rfp-details-section-status > p {
+  margin: 0;
+}
+
+.rfp-details-section-status > * {
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+}
+.rfp-details-section-table {
+  padding-top: 18px;
+  padding-bottom: 25px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 810px;
+}
+.rfp-details-section-table-left, .rfp-details-section-table-right {
+  flex-basis: 50%;
+}
+.rfp-details-section-table-left {
+  color: #6c6c6c;
+  font-weight: 300;
+  padding-right: 30px;
+}
+.rfp-details-section-table-right {
+  padding-left: 30px;
+}
+.rfp-details-section-table-row:nth-child(1), .rfp-details-section-table-row:nth-child(2) {
+  border-top: 1px solid #e8e8e8;
+}
+.rfp-details-section-table-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: stretch;
+  width: 375px;
+  padding: 8px;
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 14px;
+}
+.rfp-details-section-table-row-left, .rfp-details-section-table-row-right {
+  flex-basis: 50%;
+}
+.rfp-details-section-table-row-left {
+  color: #afafaf;
+}
+.rfp-details-section-table-row-right {
+  color: #252525;
+}
+
+.rfp-details-row-status {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 32px;
+  width: 101px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: var(--statusDraft);
+  color: var(--statusDraftFontColor);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.rfp-details-row-status.active {
+  background-color: var(--statusActive);
+  color: var(--statusActiveFontColor);
+  font-style: normal;
+}
+
+.rfp-details-row-status.closed {
+  background-color: var(--statusClosed);
+  color: var(--statusClosedFontColor);
+  font-style: normal;
+}

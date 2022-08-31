@@ -48,7 +48,7 @@ const steps = [
   }
 ]
 
-export default function RfpEditor({ id, categories }: any) {
+export default function RfpEditor({ id, categories, initialData }: any) {
   const { data } = useSelector(selectForm(FORM_NAME))
   const user = useSelector(selectUser)
   // const [saveRfpMutation] = useSaveRfpMutation()
@@ -138,6 +138,7 @@ export default function RfpEditor({ id, categories }: any) {
               <VerticalStepper steps={steps} onSubmit={onSubmit}>
                 {(activeStep: any) => (
                   <Form
+                    initialData={initialData}
                     name={FORM_NAME}
                     schema={steps?.[activeStep]?.json.schema}
                     uischema={steps?.[activeStep]?.json.uischema}

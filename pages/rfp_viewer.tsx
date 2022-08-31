@@ -12,40 +12,33 @@ const RFPEditorPage = () => {
   const { id } = router.query
   const [getRfp, payload] = useLazyGetRfpQuery()
   const { data, error, isLoading, isUninitialized } = payload
-  const fieldData: { [x: string]: any } = {
-    "title": "42423",
-    "inquiry_deadline": "2022-08-12",
-    "budgetCurrency": "431243.00",
-    "close_date": "2022-08-11",
-    "categories": "Weekly",
-    "rfpSecondaryCategory": "Monthly",
-    "tagsTags": [
-      "fdsfd"
-    ],
-    "scope_summary": "fdasfdf",
-    "scope_requirements": [
-      {
-        "requirements": "fdsafd"
-      },
-      {
-        "requirements": "fdasfd"
-      }
-    ],
-    "evaluation_criteria": "fdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafd\nfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafd\nfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafd\n",
-    "evaluation_summary": "fdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafd\nfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafd\nfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafdfdsafd\n",
-    "evaluationMetrics": [
-      {
-        "evaluationMetrics": "4234",
-        "weight": "5"
-      },
-      {
-        "evaluationMetrics": "43243",
-        "weight": "3"
-      }
-    ]
-  }
+  const fieldData = data?.template?.sections?.reduce((
+    acc: any, 
+    { fields }: any) => 
+    ({
+      ...acc,
+      ...(fields.reduce((acc: any, { name, value }: any) => ({ ...acc, [name]: value }), {})),
+    }),
+  {}) || {}
+
+  fieldData.tagsTags = fieldData?.tags
+  fieldData.budgetCurrency = fieldData?.budget?.replaceAll(',', '')
+  fieldData.rfpSecondaryCategory = fieldData?.categories?.select_two
+  fieldData.categories = fieldData?.categories?.select_one
+  fieldData.scope_requirements = fieldData?.scope_requirements?.map((item: any) => ({
+    requirements: item
+  }))
+  fieldData.evaluationMetrics = fieldData?.evaluation_criteria?.graph_inputs?.map((item: any) => ({
+    evaluationMetrics: item.title,
+    weight: item.value
+  }))
+
+  delete fieldData?.tags
+  delete fieldData?.budget
+  delete fieldData?.evaluation_criteria
 
   useEffect(() => { if(id && typeof id === 'string') getRfp(id) }, [id])
+
   return (
     <Dashboard noDrawer>
       {(isLoading || isUninitialized)

@@ -30,6 +30,7 @@
     "@types/redux-logger": "^3.0.9",
     "autonumeric": "^4.6.0",
     "clsx": "^1.2.1",
+    "copy-to-clipboard": "^3.3.2",
     "date-fns": "^2.29.2",
     "lodash": "^4.17.21",
     "material-ui-dropzone": "^3.5.0",

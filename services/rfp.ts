@@ -29,9 +29,11 @@ export const rfpApi = createApi({
         return { data: rfp }
       },
     }),
+    getRfpShareLink: builder.query({ query: (rfpId) => `${rfpId}/share-links` }),
     saveRfp: builder.mutation({ query: (data) => ({ url: `/`, method: 'POST', body: data }) }),
     getRfp: builder.query({ query: (id: string) => `/${id}` }),
     getRfpCategories: builder.query({ query: () => `/categories/` }),
+    getRfpAttachment: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
     uploadRfpAttachement: builder.mutation({
       query: ({ rfpId, sectionIndex, file }) => {
         const bodyFormData = new FormData();
@@ -52,4 +54,12 @@ export const rfpApi = createApi({
 })
 
 export { RFP }
-export const { useLazyGetCompanyRfpsQuery, useSaveRfpMutation, useLazyGetRfpQuery, useLazyGetRfpCategoriesQuery, useUploadRfpAttachementMutation } = rfpApi
+export const {
+  useLazyGetCompanyRfpsQuery,
+  useSaveRfpMutation,
+  useLazyGetRfpQuery,
+  useLazyGetRfpCategoriesQuery,
+  useUploadRfpAttachementMutation,
+  useLazyGetRfpAttachmentQuery,
+  useLazyGetRfpShareLinkQuery
+} = rfpApi

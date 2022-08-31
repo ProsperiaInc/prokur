@@ -1,0 +1,20 @@
+.smart-trimmed-text {
+  font-size: 16px;
+  padding-top: 15px;
+  padding-right: 10px;
+  padding-bottom: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.31;
+  letter-spacing: normal;
+}
+.smart-trimmed-text-more {
+  font-size: 16px;
+  font-weight: 500;
+  color: #15355a;
+  text-decoration: none;
+}
+.smart-trimmed-text-more:hover {
+  text-decoration: underline;
+}

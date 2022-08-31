@@ -72,5 +72,13 @@
     "not_found": "Your organization wasn’t found",
     "not_found.subtitle": "Register a new organization",
     "sendJoinRequest": "Send Join Request"
-  }
+  },
+  "about_of": "About {{name}}",
+  "published_at": "Published: {{date}}",
+  "deadline_at": "Deadline: {{date}}",
+  "other_rfp_from": "Other RFPs from {{name}}",
+  "myrfp_nav_title": "MY RFPs",
+  "view_rfp": "View RFP",
+  "view_responses": "View Responses",
+  "share": "Share"
 }

@@ -13,6 +13,7 @@ import styled from '@emotion/styled';
 import logo from 'assets/images/prokur-logo.png';
 import Image from 'next/image';
 import { User } from 'services/types';
+import Link from 'next/link';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -58,8 +59,6 @@ const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: I
           <MdMenu color='#333' />
         </IconButton>
         <Box
-          component="a"
-          href="/"
           sx={{
             mr: 2,
             display: { xs: 'flex', sm: 'none' },
@@ -71,7 +70,11 @@ const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: I
             width: '126px'
           }}
         >
-          <Image src={logo} alt="logo" />
+          <Link href='/'>
+            <a>
+              <Image src={logo} alt="logo" />
+            </a>
+          </Link>
         </Box>
         <Typography
           variant="h6"
@@ -86,7 +89,13 @@ const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: I
             width: '160px'
           }}
         >
-          {withLogo && <Image src={logo} alt="logo" />}
+          {withLogo && (
+            <Link href='/'>
+              <a style={{ display: 'flex', alignItems: 'center' }}>
+                <Image src={logo} alt="logo" />
+              </a>
+            </Link>
+          )}
           {!withLogo && 'My Rfps'}
         </Typography>
         <Box sx={{ flexGrow: 1 }} />

@@ -15,7 +15,6 @@ import PageHeader from 'components/PageHeader/PageHeader';
 import DataTable from 'components/DataTable/DataTable';
 import { StatusChip } from './Myrfps.styles';
 import ActivityCard from './ActivityCard';
-import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
@@ -73,7 +72,7 @@ const MyRfps = () => {
   const { getComparator } = useMyRfpComparators();
   useEffect(() => { getCompanyRfps('') }, [])
   const handleChange = (event: any, newValue: any) => setValue(newValue)
-  const navigateToRfp = async ({ row: { id } }: { row: { id: any }}) => router.push(`/rfp_viewer?id=${id}`);
+  const navigateToRfp = async ({ row: { id } }: { row: { id: any }}) => router.push(`/rfp_details?id=${id}`);
   const navigateToRfpEditor = async (id: number) => router.push(`/rfp_editor?id=${id}`);
 
   const renderRfpEmpty = () => (

@@ -1,3 +1,101 @@
+:root {
+  --primaryLight: #757ce8;
+  --primaryMain: #3f50b5;
+  --primaryDark: #002884;
+  --primaryContrasttext: #fff;
+  --secondaryLight: #ff7961;
+  --secondaryMain: #f44336;
+  --secondaryDark: #ba000d;
+  --deleteRed: #e63846;
+  --secondaryContrasttext: #000;
+  --borderColor: #e5e5e5;
+  --hovercolor: #f5f5f5;
+  --miniNavHoverColor: #e7eaee;
+  --black: black;
+  --light-gray: #f8f8f8;
+  --pageBackground: rgb(244, 245, 247);
+  --formColor: #fff;
+  --cardBackground: #fff;
+  --inputBorder: #d4d4d4;
+  --inputBgColor: #f8f9f9;
+  --inputBgColorLogin: #fff;
+  --sectionContainerColor: #dcdcdc;
+  --tagInputSelected: #6a7c91;
+  --titleContainer: #5e5e5e;
+  --descriptionContainer: #949494;
+  --menuTextColor: #363741;
+  --menuTextColorHoverIcon: #09355d;
+  --rfpDetailsColor: #f64338;
+  --RfpTableHeader: rgb(108, 108, 108);
+  --titleColor: #5e5e5e;
+  --statusActive: rgba(39, 174, 96, 0.2);
+  /* --statusClosed: #F96A10; */
+  --statusClosed: rgba(249, 106, 16, 0.2);
+  --statusDraft: rgba(2, 136, 209, 0.2);
+  --statusActiveFontColor: #27AE60;
+  --statusClosedFontColor: #F96A10;
+  --statusDraftFontColor: #0288d1;
+  --cellTextColor: #6c6c6c;
+  --paragraphTexts: #666666;
+  --linkColor: #007aff;
+  --accordionDisabledState: #fafafb;
+  --cellHoverColor: #c8cfd8;
+  --titleColor: #494949;
+  --textLight: #9a9ba0;
+  --alertErrorBackgroundColor: #fdf3f5;
+  --helperText: #dc1f3f;
+  --disabledInputColor: #464646;
+  --disabledButtonColor: #f7f7f7;
+  --disabledButtonBackgroundColor: #bdbdbd;
+  --alertSuccessColor: #028480;
+  --alertSuccessBackgroundColor: #f2fbfa;
+  --alertErrorColor: #dc1f3f;
+  --alertErrorBackgroundColor: #fdf3f5;
+  --veryDarkGray: #252525;
+  --proposalCellTitle: #afafaf;
+  --proposalCardBorder: rgba(173, 173, 173, 0.664);
+  --rowTitle: #e3e3e3;
+  --borderProposalCell: #e3e3e3;
+  --badgeSuccessText: #138741;
+  --badgeCloseText: #f03548;
+  --badgeCloseBackground: #feeaee;
+  --breadcrumbLinkColor: #1c3558;
+  --dashboardAccountBackgroundColor: #fff;
+  --dashboardAccountSectionTitleColor: #6c6c6c;
+  --toggleDrawerButtonColor: #3d3d3d;
+  --toggleDrawerButtonBackgroundColor: #fff;
+  --toggleDrawerButtonColorHover: #fff;
+  --toggleDrawerButtonBackgroundColorHover: #3d3d3d;
+  --favoriteIconColor: #fed736;
+  --boxShadow: rgba(193, 193, 193, 0.5);
+  --sectionBorder: #e3e3e3;
+  --rfpDetailsTableRowBorderColor: #e8e8e8;
+  --rfpDetailsTableRowKeyColor: #afafaf;
+  --rfpDetailsTableRowValueColor: #252525;
+  --seeMoreColor: #15355a;
+  --rfpAttachmentInfoBackgroundColor: rgba(0, 0, 0, 0.5);
+  --rfpAttachmentInfoNameColor: #fff;
+  --rfpAttachmentInfoNameBackgroundImage: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    #000 109%
+  );
+  --bannerBackgroundColor: #7b7b7b;
+  --publicCompanyPageBackgroundColor: #f5f6f8;
+  --categoriesColor: #686868;
+  --labelColor: #afafaf;
+  --registrationFormText: #343c46;
+  --usertypeBorderColor: #929292;
+  --usertypeColor: #696b6d;
+  --usertypeActiveColor: #15355a;
+  --navLinkColor: #6c6c6c;
+  --navLinkActiveColor: #212121;
+  --tableRowTitleColor: #929292;
+  --tableOwnerTextBorderColor: #c9c9c9;
+  --fontFamily: 'Lato', sans-serif;
+  --lightGraysoft: #dee2e8; 
+}
+
 html,
 body,
 #__next {

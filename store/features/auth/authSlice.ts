@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authApi, User } from 'services/auth'
+import { companyApi } from 'services/company'
+import { rfpApi } from 'services/rfp'
 import type { RootState } from 'store'
 
 type AuthState = { 
@@ -71,6 +73,34 @@ const authSlice = createSlice({
         state.user = {
           ...(state.user || {}),
           email_verified_at: (new Date()).toDateString()
+        }
+      }
+    ),
+    builder.addMatcher(
+      companyApi.endpoints.getCompanyDetails.matchFulfilled,
+      (state, { payload }) => {
+        state.user = {
+          ...(state.user || {}),
+          company: {
+            ...state.user?.company,
+            ...payload,
+          },
+        }
+      }
+    ),
+    builder.addMatcher(
+      rfpApi.endpoints.getRfp.matchFulfilled,
+      (state, { payload }) => {
+        const rfpDetails: any = {}
+        if (typeof payload === 'object') {
+          rfpDetails[payload.id] = payload;
+        }
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            rfpDetails: { ...state.user?.rfpDetails, ...rfpDetails },
+          }
         }
       }
     )

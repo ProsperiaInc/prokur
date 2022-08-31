@@ -1,0 +1,54 @@
+.rfp-card {
+  color: #252525;
+  height: 240px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  border: solid 1px #e3e3e3;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease-in-out;
+  padding: 16px;
+}
+.rfp-card a {
+  text-decoration: none;
+  color: inherit;
+  padding: 15px 27px 43px 15px;
+  display: block;
+}
+.rfp-card:last-child {
+  margin-right: 0;
+}
+.rfp-card:hover {
+  box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
+}
+.rfp-card figure {
+  margin-left: 0;
+  margin-top: 0;
+  width: 72px;
+  height: 72px;
+  border: solid 1px #e8e8e8;
+}
+.rfp-card figure img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+.rfp-card-name {
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.rfp-card-published {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #6c6c6c;
+}
+.rfp-card-published, .rfp-card-deadline {
+  font-size: 14px;
+  color: #6c6c6c;
+}
