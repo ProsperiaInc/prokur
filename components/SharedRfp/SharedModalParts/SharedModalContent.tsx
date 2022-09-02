@@ -47,7 +47,7 @@ const StyledDialogContent = styled(DialogContent)((
     paddingLeft: '46px',
     '& .Mui-selected': {
       fontWeight: 'bold',
-      color: theme.palette.secondary.main,
+      color: theme.palette.primary.main,
     },
   },
 
@@ -70,7 +70,7 @@ export default function SharedModalContent() {
   const { t } = useTranslation('common')
   const [value, setValue] = useState('1');
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
 
@@ -80,7 +80,7 @@ export default function SharedModalContent() {
         <TabList
           className={classes.tablist}
           onChange={handleChange}
-          indicatorColor="secondary"
+          indicatorColor="primary"
         >
           <Tab
             className={classes.tab}

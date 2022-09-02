@@ -89,7 +89,7 @@ export default function MultiAttachment({ sectionIndex, rfpId, sectionToggled }:
         )
       ) : (
         <div className={classes["MultiAttachment-container-subtext"]}>
-          {t('dropzone.dropzone_area_text_before_upload')}
+          Drop files here to upload
         </div>
       )}
       <div>{files.map(renderFile)}</div>

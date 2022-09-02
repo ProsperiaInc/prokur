@@ -54,7 +54,7 @@ export default function SharedModalActions() {
       <Button
         className={classes.sendButton}
         onClick={handleClose}
-        color="secondary"
+        color="primary"
         variant="contained"
         disabled={emails.length === 0}
       >

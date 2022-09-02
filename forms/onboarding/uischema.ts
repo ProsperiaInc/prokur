@@ -3,63 +3,6 @@ export default [
     "type": "VerticalLayout",
     "elements": [
       {
-        "type": "HorizontalLayout",
-        "elements": [
-          {
-            "type": "Control",
-            "scope": "#/properties/firstName"
-          },
-          {
-            "type": "Control",
-            "scope": "#/properties/lastName"
-          }
-        ]
-      },
-      {
-        "type": "HorizontalLayout",
-        "elements": [
-          {
-            "type": "Control",
-            "scope": "#/properties/email"
-          },
-          {
-            "type": "Control",
-            "scope": "#/properties/phone"
-          }
-        ]
-      },
-      {
-        "type": "HorizontalLayout",
-        "elements": [
-          {
-            "type": "Control",
-            "scope": "#/properties/country"
-          },
-          {
-            "type": "Control",
-            "scope": "#/properties/state"
-          }
-        ]
-      },
-      {
-        "type": "HorizontalLayout",
-        "elements": [
-          {
-            "type": "Control",
-            "scope": "#/properties/city"
-          },
-          {
-            "type": "Control",
-            "scope": "#/properties/zip"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "VerticalLayout",
-    "elements": [
-      {
         "type": "Group",
         "label": "Company details",
         "elements": [
@@ -84,6 +27,7 @@ export default [
                 "elements": [
                   {
                     "type": "Control",
+                    "label": "Prokur Public URL",
                     "scope": "#/properties/url"
                   },
                   {
@@ -101,16 +45,7 @@ export default [
                   },
                   {
                     "type": "Control",
-                    "scope": "#/properties/secondaryCategory"
-                  }
-                ]
-              },
-              {
-                "type": "HorizontalLayout",
-                "elements": [
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/vendorId"
+                    "scope": "#/properties/businessId"
                   }
                 ]
               },
@@ -166,6 +101,79 @@ export default [
               {
                 "type": "Control",
                 "scope": "#/properties/fileMediaUpload"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "VerticalLayout",
+    "elements": [
+      {
+        "type": "Group",
+        "label": "Add new members",
+        "elements": [
+          {
+            "type": "VerticalLayout",
+            "elements": [
+              {
+                "type": "HorizontalLayout",
+                "elements": [
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/firstName"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/lastName"
+                  }
+                ]
+              },
+              {
+                "type": "HorizontalLayout",
+                "elements": [
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/email"
+                  },
+                  {
+                    "type": "Control",
+                    "scope": "#/properties/role"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Group",
+        "label": "Current members",
+        "elements": [
+          {
+            "type": "VerticalLayout",
+            "elements": [
+              {
+                "type": "Control",
+                "scope": "#/properties/members",
+                "options": {
+                  "elementLabelProp": "email",
+                  "detail": {
+                    "type": "VerticalLayout",
+                    "elements": [
+                      {
+                        "type": "Control",
+                        "scope": "#/properties/email",
+                      },
+                      {
+                        "type": "Control",
+                        "scope": "#/properties/role"
+                      }
+                    ]
+                  }
+                }
               }
             ]
           }

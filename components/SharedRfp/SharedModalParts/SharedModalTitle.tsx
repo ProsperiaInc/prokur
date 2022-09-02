@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
+import styled from '@emotion/styled';
 import { Box, DialogTitle, IconButton } from '@mui/material';
 import { MdClose } from 'react-icons/md';
 import { useSharedModal } from '../SharedModalContext';
@@ -45,7 +45,7 @@ const StyledDialogTitle = styled(DialogTitle)((
     fontStyle: 'normal',
     lineHeight: 'normal',
     letterSpacing: 'normal',
-    color: theme.custom.title,
+    // color: theme.custom.title,
     margin: '35px 0 25px 35px',
   },
 
@@ -58,17 +58,17 @@ export default function SharedModalTitle() {
   const { t } = useTranslation('common')
   const { onClose } = useSharedModal();
 
-
   return (
     <StyledDialogTitle className={classes.dialogTitle} id="alert-dialog-title">
       <Box display="flex" alignItems="center" className={classes.title}>
-        <Image
-          className={classes.icon}
-          src={logo}
-          alt="send"
-          height="36"
-          width="36"
-        />
+        <Box className={classes.icon}>
+          <Image
+            src={logo}
+            alt="send"
+            height="36"
+            width="36"
+          />
+        </Box>
         {t('share_modal_title')}
       </Box>
 

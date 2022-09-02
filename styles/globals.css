@@ -29,7 +29,6 @@
   --RfpTableHeader: rgb(108, 108, 108);
   --titleColor: #5e5e5e;
   --statusActive: rgba(39, 174, 96, 0.2);
-  /* --statusClosed: #F96A10; */
   --statusClosed: rgba(249, 106, 16, 0.2);
   --statusDraft: rgba(2, 136, 209, 0.2);
   --statusActiveFontColor: #27AE60;
@@ -200,6 +199,7 @@ a {
   padding: 10px;
   box-sizing: border-box;
   gap: 2px;
+  background-color: rgba(105, 128, 165, 0.1);
 }
 
 .swipeable-attachment .MuiDropzoneArea-root .MuiDropzoneArea-textContainer .MuiDropzoneArea-text {

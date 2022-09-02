@@ -9,7 +9,7 @@ import { selectUser, userLogout } from 'store/features/auth/authSlice';
 const drawerWidth = 240;
 
 export default function Page(props: any) {
-  const { children, noDrawer } = props;
+  const { children, noDrawer, noPadding } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
   const user = useSelector(selectUser)
@@ -26,7 +26,7 @@ export default function Page(props: any) {
         onLogout={onLogout}
       />
       {!noDrawer && <Drawer drawerWidth={drawerWidth} mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />}
-      <Box component="main" sx={{ flexGrow: 1, p: 8, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box component="main" sx={{ flexGrow: 1, p: noPadding ? 0 : { xs: 3, lg: 8 }, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
         <Toolbar />
         {children}
       </Box>

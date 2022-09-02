@@ -35,6 +35,19 @@ import {
 import merge from 'lodash/merge';
 import { MdClose } from 'react-icons/md';
 import { JsonFormsTheme, useDebouncedChange } from '../util';
+import styled from '@emotion/styled';
+
+const StyledOutlinedInput = styled(OutlinedInput)(({ theme }) => {
+  return {
+    [`&.Mui-disabled fieldset`] : {
+      border: 'none',
+    },
+    [`&.Mui-disabled input`] : {
+      color: theme.palette.secondary.dark,
+      '-webkit-text-fill-color': theme.palette.secondary.dark
+    }
+  }
+})
 
 interface MuiTextInputProps {
   muiInputProps?: InputProps['inputProps'];
@@ -86,7 +99,7 @@ export const MuiInputText = React.memo((props: CellProps & WithClassname & MuiTe
   };
 
   return (
-    <OutlinedInput
+    <StyledOutlinedInput
       type={appliedUiSchemaOptions.format === 'password' ? 'password' : 'text'}
       value={inputText}
       onChange={onChange}
@@ -98,6 +111,9 @@ export const MuiInputText = React.memo((props: CellProps & WithClassname & MuiTe
       rows={appliedUiSchemaOptions.rows}
       fullWidth={!appliedUiSchemaOptions.trim || maxLength === undefined}
       inputProps={inputProps}
+      sx={{
+        border: 'none'
+      }}
       error={!isValid}
       onPointerEnter={onPointerEnter}
       onPointerLeave={onPointerLeave}

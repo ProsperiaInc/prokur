@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { BackButton } from "./PageHeader.styles";
 
 const PageHeader = (
-    { title, subtitle, backButton, cta, titlesContainer, height } :
-    { title?: string | { text: string, [x: string]: any }, subtitle?: string, backButton?: boolean, cta?: any, titlesContainer?: any, height?: string }
+    { title, subtitle, backButton, cta, titlesContainer, height, onBack } :
+    { title?: string | { text: string, [x: string]: any }, subtitle?: string, backButton?: boolean, cta?: any, titlesContainer?: any, height?: string, onBack?: any }
   ) => {
   const router = useRouter()
 
@@ -29,7 +29,10 @@ const PageHeader = (
     >
       {backButton && (
         <Grid container item xs={12} md={2} justifyContent={{ xs: 'flex-start', md: 'flex-end' }}>
-          <BackButton variant='text' color="primary" startIcon={<MdArrowBack />} size='small' onClick={() => router.push('/')}>Back to Dashboard</BackButton>
+          <BackButton variant='text' color="primary" startIcon={<MdArrowBack />} size='small' onClick={() => {
+            onBack && onBack();
+            router.push('/');
+          }}>Back to Dashboard</BackButton>
         </Grid>
       )}
       <Grid md={10} xs={12} item container justifyContent='flex-end' flexDirection='column' {...extractOverrides(titlesContainer)}>

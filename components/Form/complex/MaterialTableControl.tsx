@@ -399,14 +399,6 @@ export class MaterialTableControl extends React.Component {
           </InputLabel> */}
           <TableBody>
             <TableRows openDeleteDialog={openDeleteDialog} {...this.props} />
-            <Button
-              color="primary"
-              onClick={this.addItem(path, createDefaultValue(schema))}
-              startIcon={<MdAdd />}
-              size='small'
-            >
-              Add requirement
-            </Button>
             {/* <IconButton
               aria-label={`Add to ${label}`}
               onClick={this.addItem(path, createDefaultValue(schema))}
@@ -415,6 +407,15 @@ export class MaterialTableControl extends React.Component {
             </IconButton> */}
           </TableBody>
         </Table>
+        <Button
+          color="primary"
+          onClick={this.addItem(path, createDefaultValue(schema))}
+          startIcon={<MdAdd />}
+          size='small'
+          sx={{ width: { sx: '100%', lg: 'initial' }, px: 0 }}
+        >
+          Add requirement
+        </Button>
       </Hidden>
     );
   }

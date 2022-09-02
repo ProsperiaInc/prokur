@@ -96,7 +96,7 @@ const RFPViewer = ({ error, data = {}, isLoading }: { error?: FetchBaseQueryErro
           Download
         </CTA>
       </Box>
-      <Box sx={{ maxWidth: '700px', padding: 12, margin: '0 auto' }}>
+      <Box sx={{ maxWidth: '700px', margin: '0 auto' }}>
         <Section>
           <Typography variant="h4" sx={{ fontWeight: 700 }}>Data Visualization RFP</Typography>
         </Section>

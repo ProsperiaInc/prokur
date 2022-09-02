@@ -80,5 +80,12 @@
   "myrfp_nav_title": "MY RFPs",
   "view_rfp": "View RFP",
   "view_responses": "View Responses",
-  "share": "Share"
+  "share": "Share",
+  "share_modal_title": "Share RFP with people",
+  "add_email_placeholder": "Add people’s email address (separated by commas).",
+  "copy_link": "Copy link",
+  "add_password": "Add Password",
+  "password_field": "Password",
+  "email_field": "Email",
+  "link": "Link"
 }

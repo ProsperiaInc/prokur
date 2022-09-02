@@ -166,7 +166,7 @@ export default function SwitchPassword() {
             <Button
               className={classes.applyButton}
               type="submit"
-              color="secondary"
+              color="primary"
               // disabled={!!formik.errors.password}
               variant="contained"
             >

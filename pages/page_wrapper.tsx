@@ -27,7 +27,7 @@ function PageWrapper({ children } : { children: any }) {
       if (access_token === null && PROTECTED_ROUTES.includes(router.pathname)) router.replace('/login')
       if (access_token && email_verified_at && [...GUEST_ROUTES, VERIFY_ROUTE].includes(router.pathname)) router.replace('/')
       if (access_token && user !== null && !email_verified_at && [...PROTECTED_ROUTES, ...GUEST_ROUTES].includes(router.pathname)) router.replace('/verify')
-      // if (access_token && user !== null && email_verified_at && !has_organization && [...PROTECTED_ROUTES, ...GUEST_ROUTES].includes(router.pathname)) router.replace('/organization')
+      if (access_token && user !== null && email_verified_at && !has_organization && [...PROTECTED_ROUTES, ...GUEST_ROUTES].includes(router.pathname)) router.replace('/organization')
       if (access_token) getUserInfo('')
     }
     setIsLoadingPage(isLoading)

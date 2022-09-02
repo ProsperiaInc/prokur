@@ -3,11 +3,11 @@ import Box from '@mui/material/Box'
 import { Button, Grid } from '@mui/material'
 import { VerticalStepper } from 'components/VerticalStepper/VerticalStepper'
 import PageHeader from 'components/PageHeader/PageHeader'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Form from 'components/Form'
 import schema from 'forms/rfp/editor/schema'
 import uischema from 'forms/rfp/editor/uischema'
-import { selectForm } from 'store/features/forms/formsSlice'
+import { selectForm, setForm } from 'store/features/forms/formsSlice'
 import { selectUser } from 'store/features/auth/authSlice'
 import RFPViewer from 'components/RfpViewer/RfpViewer'
 
@@ -49,8 +49,9 @@ const steps = [
 ]
 
 export default function RfpEditor({ id, categories, initialData }: any) {
-  const { data } = useSelector(selectForm(FORM_NAME))
+  const { data, ...rest } = useSelector(selectForm(FORM_NAME))
   const user = useSelector(selectUser)
+  const dispatch = useDispatch()
   // const [saveRfpMutation] = useSaveRfpMutation()
   const [isSummary, setIsSummary] = useState(false)
   const onSubmit = () => {
@@ -118,6 +119,17 @@ export default function RfpEditor({ id, categories, initialData }: any) {
     // })
   }
 
+  useEffect(() => {
+    dispatch(
+      setForm({
+        rfp_editor: {
+          ...rest,
+          data: initialData
+        }
+      }
+    ))
+  }, [])
+
   return (
     <Box mt='88px'>
       <Grid
@@ -133,6 +145,16 @@ export default function RfpEditor({ id, categories, initialData }: any) {
               backButton
               title='Salesforce, Inc.'
               subtitle='Data Visualization RFP'
+              onBack={() => {
+                dispatch(
+                  setForm({
+                    rfp_editor: {
+                      ...rest,
+                      data: {}
+                    }
+                  }
+                ))
+              }}
             />
             {!!steps.length && (
               <VerticalStepper steps={steps} onSubmit={onSubmit}>

@@ -31,7 +31,7 @@ export default function SharedModal({
   shareRfpToEmail,
   sharedLinkPassword,
   setSharedLinkPassword,
-}) {
+} : any) {
   const [emails, setEmails] = useState([]);
   const [success, setSuccess] = useState(false);
 

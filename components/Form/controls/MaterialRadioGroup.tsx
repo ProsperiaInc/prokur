@@ -74,7 +74,7 @@ const StyledTypography = styled(Typography)(({ theme, checked }: any) => ({
 const StyledFormControlLabel = styled(FormControlLabel)(({ theme, checked }: any) => ({
   [`&.${formControlLabelClasses.root}`]: {
     height: '115px',
-    minWidth: '140px',
+    minWidth: '160px',
     border: checked ? `3px solid ${theme.palette.primary.main}` : `1px solid ${theme.palette.secondary.dark}`,
     background: checked ? 'rgba(25, 118, 210, 0.2)' : '#fff',
     padding: '20px',
@@ -153,7 +153,7 @@ export const MaterialRadioGroup = (props: ControlProps & OwnPropsOfEnum) => {
             onChange={onChange}
           >
             {options.map((option, idx) => (
-              <Box component='span' sx={{ position: 'relative', marginRight: '10px' }}>
+              <Box component='span' sx={{ position: 'relative', marginRight: '10px', marginTop: '10px' }}>
                 <StyledFormControlLabel
                   value={option.value}
                   key={option.label}

@@ -10,11 +10,18 @@
   background-color: #fff;
   transition: box-shadow 0.2s ease-in-out;
   padding: 16px;
+  width: 30%;
 }
+
+@media (max-width: 1200px) {
+  .rfp-card {
+    width: 100%;
+  }
+}
+
 .rfp-card a {
   text-decoration: none;
   color: inherit;
-  padding: 15px 27px 43px 15px;
   display: block;
 }
 .rfp-card:last-child {

@@ -51,6 +51,7 @@ export const MaterialInputControl = (props: ControlProps & WithInput) => {
     required,
     config,
     input,
+    enabled,
     labelProps
   } = props;
   const isValid = errors.length === 0;
@@ -80,14 +81,16 @@ export const MaterialInputControl = (props: ControlProps & WithInput) => {
         id={id}
         variant='outlined'
       >
-        <InputLabel
-          htmlFor={id + '-input'}
-          error={!isValid}
-          required={showAsRequired(required, appliedUiSchemaOptions.hideRequiredAsterisk)}
-          {...labelProps}
-        >
-          {label}
-        </InputLabel>
+        {enabled && (
+          <InputLabel
+            htmlFor={id + '-input'}
+            error={!isValid}
+            required={showAsRequired(required, appliedUiSchemaOptions.hideRequiredAsterisk)}
+            {...labelProps}
+          >
+            {label}
+          </InputLabel>
+        )}
         <InnerComponent
           {...props}
           id={id + '-input'}

@@ -3,7 +3,6 @@ import RfpEditor from "components/RFPEditor/RFPEditor";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useLazyGetRfpCategoriesQuery, useLazyGetRfpQuery } from "services/rfp";
 import Dashboard from "./dashboard_wrapper";
 

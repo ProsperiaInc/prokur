@@ -37,6 +37,7 @@ const Root = styled('div')((
     height: '40px',
     padding: '12px 26px 11px 27px',
     fontWeight: '600',
+    fontSize: '14px',
   },
 
   [`& .${classes.copyArea}`]: {
@@ -70,7 +71,7 @@ export default function SharedLink() {
         <Box width={15} />
         <Button
           onClick={handleCopy}
-          color="secondary"
+          color="primary"
           variant="text"
           className={classes.button}
         >

@@ -73,19 +73,19 @@ export default function SharedAddEmail() {
   const [error, setError] = useState(false);
 
 
-  const onChange = (event) => {
+  const onChange = (event: any) => {
     if (error) {
       setError(false);
     }
     setValue(event.target.value);
   };
 
-  const clearValue = (event) => {
+  const clearValue = () => {
     setError(false);
     setValue('');
   };
 
-  const addValue = (event) => {
+  const addValue = (event: any) => {
     const values = value.split(', ');
     // const err = !values.every((email) => validator.isEmail(email)
     //   && !emails.includes(email)

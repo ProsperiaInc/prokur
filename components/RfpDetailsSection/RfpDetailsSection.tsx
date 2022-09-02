@@ -7,9 +7,21 @@ import classes from './RfpDetailsSection.module.css';
 import { useTranslation } from 'next-i18next';
 import styled from '@emotion/styled';
 
-const SubmitProposalButton = styled(Button)(({ theme }) => `margin-right: 15px;`)
+const SubmitProposalButton = styled(Button)(({ theme }: any) => ({
+  marginRight: '15px',
+  marginTop: '8px',
+  // width: '100%',
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  }
+}))
 
-const ViewButton = styled(Button)(({ theme }) => ``)
+const ViewButton = styled(Button)(({ theme }: any) => ({
+  marginTop: '8px',
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  }
+}))
 
 export default function RfpDetailsSection({
   rfp,

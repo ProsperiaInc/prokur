@@ -42,7 +42,7 @@ export const MaterialCurrencyControl = (props: any) => {
     schema,
   } = props
   const maxLength = schema.maxLength;
-  const [value, setValue] = React.useState(data);
+  const [value, setValue] = React.useState(data || 0);
   const appliedUiSchemaOptions = merge({}, config, uischema.options);
   const onChange = (ev: any) => {
     setValue(ev.target.value.replace(',', ''));

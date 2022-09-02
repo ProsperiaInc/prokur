@@ -22,7 +22,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   isStringControl,
   rankWith,
@@ -32,12 +32,21 @@ import { withJsonFormsControlProps } from '@jsonforms/react';
 import MuiInputTags from '../mui-controls/MuiTagField/MuiTagField';
 
 export const MaterialTagsControl = (props: any) => {
-  const [value, setValue] = React.useState(props.data);
+  const [value, setValue] = React.useState<any>();
   const onChange = (ev: any) => {
     const updatedValue = [...(Array.isArray(props.value) ? props.value: !!props.value ? [props.value]: []), ...ev.target.value]
     setValue(updatedValue)
     props.handleChange(props.path, updatedValue);
   }
+
+  useEffect(() => {
+    if(props.data !== undefined && value === undefined) {
+      setValue(props.data)
+    }
+  }, [props.data])
+
+  console.warn({ data: props.data, value });
+  
 
   return (
     <MuiInputTags

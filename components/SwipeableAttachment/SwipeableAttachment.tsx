@@ -82,8 +82,9 @@ export default function SwipeableAttachment({
 
   const chooseFile = () => (
     <>
-      {t('dropzone_area_text')}
-      <span className="MultiAttachment-link">{t('dropzone_area_choose_file')}</span>
+      Drag and drop or&nbsp;
+      <span className="MultiAttachment-link">browse&nbsp;</span>
+      your files
     </>
   );
 

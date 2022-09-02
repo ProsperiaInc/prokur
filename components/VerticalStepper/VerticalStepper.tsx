@@ -16,7 +16,7 @@ export const VerticalStepper = ({ children, steps, onSubmit }: any) => {
   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1)
 
   return (
-    <Grid container sx={{ padding: { md: '0', xs: '25px' }}} >
+    <Grid container sx={{ padding: { xs: '0', sm: '25px' }}}>
       <Grid item md={2} xs={12}>
         <TopBottomConnector active />
         <Stepper

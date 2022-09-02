@@ -288,7 +288,7 @@ export default function RfpDetails() {
   return (
     <div className={classes["rfp-details-container"]}>
       <div className={classes["rfp-details-top"]}>
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs aria-label="breadcrumb" sx={{ display: 'flex', alignItems: 'center' }}>
           <Link
             color="primary"
             href={'/'}
