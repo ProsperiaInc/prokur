@@ -29,11 +29,17 @@ export const rfpApi = createApi({
         return { data: rfp }
       },
     }),
-    getRfpShareLink: builder.query({ query: (rfpId) => `${rfpId}/share-links` }),
+    getRfpShareLink: builder.query({ query: (rfpId) => `/${rfpId}/share-links` }),
     saveRfp: builder.mutation({ query: (data) => ({ url: `/`, method: 'POST', body: data }) }),
     getRfp: builder.query({ query: (id: string) => `/${id}` }),
     getRfpCategories: builder.query({ query: () => `/categories/` }),
     getRfpAttachment: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
+    getRfpAttachement: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
+    deleteRfpAttachement: builder.mutation({ query: ({ rfpId, sectionIndex, fileId }) => ({
+        url: `/${rfpId}/attachments/${sectionIndex}/${fileId}`,
+        method: 'DELETE'
+      })
+    }),
     uploadRfpAttachement: builder.mutation({
       query: ({ rfpId, sectionIndex, file }) => {
         const bodyFormData = new FormData();
@@ -41,14 +47,11 @@ export const rfpApi = createApi({
         bodyFormData.append('file', file);
 
         return {
-          url: `rfp/${rfpId}/attachments/${sectionIndex}`,
+          url: `/${rfpId}/attachments/${sectionIndex}`,
           method: 'POST',
           body: bodyFormData,
-          headers: {
-            ['Content-Type']: 'multipart/form-data'
-          }
         }
-      }
+      },
     })
   }),
 })
@@ -61,5 +64,7 @@ export const {
   useLazyGetRfpCategoriesQuery,
   useUploadRfpAttachementMutation,
   useLazyGetRfpAttachmentQuery,
-  useLazyGetRfpShareLinkQuery
+  useLazyGetRfpShareLinkQuery,
+  useLazyGetRfpAttachementQuery,
+  useDeleteRfpAttachementMutation
 } = rfpApi

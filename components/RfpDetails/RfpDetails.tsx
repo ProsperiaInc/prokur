@@ -183,28 +183,32 @@ export default function RfpDetails() {
 
   const renderSectionTitle = (title: string) => <Typography variant="h6">{title}</Typography>;
 
-  const renderAttachment = (item: any, index: any) => (
-    <div key={`${index} - ${item.name}`} className="rfp-details-attachments-attachment">
-      <a target="_blank" rel="noreferrer" href={item.fileUrl} download={item.name}>
-        <Image src={pdfImage} alt={item.name} />
-        <div className="rfp-details-attachments-attachment-info">
-          <span>{item.name}</span>
-        </div>
-      </a>
-    </div>
-  );
+  const renderAttachment = (item: any, index: any) => {
+    console.warn({ item, index });
+
+    return (
+      <div key={`${index} - ${item.name}`} className={classes["rfp-details-attachments-attachment"]}>
+        <a target="_blank" rel="noreferrer" href={item.file_url} download={item.name}>
+          <Image src={pdfImage} alt={item.name} className={classes["rfp-details-attachments-attachment-image"]} />
+          <div className={classes["rfp-details-attachments-attachment-info"]}>
+            <span>{item.name}</span>
+          </div>
+        </a>
+      </div>
+    );
+  }
 
   const renderAttachmentsSection = () =>
     !!attachments.length && (
-      <div className="rfp-details-attachments section">
+      <div className={clsx(classes["rfp-details-attachments"], classes["section"])}>
         {renderSectionTitle(t('attachments'))}
-        <div className="rfp-details-attachments-list">{attachments.map(renderAttachment)}</div>
+        <div className={classes["rfp-details-attachments-list"]}>{attachments.map(renderAttachment)}</div>
       </div>
     );
 
   const renderVersionHistoryRow = (item: any, index: any) => (
-    <div key={`${index} - ${item.name}`} className="rfp-details-history-row">
-      <Link className="rfp-details-history-link" href={item.url}>
+    <div key={`${index} - ${item.name}`} className={classes["rfp-details-history-row"]}>
+      <Link className={classes["rfp-details-history-link"]} href={item.url}>
         {item.name}
       </Link>
       <Typography>{parseDate(item.date)}</Typography>

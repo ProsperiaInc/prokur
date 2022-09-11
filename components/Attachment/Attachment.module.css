@@ -13,12 +13,12 @@
 
 .MultiAttachment-single-file-name {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 300;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #6c6c6c;
+  color: #282828;
 }
 
 .MultiAttachment-single-file-size {
@@ -29,4 +29,8 @@
   line-height: normal;
   letter-spacing: normal;
   color: #6c6c6c;
+}
+
+.MultiAttachment-container-files {
+  margin-left: 25px;
 }

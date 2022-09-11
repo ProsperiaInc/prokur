@@ -8,6 +8,9 @@
   height: 80px;
   min-height: unset !important;
   background-color: transparent !important;
+  color: #6980A5;
+  border: 1px dashed #6980A5 !important;
+  border-radius: 4px !important;
 }
 
 .MultiAttachment-container-text, .MultiAttachment-container-subtext {
@@ -34,10 +37,11 @@
   width: 100%;
   background-color: #fff;
   margin-top: 10px;
-  padding: 23px 25px;
+  height: 80px;
+  padding: 0 25px;
   box-sizing: border-box;
   border-radius: 3px;
-  border: solid 1px #fff;
+  border: solid 1px #6980A5;
 }
 
 .text-field-viewer-container {
@@ -72,3 +76,7 @@
   width: 60%;
 }
 
+.MultiAttachment-single-file-container-loading {
+  display: flex;
+  justify-content: center;
+}

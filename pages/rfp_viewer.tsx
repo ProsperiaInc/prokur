@@ -4,14 +4,16 @@ import RFPViewer from "components/RfpViewer/RfpViewer";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useLazyGetRfpQuery } from "services/rfp";
+import { useLazyGetRfpAttachmentQuery, useLazyGetRfpQuery } from "services/rfp";
 import Dashboard from "./dashboard_wrapper";
 
 const RFPEditorPage = () => {
   const router = useRouter()
   const { id } = router.query
   const [getRfp, payload] = useLazyGetRfpQuery()
+  const [getRfpAttachment, { data: rfpAttachments }] = useLazyGetRfpAttachmentQuery();
   const { data, error, isLoading, isUninitialized } = payload
+
   const fieldData = data?.template?.sections?.reduce((
     acc: any, 
     { fields }: any) => 
@@ -32,12 +34,20 @@ const RFPEditorPage = () => {
     evaluationMetrics: item.title,
     weight: item.value
   }))
-
+  
   delete fieldData?.tags
   delete fieldData?.budget
   delete fieldData?.evaluation_criteria
 
-  useEffect(() => { if(id && typeof id === 'string') getRfp(id) }, [id])
+
+  useEffect(() => { 
+    if(id && typeof id === 'string') {
+      getRfp(id)
+      getRfpAttachment({ rfpId: id, sectionIndex: 3 });
+    }
+  }, [id])
+
+  console.warn({ rfpAttachments })
 
   return (
     <Dashboard noDrawer>
@@ -45,6 +55,7 @@ const RFPEditorPage = () => {
         ? <PageLoader />
         : <RFPViewer data={{
           ...data,
+          attachments: rfpAttachments,
           fieldData
         }} error={error} isLoading={isLoading} />
       }

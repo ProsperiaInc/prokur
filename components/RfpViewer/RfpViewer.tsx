@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import { Grid, List, ListItem, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Grid, List, ListItem, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Box } from "@mui/material";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import CTA from "components/CTA/CTA";
@@ -9,6 +8,7 @@ import uischema from 'forms/rfp/editor/uischema'
 import parseDate from "utils/dateHelper";
 import { MdDownload } from 'react-icons/md'
 import formatCurrency from "utils/formatCurrency";
+import Link from "next/link";
 
 const steps = [
   {
@@ -78,7 +78,7 @@ const Head  = styled(TableCell)(({ theme }: any) => `
 `)
 
 const RFPViewer = ({ error, data = {}, isLoading }: { error?: FetchBaseQueryError | SerializedError , data: any, isLoading: boolean }) => {
-  const { fieldData, created_by, company } = data
+  const { fieldData, created_by, company, attachments } = data
   const { first_name, last_name, email, number, assigned_role } = created_by || {}
   const { legal_name } = company || {}
 
@@ -132,56 +132,72 @@ const RFPViewer = ({ error, data = {}, isLoading }: { error?: FetchBaseQueryErro
             <Section>
               <Typography variant="h5" textTransform='uppercase'>{step.optional}</Typography>
             </Section>
-            {Object.keys(step.json.schema.properties).map((property: string) => (
-              <>
-                {fieldData[property] && typeof fieldData[property] === 'string' && (
-                  <Section>
-                    <Typography variant="h6">{(step.json.schema.properties as any)[property]?.label}</Typography>
-                    <SectionParagraph variant='body1' color='grey.600'>{fieldData[property]}</SectionParagraph>
-                  </Section>
-                )}
-                {fieldData[property] && Array.isArray(fieldData[property]) && typeof fieldData[property][0] === 'string' && (
-                  <Section>
-                    <Typography variant="h6">{(step.json.schema.properties as any)[property]?.label}</Typography>
-                    <SectionParagraph variant='body1' color='grey.600'>{fieldData[property].join(', ')}</SectionParagraph>
-                  </Section>
-                )}
-                {fieldData[property] && Array.isArray(fieldData[property]) && typeof fieldData[property][0] === 'object' &&  Object.keys(fieldData[property][0]).length === 1 && (
-                  <Section>
-                    <Typography variant="h6">{(step.json.schema.properties as any)[property]?.label}</Typography>
-                    <ul style={{ paddingLeft: '12px' }}>
-                      {fieldData[property].map((item: any) => (
-                        <li key={item[Object.keys(item)[0]]}>
-                          <ListItemText primary={item[Object.keys(item)[0]]} />
-                        </li>
-                      ))} 
-                    </ul>
-                  </Section>
-                )}
-                {fieldData[property] && Array.isArray(fieldData[property]) && typeof fieldData[property][0] === 'object' &&  Object.keys(fieldData[property][0]).length > 1 && (
-                  <TableContainer sx={{ border: 'none' }} component={Box}>
-                    <Table size='small'>
-                      <TableHead>
-                        <TableRow>
-                          {Object.keys(fieldData[property][0]).map(prop => (
-                            <Head>{(step.json.schema.properties as any)[property].items.properties[prop]?.label}</Head>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {fieldData[property].map((field: any) => (
-                          <TableRow key={field[Object.keys(field)[0]]}>
-                            {Object.keys(field).map(key => (
-                              <Cell>{field[key]}</Cell>
+            {Object.keys(step.json.schema.properties).map((property: string) => {
+              const label = (step.json.schema.properties as any)[property]?.label
+              return (
+                <>
+                  {fieldData[property] && typeof fieldData[property] === 'string' && (
+                    <Section>
+                      <Typography variant="h6">{label}</Typography>
+                      <SectionParagraph variant='body1' color='grey.600'>{fieldData[property]}</SectionParagraph>
+                    </Section>
+                  )}
+                  {fieldData[property] && Array.isArray(fieldData[property]) && typeof fieldData[property][0] === 'string' && (
+                    <Section>
+                      <Typography variant="h6">{label}</Typography>
+                      <SectionParagraph variant='body1' color='grey.600'>{fieldData[property].join(', ')}</SectionParagraph>
+                    </Section>
+                  )}
+                  {fieldData[property] && Array.isArray(fieldData[property]) && typeof fieldData[property][0] === 'object' &&  Object.keys(fieldData[property][0]).length === 1 && (
+                    <Section>
+                      <Typography variant="h6">{label}</Typography>
+                      <ul style={{ paddingLeft: '12px' }}>
+                        {fieldData[property].map((item: any) => (
+                          <li key={item[Object.keys(item)[0]]}>
+                            <ListItemText primary={item[Object.keys(item)[0]]} />
+                          </li>
+                        ))} 
+                      </ul>
+                    </Section>
+                  )}
+                  {fieldData[property] && Array.isArray(fieldData[property]) && typeof fieldData[property][0] === 'object' &&  Object.keys(fieldData[property][0]).length > 1 && (
+                    <TableContainer sx={{ border: 'none' }} component={Box}>
+                      <Table size='small'>
+                        <TableHead>
+                          <TableRow>
+                            {Object.keys(fieldData[property][0]).map(prop => (
+                              <Head>{(step.json.schema.properties as any)[property].items.properties[prop]?.label}</Head>
                             ))}
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                )}
-              </>
-            ))}
+                        </TableHead>
+                        <TableBody>
+                          {fieldData[property].map((field: any) => (
+                            <TableRow key={field[Object.keys(field)[0]]}>
+                              {Object.keys(field).map(key => (
+                                <Cell>{field[key]}</Cell>
+                              ))}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  )}
+                  {(label === 'Attachments') && attachments.map((attachment: any) => (
+                    <Box>
+                      <Button
+                        sx={{ padding: 0 }}
+                        variant="text"
+                        as="a"
+                        href={attachment.file_url}
+                        download={attachment.name}
+                      >
+                        {attachment.name}
+                      </Button>
+                    </Box>
+                  ))}
+                </>
+              )
+            })}
           </Section>
         ))}
       </Box>

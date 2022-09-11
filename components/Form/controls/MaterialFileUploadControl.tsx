@@ -38,8 +38,7 @@ export const MaterialFileUploadControl = (props: any) => {
   return (
     <MultiAttachment
       {...props}
-      rfpId={5}
-      sectionIndex={5}
+      sectionIndex={3}
       field={{
         label: props.label,
         name: props.name,
