@@ -13,7 +13,7 @@ import Link from "next/link";
 const steps = [
   {
     label: 'Step 1',
-    optional: 'RFP Details',
+    optional: 'RFX Details',
     json: {
       schema: schema[0],
       uischema: uischema[0]
@@ -98,7 +98,7 @@ const RFPViewer = ({ error, data = {}, isLoading }: { error?: FetchBaseQueryErro
       </Box>
       <Box sx={{ maxWidth: '700px', margin: '0 auto' }}>
         <Section>
-          <Typography variant="h4" sx={{ fontWeight: 700 }}>Data Visualization RFP</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>Data Visualization RFX</Typography>
         </Section>
         <Section>
           <Legend>

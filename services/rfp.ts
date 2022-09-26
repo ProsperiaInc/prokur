@@ -12,6 +12,18 @@ export const rfpApi = createApi({
     },
   }),
   endpoints: (builder) => ({
+    getRfpShareLink: builder.query({ query: (rfpId) => `/${rfpId}/share-links` }),
+    saveRfp: builder.mutation({ query: (data) => ({ url: `/`, method: 'POST', body: data }) }),
+    getRfp: builder.query({ query: (id: string) => `/${id}` }),
+    getRfpCategories: builder.query({ query: () => `/categories/` }),
+    getRfpAttachment: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
+    setRfpShareEmails: builder.mutation({ query: ({ rfpId, emails }) => ({
+        url: `/${rfpId}/share-emails/`, 
+        headers: { Accept: 'application/json' },
+        body: { emails },
+        method: 'POST',
+      })
+    }),
     getCompanyRfps: builder.query({
       async queryFn(_args, _queryApi, _extraOptions, fetchWithBQ) {
         let { data: companyRfps, error } = await fetchWithBQ('/')
@@ -29,11 +41,6 @@ export const rfpApi = createApi({
         return { data: rfp }
       },
     }),
-    getRfpShareLink: builder.query({ query: (rfpId) => `/${rfpId}/share-links` }),
-    saveRfp: builder.mutation({ query: (data) => ({ url: `/`, method: 'POST', body: data }) }),
-    getRfp: builder.query({ query: (id: string) => `/${id}` }),
-    getRfpCategories: builder.query({ query: () => `/categories/` }),
-    getRfpAttachment: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
     deleteRfpAttachement: builder.mutation({ query: ({ rfpId, sectionIndex, fileId }) => ({
         url: `/${rfpId}/attachments/${sectionIndex}/${fileId}`,
         method: 'DELETE'
@@ -64,5 +71,6 @@ export const {
   useUploadRfpAttachementMutation,
   useLazyGetRfpAttachmentQuery,
   useLazyGetRfpShareLinkQuery,
-  useDeleteRfpAttachementMutation
+  useDeleteRfpAttachementMutation,
+  useSetRfpShareEmailsMutation
 } = rfpApi

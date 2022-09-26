@@ -31,6 +31,8 @@ export default function SharedModal({
   shareRfpToEmail,
   sharedLinkPassword,
   setSharedLinkPassword,
+  rfpShareData,
+  rfpShareError
 } : any) {
   const [emails, setEmails] = useState([]);
   const [success, setSuccess] = useState(false);
@@ -54,6 +56,8 @@ export default function SharedModal({
         shareRfpToEmail,
         sharedLinkPassword,
         setSharedLinkPassword,
+        rfpShareData,
+        rfpShareError,
       }}>
       <Dialog
         transitionDuration={0}

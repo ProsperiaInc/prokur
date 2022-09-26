@@ -140,7 +140,7 @@ const MyRfps = () => {
       </Grid>
       <Grid container>
         <Grid item>
-          <Typography variant='h5' fontWeight={600} mb={2}>All RFPs</Typography>
+          <Typography variant='h5' fontWeight={600} mb={2}>All RFXs</Typography>
         </Grid>
       </Grid>
       <Box sx={{ width: '100%' }}>

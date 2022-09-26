@@ -16,7 +16,7 @@ const FORM_NAME = 'rfp_editor'
 const steps = [
   {
     label: 'Step 1',
-    optional: 'RFP Details',
+    optional: 'RFX Details',
     json: {
       schema: schema[0],
       uischema: uischema[0]
@@ -85,7 +85,7 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
     //         }
     //       })),
     //       "required": true,
-    //       "description": "Provide a detailed timeline for your project and establish boundaries to help improve the correlative accuracy of your RFP for potential vendors.",
+    //       "description": "Provide a detailed timeline for your project and establish boundaries to help improve the correlative accuracy of your RFX for potential vendors.",
     //       "not_included": false
     //     }))
     //   },
@@ -154,7 +154,7 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
             <PageHeader
               backButton
               title='Salesforce, Inc.'
-              subtitle='Data Visualization RFP'
+              subtitle='Data Visualization RFX'
               onBack={() => {
                 dispatch(
                   setForm({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Button, DialogActions } from '@mui/material';
 import { useSharedModal } from '../SharedModalContext';
@@ -32,22 +32,22 @@ const StyledDialogActions = styled(DialogActions)((
 
 export default function SharedModalActions() {
   const { t } = useTranslation('common')
-  const { setSuccess, shareRfpToEmail, emails } = useSharedModal();
+  const { setSuccess, shareRfpToEmail, rfpShareLoading, emails, rfpShareError, rfpShareData } = useSharedModal() as any;
   // const { newSnackbar } = useSnackbar();
+  console.warn({ rfpShareLoading, rfpShareError, rfpShareData });
 
-
-  const handleClose = async (event) => {
-    if (await shareRfpToEmail(emails)) {
-      setSuccess(true);
-    } else {
-      // newSnackbar({
-      //   type: 'error',
-      //   Error: t('error_share_alert_title'),
-      //   title: t('error_share_alert_title'),
-      //   isModal: true,
-      // });
-    }
+  const handleClose = async () => {
+    shareRfpToEmail(emails)
   };
+
+  useEffect(() => {
+    if(rfpShareData && !rfpShareError && !rfpShareLoading) {
+      setSuccess(true)
+    }
+    if(!rfpShareData && rfpShareError && !rfpShareLoading) {
+    }
+  }, [rfpShareData, rfpShareError])
+
 
   return (
     <StyledDialogActions>

@@ -96,7 +96,7 @@ const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: I
               </a>
             </Link>
           )}
-          {!withLogo && 'My Rfps'}
+          {!withLogo && ''}
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         {user && (

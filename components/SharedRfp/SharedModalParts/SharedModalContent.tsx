@@ -1,4 +1,4 @@
-import { DialogContent, Tab } from '@mui/material';
+import { Alert, DialogContent, Grid, Tab } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import React, { useState } from 'react';
@@ -8,6 +8,7 @@ import SharedModalActions from './SharedModalActions';
 import SharedLink from '../SharedLinkTab/SharedLink';
 import SwitchPassword from '../SharedLinkTab/SwitchPassword';
 import { useTranslation } from 'next-i18next';
+import { useSharedModal } from '../SharedModalContext';
 
 const PREFIX = 'SharedModalContent';
 
@@ -69,6 +70,7 @@ const StyledDialogContent = styled(DialogContent)((
 export default function SharedModalContent() {
   const { t } = useTranslation('common')
   const [value, setValue] = useState('1');
+  const { rfpShareError } = useSharedModal() as any
 
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
@@ -87,18 +89,34 @@ export default function SharedModalContent() {
             label={t('email_field')}
             value="1"
           />
-          <Tab className={classes.tab} label={t('link')} value="2" />
+          {/* <Tab className={classes.tab} label={t('link')} value="2" /> */}
         </TabList>
 
         <TabPanel className={classes.panelEmail} value="1">
           <SharedAddEmail />
           <SharedEmails />
           <SharedModalActions />
+          {rfpShareError && rfpShareError.data && rfpShareError.data.errors && (
+              <Grid container sx={{ marginBottom: '10px' }}>
+                <Grid item xs={4} />
+                <Grid item xs={8}>
+                  <Alert severity="error">
+                    {Object.keys(rfpShareError.data.errors).map(key => {
+                      return (
+                        <>
+                          {rfpShareError.data.errors[key][0]}<br />
+                        </>
+                      )
+                    })}
+                  </Alert>
+                </Grid>
+              </Grid>
+            )}
         </TabPanel>
-        <TabPanel className={classes.panel} value="2">
+        {/* <TabPanel className={classes.panel} value="2">
           <SharedLink />
           <SwitchPassword />
-        </TabPanel>
+        </TabPanel> */}
       </TabContext>
     </StyledDialogContent>
   );

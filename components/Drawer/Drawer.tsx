@@ -128,7 +128,7 @@ const Drawer = (
       <List>
         {[
           { label: 'Dashboard', icon: <BsGrid /> },
-          { label: 'My RFPs', icon: <GiOfficeChair />, href: '/' },
+          { label: 'My RFXs', icon: <GiOfficeChair />, href: '/' },
           { label: 'Templates', icon: <FaEnvelopeOpenText /> },
           { label: 'Proposals', icon: <BiPackage /> }
         ].map(({ icon, label, href }, index) => (

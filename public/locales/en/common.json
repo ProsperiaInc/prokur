@@ -1,4 +1,5 @@
 {
+  "add": "Add",
   "common": {
     "continue": "Continue"
   },
@@ -17,8 +18,8 @@
     "incorrect_credentials": "Incorrect Credentials."
   },
   "rfp": {
-    "nav_title": "My RFPs",
-    "add_rfp": "Create RFP",
+    "nav_title": "RFX Updates",
+    "add_rfp": "Create RFX",
     "table": {
       "header": {
         "column_1": "Title",
@@ -39,14 +40,14 @@
       }
     },
     "empty_page": {
-      "add_rfp": "Create RFP",
-      "main_text": "You have not created any RFPs yet",
-      "sub_text": "Would you like to create an RFP?"
+      "add_rfp": "Create RFX",
+      "main_text": "You have not created any RFXs yet",
+      "sub_text": "Would you like to create an RFX?"
     }
   },
   "dropzone": {
     "dropzone_area_text": "Drop files here to upload or ",
-    "dropzone_area_text_before_upload": "Save RFP form before uploading files",
+    "dropzone_area_text_before_upload": "Save RFX form before uploading files",
     "dropzone_area_choose_file": "Choose File"
   },
   "verification": {
@@ -77,8 +78,8 @@
   "published_at": "Published: {{date}}",
   "deadline_at": "Deadline: {{date}}",
   "other_rfp_from": "Other RFPs from {{name}}",
-  "myrfp_nav_title": "MY RFPs",
-  "view_rfp": "View RFP",
+  "myrfp_nav_title": "MY RFX",
+  "view_rfp": "View RFX",
   "view_responses": "View Responses",
   "share": "Share",
   "share_modal_title": "Share RFP with people",

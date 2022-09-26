@@ -10,6 +10,7 @@ import { MdCancel } from 'react-icons/md';
 import React, { useState, useEffect } from 'react';
 import { useSharedModal } from '../SharedModalContext';
 import { useTranslation } from 'next-i18next';
+import validator from 'validator'
 
 const PREFIX = 'SharedAddEmail';
 
@@ -62,7 +63,10 @@ const Root = styled('div')((
   },
 
   [`& .${classes.add}`]: {
+    height: '40px',
+    padding: '12px 26px 11px 27px',
     fontWeight: '600',
+    fontSize: '14px',
   }
 }));
 
@@ -87,18 +91,18 @@ export default function SharedAddEmail() {
 
   const addValue = (event: any) => {
     const values = value.split(', ');
-    // const err = !values.every((email) => validator.isEmail(email)
-    //   && !emails.includes(email)
-    //   && values.filter((item) => item === email).length === 1);
+    const err = !values.every((email) => validator.isEmail(email)
+      && !emails.includes(email)
+      && values.filter((item) => item === email).length === 1);
 
-    // if (err) {
-    //   setError(err);
-    // }
+    if (err) {
+      setError(err);
+    }
 
-    // if (value && !err) {
-    //   setEmails([...emails, ...value.split(', ')]);
-    //   clearValue();
-    // }
+    if (value && !err) {
+      setEmails([...emails, ...value.split(', ')]);
+      clearValue();
+    }
   };
 
   useEffect(() => {
@@ -116,7 +120,6 @@ export default function SharedAddEmail() {
           id: 'add-email',
           fullWidth: true,
           className: classes.input,
-
           startAdornment: (
             <InputAdornment className={classes.start} position="start">
               To:
@@ -139,7 +142,7 @@ export default function SharedAddEmail() {
                     className={classes.add}
                     onClick={addValue}
                     variant="text"
-                    color="secondary"
+                    color="primary"
                   >
                     {t('add')}
                   </Button>

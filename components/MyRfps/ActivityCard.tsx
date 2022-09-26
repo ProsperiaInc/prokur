@@ -72,7 +72,7 @@ export default function ActivityCard({ variant = 'primary' }) {
             Closing soon
           </Typography>
           <Typography variant="body2" mb='24px' maxWidth='300px' sx={{ color: '#4F4F4F' }}>
-            This RFP is closing soon and has not yet been assigned a winner.
+            This RFX is closing soon and has not yet been assigned a winner.
           </Typography>
         </CardContent>
         <Divider sx={{ marginRight: '16px', marginLeft: '16px' }} />

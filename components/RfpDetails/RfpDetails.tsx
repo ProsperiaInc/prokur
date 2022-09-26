@@ -16,7 +16,7 @@ import classes from './RfpDetails.module.css';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { useLazyGetCompanyDetailsQuery } from 'services/company';
-import { useLazyGetCompanyRfpsQuery, useLazyGetRfpAttachmentQuery, useLazyGetRfpQuery, useLazyGetRfpShareLinkQuery } from 'services/rfp';
+import { useLazyGetCompanyRfpsQuery, useLazyGetRfpAttachmentQuery, useLazyGetRfpQuery, useLazyGetRfpShareLinkQuery, useSetRfpShareEmailsMutation } from 'services/rfp';
 import clsx from 'clsx';
 import MenuButton from 'components/MenuButton/MenuButton';
 // import {
@@ -135,6 +135,7 @@ export default function RfpDetails() {
   const [getRfpAttachment, { data: rfpAttachments }] = useLazyGetRfpAttachmentQuery();
   const [getCompanyRfps] = useLazyGetCompanyRfpsQuery()
   const [getRfpShareLink] = useLazyGetRfpShareLinkQuery();
+  const [setRfpShareEmail, { isLoading: rfpShareLoading, data: rfpShareData, error: rfpShareError }] = useSetRfpShareEmailsMutation()
 
   useEffect(() => { rfpAttachments && setAttachments(rfpAttachments) }, [rfpAttachments])
 
@@ -170,7 +171,7 @@ export default function RfpDetails() {
   };
 
   const shareRfpToEmail = async (emails: string) => {
-    // dispatch(setSharedRfpEmails(rfpId, emails));
+    setRfpShareEmail({ rfpId, emails })
   }
 
   useEffect(() => {
@@ -343,6 +344,9 @@ export default function RfpDetails() {
         sharedLinkPassword={getSharedLinkPassword()}
         shareRfpToEmail={shareRfpToEmail}
         setSharedLinkPassword={setSharedLinkPassword}
+        rfpShareData={rfpShareData}
+        rfpShareError={rfpShareError}
+        rfpShareLoading={rfpShareLoading}
       />
     </div>
   );
