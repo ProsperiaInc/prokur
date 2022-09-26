@@ -61,8 +61,8 @@ const MuiAutocompleteInputText = (props: EnumCellProps & WithClassname) => {
     handleChange,
     schema
   } = props;
-  const enumSchema = findEnumSchema(schema.anyOf);
-  const stringSchema = findTextSchema(schema.anyOf);
+  const enumSchema = findEnumSchema(schema.anyOf as any);
+  const stringSchema = findTextSchema(schema.anyOf as any) as any;
   const maxLength = stringSchema.maxLength;
   const appliedUiSchemaOptions = useMemo(() => merge({}, config, uischema.options),[config, uischema.options]);
   const inputProps: InputBaseComponentProps = useMemo(() => {
@@ -80,7 +80,7 @@ const MuiAutocompleteInputText = (props: EnumCellProps & WithClassname) => {
 
   const dataList = (
     <datalist id={props.id + 'datalist'}>
-      {enumSchema.enum.map(optionValue => (
+      {(enumSchema as any).enum.map((optionValue: any) => (
         <option value={optionValue} key={optionValue} />
       ))}
     </datalist>
@@ -108,7 +108,7 @@ export class MaterialAnyOfStringOrEnumControl extends Control<
 > {
   render() {
     return (
-      <MaterialInputControl {...this.props} input={MuiAutocompleteInputText} />
+      <MaterialInputControl {...this.props as any} input={MuiAutocompleteInputText} />
     );
   }
 }
@@ -125,7 +125,7 @@ const hasEnumAndText = (schemas: JsonSchema[]) => {
 const simpleAnyOf = and(
   uiTypeIs('Control'),
   schemaMatches(
-    schema => schema.hasOwnProperty('anyOf') && hasEnumAndText(schema.anyOf)
+    schema => (schema as any).hasOwnProperty('anyOf') && hasEnumAndText((schema as any).anyOf)
   )
 );
 export const materialAnyOfStringOrEnumControlTester: RankedTester = rankWith(

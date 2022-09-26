@@ -29,7 +29,7 @@ import { UnknownRenderer, withJsonFormsDispatchCellProps } from '@jsonforms/reac
 /**
  * Dispatch renderer component for cells.
  */
-export const Dispatch = ({uischema, schema, rootSchema, path, cells, id, enabled, renderers, config }) => {
+export const Dispatch = ({ uischema, schema, rootSchema, path, cells, id, enabled, renderers, config }: any) => {
   const testerContext = useMemo(
     () => ({
       rootSchema: rootSchema,
@@ -38,7 +38,7 @@ export const Dispatch = ({uischema, schema, rootSchema, path, cells, id, enabled
     [rootSchema, config]
   );
   const cell = useMemo(
-    () => maxBy(cells, r => r.tester(uischema, schema, testerContext)),
+    () => maxBy(cells, (r: any) => r.tester(uischema, schema, testerContext)),
     [cells, uischema, schema, testerContext]
   );
   if (cell === undefined || cell.tester(uischema, schema, testerContext) === -1) {

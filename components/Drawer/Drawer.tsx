@@ -150,7 +150,7 @@ const Drawer = (
           { label: 'Responses', icon: <TiArrowSync /> },
           { label: 'Products & Services', icon: <BiPackage /> },
           { label: 'Dashboard', icon: <BsGrid /> }
-        ].map(({ icon, label, href }, index) => (
+        ].map(({ icon, label, href }: any, index) => (
           <Link href={href || '/'}>
             <ListItem key={label} disablePadding>
               <StyledListItemButton active={href === pathname} disableRipple>

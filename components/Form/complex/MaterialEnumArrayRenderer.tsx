@@ -41,7 +41,7 @@ export const MaterialEnumArrayRenderer = ({
     <Hidden xlUp={!visible}>
       <FormControl component='fieldset'>
         <FormGroup row>
-          {options.map((option: any, index: number) => {
+          {(options as any).map((option: any, index: number) => {
             const optionPath = Paths.compose(path, `${index}`);
             const checkboxValue = data?.includes(option.value)
               ? option.value
@@ -58,7 +58,7 @@ export const MaterialEnumArrayRenderer = ({
                     handleChange={(_childPath, newValue) =>
                       newValue
                         ? addItem(path, option.value)
-                        : removeItem(path, option.value)
+                        : (removeItem && removeItem(path, option.value))
                     }
                     data={checkboxValue}
                     errors={errors}

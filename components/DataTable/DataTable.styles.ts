@@ -14,7 +14,7 @@ const classes = {
   row: `${PREFIX}-row`,
 }
 
-const Root = styled('div')(({ theme, sortedCell }) => {
+const Root = styled('div')(({ theme, sortedCell }: any) => {
   return {
     height: 400,
     width: '100%',

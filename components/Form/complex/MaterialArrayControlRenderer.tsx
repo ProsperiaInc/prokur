@@ -31,7 +31,7 @@ import { DeleteDialog } from './DeleteDialog';
 
 export const MaterialArrayControlRenderer = (props: any) => {
   const [open, setOpen] = useState(false);
-  const [path, setPath] = useState(undefined);
+  const [path, setPath] = useState<any>(undefined);
   const [rowData, setRowData] = useState(undefined);
   const { removeItems, visible } = props;
 

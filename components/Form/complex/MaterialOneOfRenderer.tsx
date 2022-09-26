@@ -66,7 +66,7 @@ export const MaterialOneOfRenderer =
       setOpen(false);
     }, [setOpen]);
     const oneOfRenderInfos = createCombinatorRenderInfos(
-      (schema as JsonSchema).oneOf,
+      (schema as any).oneOf,
       rootSchema,
       'oneOf',
       uischema,

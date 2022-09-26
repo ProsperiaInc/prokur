@@ -22,6 +22,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
+
 import isEmpty from 'lodash/isEmpty';
 import union from 'lodash/union';
 import { useJsonForms } from '@jsonforms/react';
@@ -98,11 +99,11 @@ const styles = {
 };
 
 const generateCells = (
-  Cell,
-  schema,
-  rowPath,
-  enabled,
-  cells,
+  Cell: any,
+  schema: any,
+  rowPath: any,
+  enabled: any,
+  cells: any,
 ) => {
   if (schema.type === 'object') {
     return getValidColumnProps(schema).map(prop => {
@@ -130,7 +131,7 @@ const generateCells = (
   }
 };
 
-const getValidColumnProps = (scopedSchema) => {
+const getValidColumnProps = (scopedSchema: any) => {
   if (scopedSchema.type === 'object' && typeof scopedSchema.properties === 'object') {
     return Object.keys(scopedSchema.properties).filter(
       prop => scopedSchema.properties[prop].type !== 'array'
@@ -140,7 +141,7 @@ const getValidColumnProps = (scopedSchema) => {
   return [''];
 };
 
-const EmptyTable = ({ numColumns }) => (
+const EmptyTable = ({ numColumns }: any) => (
   <TableRow>
     <NoBorderTableCell colSpan={numColumns}>
       <Typography align='center'>No data</Typography>
@@ -149,24 +150,25 @@ const EmptyTable = ({ numColumns }) => (
 );
 
 
-const TableHeaderCell = React.memo(({ title }) => (
+const TableHeaderCell = React.memo(({ title }: any) => (
   <BorderlessTableCell sx={{ borderBottom: 0 }} >{title}</BorderlessTableCell>
 ));
 
 const ctxToNonEmptyCellProps = (
-  ctx,
-  ownProps
+  ctx: any,
+  ownProps: any
 ) => {
   const path =
     ownProps.rowPath +
     (ownProps.schema.type === 'object' ? '.' + ownProps.propName : '');
   const errors = formatErrorMessage(
     union(
-      errorsAt(
-        path,
-        ownProps.schema,
-        p => p === path
-      )(ctx.core.errors).map((error) => error.message)
+      (
+        errorsAt(
+          path as any,
+          ownProps.schema as any,
+          p => p === path
+        )(ctx.core.errors) as any).map((error: any) => error.message)
     )
   );
   return {
@@ -182,13 +184,13 @@ const ctxToNonEmptyCellProps = (
   };
 };
 
-const controlWithLabel = (scope) => ({
+const controlWithLabel = (scope: any) => ({
   type: 'Control',
   scope: scope,
   variant: 'outlined'
 })
 
-const NonEmptyCellComponent = React.memo(({path, propName, schema, rootSchema, errors, enabled, renderers, cells, isValid}) => {
+const NonEmptyCellComponent = React.memo(({ path, propName, schema, rootSchema, errors, enabled, renderers, cells, isValid }: any) => {
   return (
     <NoBorderTableCell sx={{ paddingLeft: '0px', paddingTop: '16px', paddingBottom: '0' }}>
       {schema.properties ? (
@@ -198,7 +200,7 @@ const NonEmptyCellComponent = React.memo(({path, propName, schema, rootSchema, e
             `#/properties/${encode(propName)}`,
             rootSchema
           )}
-          uischema={controlWithLabel(`#/properties/${encode(propName)}`)}
+          uischema={controlWithLabel(`#/properties/${encode(propName)}`) as any}
           path={path}
           enabled={enabled}
           renderers={renderers}
@@ -207,7 +209,7 @@ const NonEmptyCellComponent = React.memo(({path, propName, schema, rootSchema, e
       ) : (
         <DispatchCell
           schema={schema}
-          uischema={controlWithLabel('#')}
+          uischema={controlWithLabel('#') as any}
           path={path}
           enabled={enabled}
           renderers={renderers}
@@ -219,7 +221,7 @@ const NonEmptyCellComponent = React.memo(({path, propName, schema, rootSchema, e
   );
 });
 
-const NonEmptyCell = (ownProps) => {
+const NonEmptyCell = (ownProps: any) => {
   const ctx = useJsonForms();
   const emptyCellProps = ctxToNonEmptyCellProps(ctx, ownProps);
 
@@ -242,7 +244,7 @@ const NonEmptyRowComponent =
     enabled,
     cells,
     path
-  }) => {
+  }: any) => {
     const moveUp = useMemo(() => moveUpCreator(path, rowIndex),[moveUpCreator, path, rowIndex]);
     const moveDown = useMemo(() => moveDownCreator(path, rowIndex),[moveDownCreator, path, rowIndex]);
     return (
@@ -305,7 +307,7 @@ const TableRows = ({
   config,
   enabled,
   cells
-}) => {
+}: any) => {
   const isEmptyTable = data === 0;
 
   if (isEmptyTable) {
@@ -342,7 +344,7 @@ const TableRows = ({
 };
 
 export class MaterialTableControl extends React.Component {
-  addItem = (path, value) => this.props.addItem(path, value);
+  addItem = (path: any, value: any) => (this.props as any).addItem(path, value);
   render() {
     const {
       label,
@@ -358,7 +360,7 @@ export class MaterialTableControl extends React.Component {
       cells,
       id,
       config
-    } = this.props;
+    } = this.props as any;
 
     const appliedUiSchemaOptions = merge({}, config, uischema.options);
     const controlElement = uischema;

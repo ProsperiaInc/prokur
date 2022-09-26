@@ -63,14 +63,14 @@ export const MaterialListWithDetailRenderer = ({
   config,
   rootSchema
 }: ArrayLayoutProps) => {
-  const [selectedIndex, setSelectedIndex] = useState(undefined);
+  const [selectedIndex, setSelectedIndex] = useState<number | undefined>(undefined);
   const handleRemoveItem = useCallback(
     (p: string, value: any) => () => {
-      removeItems(p, [value])();
+      removeItems && removeItems(p, [value])();
       if (selectedIndex === value) {
         setSelectedIndex(undefined);
-      } else if (selectedIndex > value) {
-        setSelectedIndex(selectedIndex - 1);
+      } else if (typeof selectedIndex === 'number' && selectedIndex > value) {
+        selectedIndex !== undefined && typeof selectedIndex === 'number' && setSelectedIndex(selectedIndex - 1);
       }
     },
     [removeItems, setSelectedIndex]
@@ -86,7 +86,7 @@ export const MaterialListWithDetailRenderer = ({
   const foundUISchema = useMemo(
     () =>
       findUISchema(
-        uischemas,
+        uischemas as any,
         schema,
         uischema.scope,
         path,
@@ -103,7 +103,7 @@ export const MaterialListWithDetailRenderer = ({
       <ArrayLayoutToolbar
         label={computeLabel(
           label,
-          required,
+          required as any,
           appliedUiSchemaOptions.hideRequiredAsterisk
         )}
         errors={errors}

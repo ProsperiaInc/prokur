@@ -46,4 +46,4 @@ export const materialNumberFormatCellTester: RankedTester = rankWith(
   isNumberFormatControl
 );
 
-export default withJsonFormsCellProps(MaterialNumberFormatCell);
+export default withJsonFormsCellProps(MaterialNumberFormatCell as any);

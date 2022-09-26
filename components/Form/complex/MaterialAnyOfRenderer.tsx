@@ -54,7 +54,7 @@ export const MaterialAnyOfRenderer = ({
   );
   const anyOf = 'anyOf';
   const anyOfRenderInfos = createCombinatorRenderInfos(
-    (schema as JsonSchema).anyOf,
+    (schema as any).anyOf,
     rootSchema,
     anyOf,
     uischema,

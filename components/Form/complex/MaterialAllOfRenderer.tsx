@@ -65,7 +65,7 @@ export const MaterialAllOfRenderer = ({
     );
   }
   const allOfRenderInfos = createCombinatorRenderInfos(
-    (schema as JsonSchema).allOf,
+    (schema as any).allOf,
     rootSchema,
     'allOf',
     uischema,

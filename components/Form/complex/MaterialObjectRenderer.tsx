@@ -50,7 +50,7 @@ export const MaterialObjectRenderer = ({
   const detailUiSchema = useMemo(
     () =>
       findUISchema(
-        uischemas,
+        uischemas as any,
         schema,
         uischema.scope,
         path,
