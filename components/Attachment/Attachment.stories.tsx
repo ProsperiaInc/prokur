@@ -7,6 +7,6 @@ export default {
   component: Attachment,
 };
 
-const Template = (args) => <Attachment {...args} />;
+const Template = (args: any) => <Attachment {...args} />;
 
 export const Default = Template.bind({});
