@@ -16,28 +16,23 @@ const Login = () => {
   const isLoading = status === QueryStatus.pending
 
   return (
-    <Grid container alignItems='center'>
-      <Grid className='image-container' item md={5}>
-        <LoginImage />
-      </Grid>
-      <Grid flexDirection='column' container item md={7} sx={{ padding: '30px' }}>
-        <Box height='100px' sx={{ width: '100%', maxWidth: '500px', margin: '50px auto' }}>
-          <Grid item justifyContent='center' alignItems='center' >
-            <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600}>{t('login.subheader')}</Typography>
-            <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}>{t('login.header')}</Typography>
-            <Grid container columnSpacing='10'>
-              <Grid item><Typography>{t('login.text')}</Typography></Grid>
-              <Grid item><CTA href='/signup'>{t('login.cta')}</CTA></Grid>
-            </Grid>
-          </Grid>
-        </Box>
-        <Box sx={{ width: '100%', maxWidth: '500px', margin: '0 auto' }}>
-          <LoginForm 
-            onSubmit={login}
-            isLoading={isLoading}
-          />
-        </Box>
-      </Grid>
+    <Grid
+      container
+      alignItems='center'
+      sx={{ background: '#f3f5fd', height: '100%' }}
+    >
+      <Box sx={{ width: '100%', maxWidth: '500px', margin: '50px auto', background: 'white', padding: '53px 98px' }}>
+        <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600}  marginBottom='16px'>{t('login.subheader')}</Typography>
+        <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}  marginBottom='14px'>{t('login.header')}</Typography>
+        <Grid container columnSpacing='10' marginBottom='30px'>
+          <Grid item><Typography>{t('login.text')}</Typography></Grid>
+          <Grid item><CTA href='/signup'>{t('login.cta')}</CTA></Grid>
+        </Grid>
+        <LoginForm 
+          onSubmit={login}
+          isLoading={isLoading}
+        />
+      </Box>
     </Grid>
   )
 };

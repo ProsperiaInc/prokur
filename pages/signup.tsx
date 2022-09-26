@@ -6,6 +6,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import CTA from 'components/CTA/CTA';
 import SignupForm from 'components/SignupForm/SignupForm';
 import { useSignupMutation } from 'services/auth';
+import Dashboard from './dashboard_wrapper';
+import Header from 'components/Header/Header';
 
 const Signup = () => {
   const { t } = useTranslation('common');
@@ -14,26 +16,32 @@ const Signup = () => {
   const onSubmit = (data: any) => signup(data)
 
   return (
-    <Grid container alignItems='center'>
-      <Grid className='image-container' item md={5}>
-        <LoginImage />
-      </Grid>
-      <Grid flexDirection='column' container item md={7} sx={{ padding: '30px' }}>
-        <Box height='100px' sx={{ width: '100%', maxWidth: '500px', margin: '50px auto' }}>
-          <Grid item justifyContent='center' alignItems='center' >
-            <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600}>{t('signup.subheader')}</Typography>
-            <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}>{t('signup.header')}</Typography>
-            <Grid container columnSpacing='10'>
-              <Grid item><Typography>{t('signup.text')}</Typography></Grid>
-              <Grid item><CTA href='/login'>{t('signup.cta')}</CTA></Grid>
-            </Grid>
+    <>
+      <Header
+        withLogo
+        drawerWidth={0}
+      />
+      {/* <Box
+        sx={{ background: '#fff', height: '60px' }}
+      >
+        <Typography variant='h3'>Connecting businesses via simplified procurement</Typography>
+      </Box> */}
+      <Grid
+        container
+        alignItems='center' 
+        sx={{ background: '#f3f5fd', height: '100%' }}
+      >
+        <Box sx={{ width: '100%', maxWidth: '500px', margin: '50px auto', background: 'white', padding: '53px 98px' }}>
+          <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600} marginBottom='16px'>{t('signup.subheader')}</Typography>
+          <Typography variant='h5' fontWeight={600} marginBottom='14px'>{t('signup.header')}</Typography>
+          <Grid container columnSpacing='4' marginBottom='30px'>
+            <Grid item><Typography sx={{ fontWeight: 'bold', color: '#6c6c6c' }}  >{t('signup.text')}</Typography></Grid>
+            <Grid item><CTA sx={{ minWidth: '50px' }} href='/login'>{t('signup.cta')}</CTA></Grid>
           </Grid>
-        </Box>
-        <Box sx={{ width: '100%', maxWidth: '500px', margin: '0 auto' }}>
           <SignupForm onSubmit={onSubmit} isLoading={isLoading} />
         </Box>
       </Grid>
-    </Grid>
+    </>
   )
 };
 

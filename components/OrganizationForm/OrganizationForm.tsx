@@ -30,10 +30,10 @@ const StyledChip = styled(Chip)(({ theme }: any) => `
 `)
 
 
-const OrganizationForm = ({ onRegisterCompany }: any) => {
-  const organizationFound = true
+const OrganizationForm = ({ onRegisterCompany, user }: any) => {
   const { t } = useTranslation('common')
-  const key = organizationFound ? 'found' : 'not_found'
+  const { desired_company_name } = user || {}
+  const key = !!desired_company_name ? 'found' : 'not_found'
 
   return (
     <Grid container>
@@ -43,23 +43,27 @@ const OrganizationForm = ({ onRegisterCompany }: any) => {
       <Grid container justifyContent='center' sx={{ marginBottom: '95px' }}>
         <Typography variant='body1' color='#4f4f4f'>{t(`organization.${key}.subtitle`)}</Typography>
       </Grid>
-      <Grid container justifyContent='center'>
-        <StyledList>
-          <ListItem secondaryAction={<Typography variant='body2' sx={{ color: 'rgba(0, 0, 0, 0.6)' }}>{t(`organization.sendJoinRequest`)}</Typography>}>
-            <ListItemAvatar><Avatar>{" "}</Avatar></ListItemAvatar>
-            <ListItemText primary="Company name" secondary='companyOwner@companydomain.com' />
-          </ListItem>
-        </StyledList>
-      </Grid>
-      <Grid container justifyContent='center'>
-        <StyledList onClick={onRegisterCompany}>
-          <ListItem secondaryAction={
-            <StyledChip variant="outlined" color="secondary" size="small" label='+' />
-          }>
-            <ListItemText primary="Register “Elite Technology”" />
-          </ListItem>
-        </StyledList>
-      </Grid>
+      {/* {desired_company_name && (
+        <Grid container justifyContent='center'>
+          <StyledList>
+            <ListItem secondaryAction={<Typography variant='body2' sx={{ color: 'rgba(0, 0, 0, 0.6)' }}>{t(`organization.sendJoinRequest`)}</Typography>}>
+              <ListItemAvatar><Avatar>{" "}</Avatar></ListItemAvatar>
+              <ListItemText primary="Company name" secondary='companyOwner@companydomain.com' />
+            </ListItem>
+          </StyledList>
+        </Grid>
+      )} */}
+      {desired_company_name && (
+        <Grid container justifyContent='center'>
+          <StyledList onClick={onRegisterCompany}>
+            <ListItem secondaryAction={
+              <StyledChip variant="outlined" color="secondary" size="small" label='+' />
+            }>
+              <ListItemText primary={`Register ${desired_company_name}`} />
+            </ListItem>
+          </StyledList>
+        </Grid>
+      )}
     </Grid>
   )
 }

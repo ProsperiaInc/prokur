@@ -24,15 +24,66 @@
 */
 import isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import { Card, CardContent, CardHeader, Grid, Hidden } from '@mui/material';
-import { withJsonFormsLayoutProps } from '@jsonforms/react';
-import { rankWith, uiTypeIs, withIncreasedRank } from '@jsonforms/core';
+import { Button, Card, CardContent, CardHeader, Grid, Hidden } from '@mui/material';
+import { withJsonFormsContext, withJsonFormsLayoutProps } from '@jsonforms/react';
+import { composePaths, createDefaultValue, getFirstPrimitiveProp, rankWith, Resolve, uiTypeIs, update, withIncreasedRank } from '@jsonforms/core';
 import { MaterialLayoutRenderer } from '@jsonforms/material-renderers';
+import { get, merge } from 'lodash';
+
+export interface DispatchPropsOfArrayControl {
+  addItem(to: string, from: string, value: any): () => void;
+}
+
+export const ctxDispatchToArrayProps: (dispatch: any) => DispatchPropsOfArrayControl = dispatch => ({
+  addItem: (to: string, from: string, value: any) => () => {
+    dispatch(
+      update(to, array => {
+        if (array === undefined || array === null) {
+          return [value];
+        }
+        array.push(value);
+        return array;
+      })
+    );
+    dispatch(
+      update(from, () => ({}))
+    )
+  }
+});
+
+export const withContextToArrayProps = (Component: any): any => ({ ctx, props }: any) => {
+  const dispatchProps = ctxDispatchToArrayProps(ctx.dispatch);  
+  const { childLabelProp, schema, path, index, uischemas } = props;
+  const childPath = composePaths(path, `${index}`);
+  const childData = Resolve.data(ctx.core.data, childPath);
+  const childLabel = childLabelProp
+    ? get(childData, childLabelProp, '')
+    : get(childData, getFirstPrimitiveProp(schema), '');
+
+  return (
+    <Component
+      {...props}
+      {...dispatchProps}
+      childLabel={childLabel}
+      childPath={childPath}
+      uischemas={uischemas}
+    />
+  );
+};
+
+export const withJsonFormsArrayProps = (
+  Component: any
+): any =>
+  withJsonFormsContext(
+    withContextToArrayProps(Component));
 
 export const groupTester = rankWith(1, uiTypeIs('Group'));
 const style = { marginBottom: '10px', border: '0', display: 'flex', width: '100%' };
 
-const GroupComponent = React.memo(({ visible, enabled, uischema, label, ...props }: any) => {
+const GroupComponent = React.memo(({ visible, enabled, schema, uischema, config, path, label, data, ...props }: any) => {
+  const appliedUiSchemaOptions = merge({}, config, uischema.options);
+  const addItem = () => appliedUiSchemaOptions.addTo && appliedUiSchemaOptions.addFrom && props.addItem(appliedUiSchemaOptions.addTo, appliedUiSchemaOptions.addFrom, data[appliedUiSchemaOptions.addFrom])
+
   const groupLayout = uischema;
   return (
     <Hidden xsUp={!visible}>
@@ -46,6 +97,17 @@ const GroupComponent = React.memo(({ visible, enabled, uischema, label, ...props
           <Grid item xs={12} lg={8}>
             <CardContent>
               <MaterialLayoutRenderer {...props} visible={visible} enabled={enabled} elements={groupLayout.elements} />
+              {!!appliedUiSchemaOptions.showAddButton ? (
+                <Button
+                  variant="outlined"
+                  onClick={addItem()}
+                  // color="primary"
+                  // disabled={activeCategory >= categories.length - 1}
+                  // onClick={() => handleStep(activeCategory + 1)}
+                >
+                  Add member
+                </Button>
+              ) : (<></>)}
             </CardContent>
           </Grid>
         </Grid>
@@ -54,7 +116,7 @@ const GroupComponent = React.memo(({ visible, enabled, uischema, label, ...props
   );
 });
 
-export const MaterializedGroupLayoutRenderer = ({ uischema, schema, path, visible, enabled, renderers, cells, direction, label } : any) => {
+export const MaterializedGroupLayoutRenderer = ({ uischema, schema, path, visible, enabled, renderers, cells, direction, addItem, label, data } : any) => {
   const groupLayout = uischema;
   return (
     <GroupComponent
@@ -68,11 +130,13 @@ export const MaterializedGroupLayoutRenderer = ({ uischema, schema, path, visibl
       renderers={renderers}
       cells={cells}
       label={label}
+      addItem={addItem}
+      data={data}
     />
   );
 };
 
-export default withJsonFormsLayoutProps(MaterializedGroupLayoutRenderer);
+export default withJsonFormsLayoutProps(withJsonFormsContext(withContextToArrayProps(MaterializedGroupLayoutRenderer)));
 
 export const materialGroupTester = withIncreasedRank(
   1,

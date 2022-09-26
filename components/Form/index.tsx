@@ -63,6 +63,8 @@ import {
 import {
   MaterialArrayLayout,
   materialArrayLayoutTester,
+  materialCardArrayLayoutTester,
+  MaterialCardArrayLayoutRenderer,
   MaterialCategorizationLayout,
   materialCategorizationTester,
   MaterialGroupLayout,
@@ -133,6 +135,7 @@ const renderers: JsonFormsRendererRegistryEntry[] = [
   { tester: materialCategorizationTester, renderer: MaterialCategorizationLayout },
   { tester: materialCategorizationStepperTester, renderer: MaterialCategorizationStepperLayout },
   { tester: materialArrayLayoutTester, renderer: MaterialArrayLayout },
+  { tester: materialCardArrayLayoutTester, renderer: MaterialCardArrayLayoutRenderer },
   // additional
   { tester: materialLabelRendererTester, renderer: MaterialLabelRenderer },
   { tester: materialListWithDetailTester, renderer: MaterialListWithDetailRenderer },

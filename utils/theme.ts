@@ -17,7 +17,7 @@ const light = createTheme({
     },
     error: {
       main: '#F96A10'
-    },
+    }
   },
   typography: {
     fontFamily: ['Lato', 'sans-serif'].join(','),

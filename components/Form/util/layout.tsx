@@ -73,7 +73,7 @@ const MaterialLayoutRendererComponent =
     direction,
     renderers,
     cells
-  }: MaterialLayoutRendererProps) => {
+  }: MaterialLayoutRendererProps) => {    
     if (isEmpty(elements)) {
       return null;
     } else {

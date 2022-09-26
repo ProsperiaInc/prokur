@@ -3,10 +3,13 @@ import { COUNTRIES_LIST } from 'utils/constants'
 export default {
   "type": "object",
   "properties": {
-    "firstName": {
+    "first_name": {
       "type": "string"
     },
-    "lastName": {
+    "last_name": {
+      "type": "string"
+    },
+    "company_name": {
       "type": "string"
     },
     "email": {
@@ -23,8 +26,9 @@ export default {
     }
   },
   "required": [
-    "firstName",
-    "lastName",
+    "first_name",
+    "last_name",
+    "company_name",
     "email",
     "country",
     "password"

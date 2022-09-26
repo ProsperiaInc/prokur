@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
-import { Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import { VerticalStepper } from 'components/VerticalStepper/VerticalStepper'
 import PageHeader from 'components/PageHeader/PageHeader'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,8 +8,8 @@ import Form from 'components/Form'
 import schema from 'forms/rfp/editor/schema'
 import uischema from 'forms/rfp/editor/uischema'
 import { selectForm, setForm } from 'store/features/forms/formsSlice'
-import { selectUser } from 'store/features/auth/authSlice'
-import RFPViewer from 'components/RfpViewer/RfpViewer'
+import { useSaveRfpMutation } from 'services/rfp'
+import { useRouter } from 'next/router'
 
 const FORM_NAME = 'rfp_editor'
 
@@ -48,14 +48,20 @@ const steps = [
   }
 ]
 
-export default function RfpEditor({ id, categories, initialData }: any) {
+export default function RfpEditor({ id, categories, initialData, viewRfp }: any) {
   const { data, ...rest } = useSelector(selectForm(FORM_NAME))
-  const user = useSelector(selectUser)
   const dispatch = useDispatch()
-  // const [saveRfpMutation] = useSaveRfpMutation()
+  const router = useRouter()
+  const [saveRfpMutation, { data: saveRfpData }] = useSaveRfpMutation()
   const [isSummary, setIsSummary] = useState(false)
+  // const onSubmit = () => viewRfp()
   const onSubmit = () => {
-    setIsSummary(true)
+    const formData = { ...data }
+    formData.tags = data.tagsTags
+    formData.budget = data.budgetCurrency
+    delete formData.tagsTags
+    delete formData.budgetCurrency
+    saveRfpMutation(formData)
     // saveRfpMutation({
     //   "name": "Template 1",
     //   "template": {
@@ -120,6 +126,10 @@ export default function RfpEditor({ id, categories, initialData }: any) {
   }
 
   useEffect(() => {
+    if(saveRfpData) router.push(saveRfpData.id)
+  }, [saveRfpData])
+
+  useEffect(() => {
     dispatch(
       setForm({
         rfp_editor: {
@@ -168,27 +178,6 @@ export default function RfpEditor({ id, categories, initialData }: any) {
                 )}
               </VerticalStepper>
             )}
-          </>
-        )}
-        {isSummary && (
-          <>
-            <RFPViewer
-              data={{
-                created_by: user,
-                company: user?.company,
-                fieldData: data
-              }}
-              isLoading={false}
-            />
-            <Grid container justifyContent='space-between'>
-              <Grid container item md={6} xs={12} alignItems='center' justifyContent='flex-start'>
-                <Button variant='outlined' sx={{ margin: '10px 0' }}>Back</Button>
-              </Grid>
-              <Grid item container md={6} xs={12} justifyContent={{ xs: 'flex-start', md: 'flex-end' }} flexDirection={{ xs: 'column-reverse', md: 'row' }}>
-                <Button sx={{ margin: '10px' }}>Save draft</Button>
-                <Button variant="contained" sx={{ margin: '10px 0' }}>Finish</Button>
-              </Grid>
-            </Grid>
           </>
         )}
       </Grid>

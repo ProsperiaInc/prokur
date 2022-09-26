@@ -184,8 +184,6 @@ export default function RfpDetails() {
   const renderSectionTitle = (title: string) => <Typography variant="h6">{title}</Typography>;
 
   const renderAttachment = (item: any, index: any) => {
-    console.warn({ item, index });
-
     return (
       <div key={`${index} - ${item.name}`} className={classes["rfp-details-attachments-attachment"]}>
         <a target="_blank" rel="noreferrer" href={item.file_url} download={item.name}>
@@ -230,7 +228,7 @@ export default function RfpDetails() {
     <div className={clsx(classes['rfp-details-about'], classes['section'])}>
       {renderSectionTitle(t('about_of', { name: company.legal_name }))}
       <div className={classes['rfp-details-about-info']}>
-        <Link href={ROUTES.DASHBOARD_BUSINESS_ACCOUNT}>
+        <Link>
           {company.logo_url ? (
             <img src={company.logo_url} alt="logo" />
           ) : (
@@ -241,7 +239,7 @@ export default function RfpDetails() {
         </Link>
         <div>
           <div className={classes['rfp-details-about-info-row']}>
-            <Link className={classes['rfp-details-about-info-name']} href={ROUTES.DASHBOARD_BUSINESS_ACCOUNT}>
+            <Link className={classes['rfp-details-about-info-name']}>
               <p>{company.legal_name}</p>
             </Link>
             {company.category?.name && company.secondary_category?.name && (

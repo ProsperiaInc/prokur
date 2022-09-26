@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DropzoneArea } from 'material-ui-dropzone';
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@mui/material';
 import { MdClose } from 'react-icons/md'
 import CustomIcon from '../CustomIcon/CustomIcon';
 import { fieldType } from 'utils/commonPropTypes';
@@ -67,7 +67,7 @@ export default function SwipeableAttachment({
 
     onChange({
       target: {
-        name: `${name}File`,
+        name: `${name}_file`,
         value: valuesFile,
       },
     });
@@ -88,19 +88,22 @@ export default function SwipeableAttachment({
     </>
   );
 
-  const renderValue = (el: any, index: any) => (
-    <SwiperSlide key={el}>
-      <IconButton color="secondary" onClick={() => handleDelete(index)}>
-        <MdClose />
-      </IconButton>
-      {type === 'image' && <img src={el} alt="thumbail" />}
-      {type === 'video' && (
-        <video controls muted>
-          <source src={el} type="video/mp4" />
-        </video>
-      )}
-    </SwiperSlide>
-  )
+  const renderValue = (el: any, index: any) => {
+    const url = URL.createObjectURL(el);
+    return (
+      <SwiperSlide key={url}>
+        <IconButton color="secondary" onClick={() => handleDelete(index)}>
+          <MdClose />
+        </IconButton>
+        {type === 'image' && <img src={url} alt="thumbail" />}
+        {type === 'video' && (
+          <video controls muted>
+            <source src={url} type="video/mp4" />
+          </video>
+        )}
+      </SwiperSlide>
+    )
+  }
 
   return (
     <div className="swipeable-attachment">

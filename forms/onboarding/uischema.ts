@@ -1,184 +1,110 @@
-export default [
-  {
-    "type": "VerticalLayout",
-    "elements": [
-      {
-        "type": "Group",
-        "label": "Company details",
-        "elements": [
-          {
-            "type": "VerticalLayout",
-            "elements": [
-              {
-                "type": "HorizontalLayout",
-                "elements": [
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/companyName"
-                  },
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/title"
-                  }
-                ]
-              },
-              {
-                "type": "HorizontalLayout",
-                "elements": [
-                  {
-                    "type": "Control",
-                    "label": "Prokur Public URL",
-                    "scope": "#/properties/url"
-                  },
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/publicURL"
-                  }
-                ]
-              },
-              {
-                "type": "HorizontalLayout",
-                "elements": [
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/industryCategory"
-                  },
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/businessId"
-                  }
-                ]
-              },
-              {
-                "type": "Control",
-                "scope": "#/properties/companySize",
-                "options": {
-                  "format": "radio",
-                  "enum_titles": [
-                    "Less than 250",
-                    "Less than 500",
-                    "Less than 1,000",
-                    "More than 1,000"
-                  ]
+export default {
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Group",
+      "label": "Company details",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "label": "Company name",
+                  "scope": "#/properties/legal_name"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/title"
                 }
-              },
-              {
-                "type": "Control",
-                "scope": "#/properties/companyType",
-                "options": {
-                  "format": "radio",
-                  "enum_titles": [
-                    "Private",
-                    "Public",
-                    "Non-profit",
-                    "Government"
-                  ]
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "label": "Prokur Public URL",
+                  "scope": "#/properties/slug"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/publicURL"
                 }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "Group",
-        "label": "Company identity",
-        "elements": [
-          {
-            "type": "VerticalLayout",
-            "elements": [
-              {
-                "type": "Control",
-                "scope": "#/properties/companyTagLine"
-              },
-              {
-                "type": "Control",
-                "scope": "#/properties/companyDescription",
-                "options": {
-                  "multi": true,
-                  "rows": 5
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/industryCategory"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/businessId"
                 }
-              },
-              {
-                "type": "Control",
-                "scope": "#/properties/fileMediaUpload"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "VerticalLayout",
-    "elements": [
-      {
-        "type": "Group",
-        "label": "Add new members",
-        "elements": [
-          {
-            "type": "VerticalLayout",
-            "elements": [
-              {
-                "type": "HorizontalLayout",
-                "elements": [
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/firstName"
-                  },
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/lastName"
-                  }
-                ]
-              },
-              {
-                "type": "HorizontalLayout",
-                "elements": [
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/email"
-                  },
-                  {
-                    "type": "Control",
-                    "scope": "#/properties/role"
-                  }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/companySize",
+              "options": {
+                "format": "radio",
+                "enum_titles": [
+                  "Less than 250",
+                  "Less than 500",
+                  "Less than 1,000",
+                  "More than 1,000"
                 ]
               }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "Group",
-        "label": "Current members",
-        "elements": [
-          {
-            "type": "VerticalLayout",
-            "elements": [
-              {
-                "type": "Control",
-                "scope": "#/properties/members",
-                "options": {
-                  "elementLabelProp": "email",
-                  "detail": {
-                    "type": "VerticalLayout",
-                    "elements": [
-                      {
-                        "type": "Control",
-                        "scope": "#/properties/email",
-                      },
-                      {
-                        "type": "Control",
-                        "scope": "#/properties/role"
-                      }
-                    ]
-                  }
-                }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/companyType",
+              "options": {
+                "format": "radio",
+                "enum_titles": [
+                  "Private",
+                  "Public",
+                  "Non-profit",
+                  "Government"
+                ]
               }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Group",
+      "label": "Company identity",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/companyTagLine"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/companyDescription",
+              "options": {
+                "multi": true,
+                "rows": 5
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/fileMediaUpload"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

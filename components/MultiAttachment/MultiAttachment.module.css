@@ -11,6 +11,13 @@
   color: #6980A5;
   border: 1px dashed #6980A5 !important;
   border-radius: 4px !important;
+  cursor: pointer;
+  transition: opacity .6s;
+}
+
+.MultiAttachment-container-component:hover {
+  opacity: .7;
+  transition: opacity .6s;
 }
 
 .MultiAttachment-container-text, .MultiAttachment-container-subtext {
@@ -79,4 +86,14 @@
 .MultiAttachment-single-file-container-loading {
   display: flex;
   justify-content: center;
+}
+
+.MultiAttachment-remove-fab {
+  transition: .5s ease;
+  width: 40px;
+  height: 40px;
+  box-shadow: none;
+  background: transparent;
+  font-size: 1.75rem;
+  color: #F96A10;
 }

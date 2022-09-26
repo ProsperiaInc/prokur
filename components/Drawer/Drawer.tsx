@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { MdMoveToInbox, MdOutlineDescription, MdSaveAlt, MdSettings } from "react-icons/md";
+import { TiArrowSync } from 'react-icons/ti'
 import logo from 'assets/images/prokur-logo.png';
 import styled from "@emotion/styled";
 import Link from "next/link";
@@ -143,10 +144,29 @@ const Drawer = (
           </Link>
         ))}
       </List>
+      <Divider />
+      <List>
+        {[
+          { label: 'Responses', icon: <TiArrowSync /> },
+          { label: 'Products & Services', icon: <BiPackage /> },
+          { label: 'Dashboard', icon: <BsGrid /> }
+        ].map(({ icon, label, href }, index) => (
+          <Link href={href || '/'}>
+            <ListItem key={label} disablePadding>
+              <StyledListItemButton active={href === pathname} disableRipple>
+                <StyledListItemIcon>
+                  {icon}
+                </StyledListItemIcon>
+                <StyledListItemText primary={label} />
+              </StyledListItemButton>
+            </ListItem>
+          </Link>
+        ))}
+      </List>
       <Box sx={{ display: 'flex', flexGrow: 1 }} />
       <Divider />
       <List sx={{ display: 'flex', flexGrow: 0 }}>
-        {['Dashboard'].map((text, index) => (
+        {['Settings'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <StyledListItemButton disableRipple>
               <StyledListItemIcon>

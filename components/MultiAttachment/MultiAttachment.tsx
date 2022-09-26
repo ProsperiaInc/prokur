@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { DropzoneArea } from 'material-ui-dropzone';
-import { Box, Button, CircularProgress } from '@mui/material';
+import { DropzoneArea } from 'packages/material-ui-dropzone';
+import { Box, CircularProgress, Fab } from '@mui/material';
 import Attachment from 'components/Attachment/Attachment';
 import CustomIcon from 'components/CustomIcon/CustomIcon';
 import pdfImage from 'assets/images/pdf-file.png';
 import classes from './MultiAttachment.module.css';
 import { useTranslation } from 'next-i18next';
-import { useDeleteRfpAttachementMutation, useLazyGetRfpAttachementQuery, useUploadRfpAttachementMutation } from 'services/rfp';
+import { useDeleteRfpAttachementMutation, useLazyGetRfpAttachmentQuery, useUploadRfpAttachementMutation } from 'services/rfp';
 import { useRouter } from 'next/router';
-import clsx from 'clsx';
 import { QueryStatus } from '@reduxjs/toolkit/dist/query';
 
 const fileIconMapping = { pdf: pdfImage }
@@ -20,7 +19,7 @@ export default function MultiAttachment({ sectionIndex, sectionToggled }: any = 
   const [fileToBeDeleted, setFileToBeDeleted] = useState<string | undefined>();
   const { t } = useTranslation('common');
   const [uploadRfpAttachement, { data: attachment, isLoading: isUploadLoading }] = useUploadRfpAttachementMutation()
-  const [getRfpAttachement, { data: attachments, isLoading }] = useLazyGetRfpAttachementQuery()
+  const [getRfpAttachement, { data: attachments, isLoading }] = useLazyGetRfpAttachmentQuery()
   const [deleteRfpAttachement, { status: fileDeleteStatus, isLoading: fileDeleteLoading }] = useDeleteRfpAttachementMutation()
 
   const onFileAdd = async (e: any) => {
@@ -60,7 +59,7 @@ export default function MultiAttachment({ sectionIndex, sectionToggled }: any = 
       <div key={`${file.name}_${index}`} className={classes["MultiAttachment-single-file-container"]}>
         <Attachment src={fileIconMapping.pdf} name={file?.name} />
         {fileToBeDeleted === file.id && fileDeleteLoading && <CircularProgress />}
-        {fileToBeDeleted !== file.id && <Button disabled={fileToBeDeleted !== file.id && fileDeleteLoading} onClick={() => onDelete(index, file)}><CustomIcon name="trash" color="red" /></Button>}
+        {fileToBeDeleted !== file.id && <Fab className={classes["MultiAttachment-remove-fab"]} disabled={fileToBeDeleted !== file.id && fileDeleteLoading} onClick={() => onDelete(index, file)}><CustomIcon name="trash" /></Fab>}
       </div>
     );
   }
@@ -86,7 +85,7 @@ export default function MultiAttachment({ sectionIndex, sectionToggled }: any = 
 
   return (
     <div className={classes["MultiAttachment-container"]}>
-      {+rfpId !== 0 ? (
+      {rfpId ? (
         !sectionToggled && (
           <DropzoneArea
             onAdd={onFileAdd}

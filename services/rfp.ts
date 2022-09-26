@@ -34,7 +34,6 @@ export const rfpApi = createApi({
     getRfp: builder.query({ query: (id: string) => `/${id}` }),
     getRfpCategories: builder.query({ query: () => `/categories/` }),
     getRfpAttachment: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
-    getRfpAttachement: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
     deleteRfpAttachement: builder.mutation({ query: ({ rfpId, sectionIndex, fileId }) => ({
         url: `/${rfpId}/attachments/${sectionIndex}/${fileId}`,
         method: 'DELETE'
@@ -65,6 +64,5 @@ export const {
   useUploadRfpAttachementMutation,
   useLazyGetRfpAttachmentQuery,
   useLazyGetRfpShareLinkQuery,
-  useLazyGetRfpAttachementQuery,
   useDeleteRfpAttachementMutation
 } = rfpApi

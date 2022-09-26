@@ -31,7 +31,7 @@ const Verify: NextPage = () => {
   )
 
   useEffect(() => { if (!email_verified_at) resendEmail('send'); }, []);
-  useEffect(() => { if(!!verifyEmailData) router.replace('/onboarding')}, [verifyEmailData])
+  useEffect(() => { if(!!verifyEmailData) router.replace('/organization')}, [verifyEmailData])
   useEffect(() => { 
     if(!!verifyEmailError) {
       setError(verifyEmailError)

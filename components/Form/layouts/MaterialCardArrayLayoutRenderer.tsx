@@ -1,7 +1,7 @@
 /*
   The MIT License
 
-  Copyright (c) 2018-2019 EclipseSource Munich
+  Copyright (c) 2017-2019 EclipseSource Munich
   https://github.com/eclipsesource/jsonforms
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,43 +22,42 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
 */
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
+
 import {
+  and,
+  ArrayLayoutProps,
+  formatIs,
+  isObjectArrayWithNesting,
+  RankedTester,
   rankWith,
   scopeEndsWith
 } from '@jsonforms/core';
-import { withJsonFormsControlProps } from '@jsonforms/react';
-import MuiInputTags from '../mui-controls/MuiTagField/MuiTagField';
+import { Hidden } from '@mui/material';
+import { MaterialCardArrayLayout } from './MaterialCardArrayLayout';
+import { withJsonFormsArrayLayoutProps } from '@jsonforms/react';
 
-export const MaterialTagsControl = (props: any) => {
-  const [value, setValue] = React.useState<any>();
-  const onChange = (ev: any) => {
-    const updatedValue = [...(Array.isArray(props.value) ? props.value: !!props.value ? [props.value]: []), ...ev.target.value]
-    setValue(updatedValue)
-    props.handleChange(props.path, updatedValue);
-  }
-
-  useEffect(() => {
-    if(props.data !== undefined && value === undefined) {
-      setValue(props.data)
-    }
-  }, [props.data])
-
+export const MaterialCardArrayLayoutRenderer = ({
+  visible,
+  addItem,
+  ...props
+}: ArrayLayoutProps) => {
+  const addItemCb = useCallback((p: string, value: any) => addItem(p, value), [
+    addItem
+  ]);
   return (
-    <MuiInputTags
-      {...props}
-      field={{
-        label: props.label,
-        name: props.name,
-      }}
-      value={value || []}
-      onChange={onChange}
-    />
-  )
+    <Hidden xsUp={!visible}>
+      <MaterialCardArrayLayout
+        visible={visible}
+        addItem={addItemCb}
+        {...props}
+      />
+    </Hidden>
+  );
 };
 
-export const materialTagsControlTester = rankWith(
-  3, // increase rank as needed
-  scopeEndsWith('Tags')
+export const materialCardArrayLayoutTester: RankedTester = rankWith(
+  5,
+  and(scopeEndsWith('Cards'), isObjectArrayWithNesting)
 );
-export default withJsonFormsControlProps(MaterialTagsControl);
+export default withJsonFormsArrayLayoutProps(MaterialCardArrayLayoutRenderer);

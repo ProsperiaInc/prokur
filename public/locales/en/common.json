@@ -67,9 +67,9 @@
     }
   },
   "organization": {
-    "found.title": "We found  this organization",
+    "found.title": "Your organization wasn’t found",
+    "not_found.title": "We found  this organization",
     "found.subtitle": "Send a request to join your organization or register a new one",
-    "not_found": "Your organization wasn’t found",
     "not_found.subtitle": "Register a new organization",
     "sendJoinRequest": "Send Join Request"
   },

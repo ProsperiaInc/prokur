@@ -1635,147 +1635,83 @@ const categories = [
 
 ]
 
-export default [
-  {
-    "type": "object",
-    "properties": {
-      "firstName": {
-        "type": "string",
-        "minLength": 3,
-        "description": "Please enter your first name"
-      },
-      "lastName": {
-        "type": "string",
-        "minLength": 3,
-        "description": "Please enter your second name"
-      },
-      "email": {
-        "type": "string",
-        "minLength": 3,
-        "format": "email",
-        "description": "Please enter your email"
-      },
-      "phone": {
-        "type": "string",
-        "minLength": 3,
-        "description": "Please enter your phone number."
-      },
-      "country": {
-        "type": "string",
-        "enum": COUNTRIES_LIST
-      },
-      "state": {
-        "type": "string",
-        "enum": STATES_LIST
-      },
-      "city": {
-        "type": "string"
-      },
-      "zip": {
-        "type": "string"
-      },
-      "companyName": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "url": {
-        "label": "Prokur Public URL",
-        "type": "string"
-      },
-      "publicURL": {
-        "type": "string",
-        "readOnly": true
-      },
-      "industryCategory": {
-        "type": "string",
-        "oneOf": categories.map((item: any) => ({
-          "const": `${item.id}`,
-          "title": item.label
-        }))
-      },
-      "businessId": {
-        "type": "string"
-      },
-      "vendorId": {
-        "type": "string"
-      },
-      "companyTagLine": {
-        "type": "string"
-      },
-      "companyDescription": {
-        "type": "string"
-      },
-      "companySize": {
-        "type": "string",
-        "enum": [
-          "<250",
-          "<500",
-          "<1,000",
-          ">1,000"
-        ]
-      },
-      "companyType": {
-        "type": "string",
-        "enum": [
-          "1",
-          "2",
-          "3",
-          "4"
-        ]
-      },
-      "fileMediaUpload": {
-        "type": "array"
-      }
+export default {
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 3,
+      "format": "email",
+      "description": "Please enter your email"
+    },
+    "phone": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Please enter your phone number."
+    },
+    "legal_name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "label": "Prokur Public URL",
+      "type": "string"
+    },
+    "publicURL": {
+      "type": "string",
+      "readOnly": true
+    },
+    "industryCategory": {
+      "type": "string",
+      "oneOf": categories.map((item: any) => ({
+        "const": `${item.id}`,
+        "title": item.label
+      }))
+    },
+    "businessId": {
+      "type": "string"
+    },
+    "companyTagLine": {
+      "type": "string"
+    },
+    "companyDescription": {
+      "type": "string"
+    },
+    "companySize": {
+      "type": "string",
+      "enum": [
+        "<250",
+        "<500",
+        "<1,000",
+        ">1,000"
+      ]
+    },
+    "companyType": {
+      "type": "string",
+      "enum": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    "fileMediaUpload": {
+      "type": "array"
     }
   },
-  {
-    "type": "object",
-    "properties": {
-      "firstName": {
-        "type": "string",
-        "minLength": 3,
-        "description": "Please enter your first name"
-      },
-      "lastName": {
-        "type": "string",
-        "minLength": 3,
-        "description": "Please enter your second name"
-      },
-      "email": {
-        "type": "string",
-        "minLength": 3,
-        "format": "email",
-        "description": "Please enter your email"
-      },
-      "role": {
-        "type": "string",
-        "enum": [
-          "Member",
-          "Owner"
-        ]
-      },
-      "members": {
-        "type": "array",
-        "title": "Members",
-        "items": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "role": {
-              "type": "string",
-              "enum": [
-                "Member",
-                "Owner"
-              ]
-            }
-          }
-        }
-      }
-
-    }
-  },
-]
+  "required": [
+    'legal_name',
+    'title',
+    'slug',
+    'publicURL',
+    'industryCategory',
+    'businessId',
+    'companyTagLine',
+    'companyDescription',
+    'companySize',
+    'companyType',
+    'fileMediaUpload'
+  ]
+}

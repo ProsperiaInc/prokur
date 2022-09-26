@@ -9,6 +9,7 @@ import authReducer from './features/auth/authSlice'
 import rfpReducer from './features/rfp/rfpSlice'
 import { rfpApi } from 'services/rfp'
 import { companyApi } from 'services/company'
+import { userApi } from 'services/user'
 
 const debounceNotify = debounce(notify => notify());
 
@@ -17,6 +18,7 @@ export const store = configureStore({
     forms: formsReducer,
     auth: authReducer,
     rfp: rfpReducer,
+    [userApi.reducerPath]: userApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [rfpApi.reducerPath]: rfpApi.reducer,
     [companyApi.reducerPath]: companyApi.reducer,
@@ -27,7 +29,8 @@ export const store = configureStore({
     companyApi.middleware,
     logger,
   ),
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: false,
+  // process.env.NODE_ENV !== 'production',
   preloadedState: {},
   enhancers: [batchedSubscribe(debounceNotify)],
 })

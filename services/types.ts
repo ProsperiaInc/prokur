@@ -21,6 +21,7 @@ export type User = {
   avatar_url: string,
   assigned_role: string,
   usage_type: string,
+  desired_company_name: string,
   company: {
     id: number,
     business_type_id: any,

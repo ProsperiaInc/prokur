@@ -4,12 +4,12 @@ export default {
     {
       "type": "Control",
       "label": "First Name",
-      "scope": "#/properties/firstName"
+      "scope": "#/properties/first_name"
     },
     {
       "type": "Control",
       "label": "Last Name",
-      "scope": "#/properties/lastName"
+      "scope": "#/properties/last_name"
     },
     {
       "type": "Control",
@@ -20,6 +20,11 @@ export default {
       "type": "Control",
       "label": "Country",
       "scope": "#/properties/country"
+    },
+    {
+      "type": "Control",
+      "label": "Company Name",
+      "scope": "#/properties/company_name"
     },
     {
       "type": "Control",

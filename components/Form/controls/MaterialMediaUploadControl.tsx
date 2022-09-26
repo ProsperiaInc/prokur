@@ -34,9 +34,11 @@ import SwipeableAttachment from 'components/SwipeableAttachment/SwipeableAttachm
 export const MaterialMediaUploadControl = (props) => {
   const [value, setValue] = React.useState(props.value);
   const onChange = (ev) => {
-    const updatedValue = [...(Array.isArray(props.value) ? props.value: !!props.value ? [props.value]: []), ...ev.target.value]
-    setValue(updatedValue)
-    props.handleChange(props.path, updatedValue);
+    if(ev.target.name === '_file') {
+      const updatedValue = [...(Array.isArray(props.value) ? props.value: !!props.value ? [props.value]: []), ...ev.target.value]
+      setValue(updatedValue)
+      props.handleChange(props.path, updatedValue);
+    }
   }
 
   return (

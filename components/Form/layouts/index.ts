@@ -38,9 +38,15 @@ import MaterialArrayLayout, {
   materialArrayLayoutTester
 } from './MaterialArrayLayoutRenderer';
 
+import MaterialCardArrayLayoutRenderer, {
+  materialCardArrayLayoutTester
+} from './MaterialCardArrayLayoutRenderer';
+
 export {
   materialArrayLayoutTester,
   MaterialArrayLayout,
+  materialCardArrayLayoutTester,
+  MaterialCardArrayLayoutRenderer,
   MaterialCategorizationLayout,
   materialCategorizationTester,
   MaterialGroupLayout,

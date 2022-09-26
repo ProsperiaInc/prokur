@@ -12,7 +12,7 @@ const RFPEditorPage = () => {
   const [getRfp, payload] = useLazyGetRfpQuery()
   const [getRfpCategories, { data: categories, isLoading, isUninitialized }] = useLazyGetRfpCategoriesQuery()
 
-  const { data, error, isLoading: rfpIsLoading, isUninitialized: rfpIsUninitialized } = payload
+  const { data } = payload
   const fieldData = data?.template?.sections?.reduce((
     acc: any, 
     { fields }: any) => 
@@ -35,12 +35,12 @@ const RFPEditorPage = () => {
 
   useEffect(() => { getRfpCategories('') }, [])
   useEffect(() => { if(id && typeof id === 'string') getRfp(id) }, [id])
-
+  const viewRfp = () => router.push('/rfp_viewer/?id='+id)
 
   return (
     <Dashboard noDrawer>
       {(isLoading || isUninitialized) && (<PageLoader />)}
-      {categories && categories.length && <RfpEditor id={id} categories={categories} initialData={fieldData} />}
+      {categories && categories.length && <RfpEditor id={id} categories={categories} initialData={fieldData} viewRfp={viewRfp} />}
     </Dashboard>
   );
 }

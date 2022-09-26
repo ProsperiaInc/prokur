@@ -47,8 +47,6 @@ const RFPEditorPage = () => {
     }
   }, [id])
 
-  console.warn({ rfpAttachments })
-
   return (
     <Dashboard noDrawer>
       {(isLoading || isUninitialized)
