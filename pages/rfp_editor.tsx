@@ -11,27 +11,11 @@ const RFPEditorPage = () => {
   const { id } = router.query
   const [getRfp, payload] = useLazyGetRfpQuery()
   const [getRfpCategories, { data: categories, isLoading, isUninitialized }] = useLazyGetRfpCategoriesQuery()
-
-  const { data } = payload
-  const fieldData = data?.template?.sections?.reduce((
-    acc: any, 
-    { fields }: any) => 
-    ({
-      ...acc,
-      ...(fields.reduce((acc: any, { name, value }: any) => ({ ...acc, [name]: value }), {})),
-    }),
-  {}) || {}
-
+  const fieldData = { ...(payload?.data?.values || {}) }
   fieldData.tagsTags = fieldData?.tags
-  fieldData.budgetCurrency = Number(fieldData?.budget?.replaceAll(',', ''))
-  fieldData.rfpSecondaryCategory = fieldData?.categories?.select_two
-  fieldData.categories = fieldData?.categories?.select_one
-  fieldData.scope_requirements = fieldData?.scope_requirements?.map((item: any) => ({ requirements: item }))
-  fieldData.evaluationMetrics = fieldData?.evaluation_criteria?.graph_inputs?.map((item: any) => ({ evaluationMetrics: item.title, weight: item.value }))
-
+  fieldData.budgetCurrency = typeof fieldData?.budget === 'number' ? fieldData?.budget : Number(fieldData?.budget?.replaceAll(',', ''))
   delete fieldData?.tags
   delete fieldData?.budget
-  delete fieldData?.evaluation_criteria
 
   useEffect(() => { getRfpCategories('') }, [])
   useEffect(() => { if(id && typeof id === 'string') getRfp(id) }, [id])

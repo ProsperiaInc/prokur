@@ -14,26 +14,27 @@ const RFPEditorPage = () => {
   const [getRfpAttachment, { data: rfpAttachments }] = useLazyGetRfpAttachmentQuery();
   const { data, error, isLoading, isUninitialized } = payload
 
-  const fieldData = data?.template?.sections?.reduce((
-    acc: any, 
-    { fields }: any) => 
-    ({
-      ...acc,
-      ...(fields.reduce((acc: any, { name, value }: any) => ({ ...acc, [name]: value }), {})),
-    }),
-  {}) || {}
+  const fieldData = { ...(payload?.data?.values) }
+  // data?.template?.sections?.reduce((
+  //   acc: any, 
+  //   { fields }: any) => 
+  //   ({
+  //     ...acc,
+  //     ...(fields.reduce((acc: any, { name, value }: any) => ({ ...acc, [name]: value }), {})),
+  //   }),
+  // {}) || {}
 
   fieldData.tagsTags = fieldData?.tags
-  fieldData.budgetCurrency = fieldData?.budget?.replaceAll(',', '')
-  fieldData.rfpSecondaryCategory = fieldData?.categories?.select_two
-  fieldData.categories = fieldData?.categories?.select_one
-  fieldData.scope_requirements = fieldData?.scope_requirements?.map((item: any) => ({
-    requirements: item
-  }))
-  fieldData.evaluationMetrics = fieldData?.evaluation_criteria?.graph_inputs?.map((item: any) => ({
-    evaluationMetrics: item.title,
-    weight: item.value
-  }))
+  fieldData.budgetCurrency = typeof fieldData?.budget === 'number' ? fieldData?.budget : Number(fieldData?.budget?.replaceAll(',', ''))
+  // fieldData.rfpSecondaryCategory = fieldData?.categories?.select_two
+  // fieldData.categories = fieldData?.categories?.select_one
+  // fieldData.scope_requirements = fieldData?.scope_requirements?.map((item: any) => ({
+  //   requirements: item
+  // }))
+  // fieldData.evaluationMetrics = fieldData?.evaluation_criteria?.graph_inputs?.map((item: any) => ({
+  //   evaluationMetrics: item.title,
+  //   weight: item.value
+  // }))
   
   delete fieldData?.tags
   delete fieldData?.budget

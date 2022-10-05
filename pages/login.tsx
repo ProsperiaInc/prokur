@@ -8,6 +8,7 @@ import LoginForm from 'components/LoginForm/LoginForm';
 import LoginImage from 'assets/images/login-image.svg';
 import { useLoginMutation } from 'services/auth';
 import CTA from 'components/CTA/CTA';
+import Header from 'components/Header/Header';
 
 const Login = () => {
   const { t } = useTranslation('common');
@@ -16,24 +17,30 @@ const Login = () => {
   const isLoading = status === QueryStatus.pending
 
   return (
-    <Grid
-      container
-      alignItems='center'
-      sx={{ background: '#f3f5fd', height: '100%' }}
-    >
-      <Box sx={{ width: '100%', maxWidth: '500px', margin: '50px auto', background: 'white', padding: '53px 98px' }}>
-        <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600}  marginBottom='16px'>{t('login.subheader')}</Typography>
-        <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}  marginBottom='14px'>{t('login.header')}</Typography>
-        <Grid container columnSpacing='10' marginBottom='30px'>
-          <Grid item><Typography>{t('login.text')}</Typography></Grid>
-          <Grid item><CTA href='/signup'>{t('login.cta')}</CTA></Grid>
-        </Grid>
-        <LoginForm 
-          onSubmit={login}
-          isLoading={isLoading}
-        />
-      </Box>
-    </Grid>
+    <>
+      <Header
+        withLogo
+        drawerWidth={0}
+      />
+      <Grid
+        container
+        alignItems='center'
+        sx={{ background: '#f3f5fd', height: '100%' }}
+      >
+        <Box sx={{ width: '100%', maxWidth: '500px', margin: '50px auto', background: 'white', padding: '53px 98px' }}>
+          <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600}  marginBottom='16px'>{t('login.subheader')}</Typography>
+          <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}  marginBottom='14px'>{t('login.header')}</Typography>
+          <Grid container columnSpacing='10' marginBottom='30px'>
+            <Grid item><Typography>{t('login.text')}</Typography></Grid>
+            <Grid item><CTA href='/signup'>{t('login.cta')}</CTA></Grid>
+          </Grid>
+          <LoginForm 
+            onSubmit={login}
+            isLoading={isLoading}
+          />
+        </Box>
+      </Grid>
+    </>
   )
 };
 

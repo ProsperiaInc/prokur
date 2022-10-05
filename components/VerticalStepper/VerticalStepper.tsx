@@ -10,7 +10,7 @@ export const VerticalStepper = ({ children, steps, onSubmit }: any) => {
   const theme = useTheme()
   const matches = useMediaQuery(`(max-width:${theme.breakpoints.values.md}px)`)
   const handleNext = async () => {
-    if(activeStep === steps.length - 2) onSubmit && onSubmit()
+    if(activeStep >= steps.length - 2) onSubmit && onSubmit(activeStep)
     if(activeStep < steps.length - 1) setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1)

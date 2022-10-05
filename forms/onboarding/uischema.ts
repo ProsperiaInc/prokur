@@ -1,3 +1,8 @@
+import courthouse from '/assets/images/courthouse.png'
+import lock_outline from '/assets/images/lock_outline.png'
+import globe from '/assets/images/globe.png'
+import heart_tick from '/assets/images/heart-tick.png'
+
 export default {
   "type": "VerticalLayout",
   "elements": [
@@ -72,6 +77,12 @@ export default {
                   "Public",
                   "Non-profit",
                   "Government"
+                ],
+                "enum_images": [
+                  courthouse,
+                  lock_outline,
+                  globe,
+                  heart_tick
                 ]
               }
             }

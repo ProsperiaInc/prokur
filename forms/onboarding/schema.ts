@@ -1,4 +1,3 @@
-import { COUNTRIES_LIST, STATES_LIST } from "utils/constants";
 const categories = [
   {
       "id": 12,

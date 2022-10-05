@@ -53,80 +53,24 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
   const dispatch = useDispatch()
   const router = useRouter()
   const [saveRfpMutation, { data: saveRfpData }] = useSaveRfpMutation()
-  const [isSummary, setIsSummary] = useState(false)
-  // const onSubmit = () => viewRfp()
-  const onSubmit = () => {
-    const formData = { ...data }
-    formData.tags = data.tagsTags
-    formData.budget = data.budgetCurrency
-    delete formData.tagsTags
-    delete formData.budgetCurrency
-    saveRfpMutation(formData)
-    // saveRfpMutation({
-    //   "name": "Template 1",
-    //   "template": {
-    //     "icon": "location-arrow",
-    //     "title": "My Title",
-    //     "sections": steps.map(({ json: { schema } }) => ({
-    //       title: "",
-    //       fields: Object.keys(schema.properties).map(field => ({
-    //         [field.replace('Tags', '').replace('Upload', '')]: {
-    //           "meta": {
-    //             "type": "text",
-    //             "source": null,
-    //             "options": [],
-    //             "multiple": false,
-    //             "placeholder": null
-    //           },
-    //           "name": field,
-    //           "label": "label",
-    //           "value": data[field],
-    //           "column": 6
-    //         }
-    //       })),
-    //       "required": true,
-    //       "description": "Provide a detailed timeline for your project and establish boundaries to help improve the correlative accuracy of your RFX for potential vendors.",
-    //       "not_included": false
-    //     }))
-    //   },
-    //   "validation": {
-    //     "tags": {
-    //       "required": true
-    //     },
-    //     "title": {
-    //       "required": true
-    //     },
-    //     "budget": {
-    //       "required": true
-    //     },
-    //     "categories": {
-    //       "required": true
-    //     },
-    //     "close_date": {
-    //       "min": "field_inquiry_deadline",
-    //       "required": true
-    //     },
-    //     "scope_summary": {
-    //       "required": true
-    //     },
-    //     "inquiry_deadline": {
-    //       "required": true
-    //     },
-    //     "evaluation_summary": {
-    //       "required": true
-    //     },
-    //     "scope_requirements": {
-    //       "required": true
-    //     },
-    //     "evaluation_criteria": {
-    //       "required": true
-    //     }
-    //   }
-    // })
+  
+  const onSubmit = (activeStep: number) => {
+    console.warn({ activeStep, ln: steps.length });
+    if(activeStep >= steps.length - 1) {
+      router.push(`/rfp_viewer?id=${router.query.id}`)
+      return
+    } else {
+      const formData = { ...data }
+      formData.tags = data.tagsTags
+      formData.budget = data.budgetCurrency
+      delete formData.tagsTags
+      delete formData.budgetCurrency
+      saveRfpMutation(formData)
+    }
   }
 
   useEffect(() => {
-    if(saveRfpData) router.push(saveRfpData.id)
+    if(saveRfpData) router.push(`/rfp_editor?id=${saveRfpData.id}`)
   }, [saveRfpData])
 
   useEffect(() => {
@@ -149,36 +93,32 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
         flexDirection='column'
         height={'100%'}
       >
-        {!isSummary && (
-          <>
-            <PageHeader
-              backButton
-              title='Salesforce, Inc.'
-              subtitle='Data Visualization RFX'
-              onBack={() => {
-                dispatch(
-                  setForm({
-                    rfp_editor: {
-                      ...rest,
-                      data: {}
-                    }
-                  }
-                ))
-              }}
-            />
-            {!!steps.length && (
-              <VerticalStepper steps={steps} onSubmit={onSubmit}>
-                {(activeStep: any) => (
-                  <Form
-                    initialData={initialData}
-                    name={FORM_NAME}
-                    schema={steps?.[activeStep]?.json.schema}
-                    uischema={steps?.[activeStep]?.json.uischema}
-                  />
-                )}
-              </VerticalStepper>
+        <PageHeader
+          backButton
+          title='Salesforce, Inc.'
+          subtitle='Data Visualization RFX'
+          onBack={() => {
+            dispatch(
+              setForm({
+                rfp_editor: {
+                  ...rest,
+                  data: {}
+                }
+              }
+            ))
+          }}
+        />
+        {!!steps.length && (
+          <VerticalStepper steps={steps} onSubmit={onSubmit}>
+            {(activeStep: any) => (
+              <Form
+                initialData={initialData}
+                name={FORM_NAME}
+                schema={steps?.[activeStep]?.json.schema}
+                uischema={steps?.[activeStep]?.json.uischema}
+              />
             )}
-          </>
+          </VerticalStepper>
         )}
       </Grid>
     </Box>

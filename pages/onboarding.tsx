@@ -12,8 +12,7 @@ import Form from 'components/Form';
 import Dashboard from './dashboard_wrapper';
 import { MdDelete, MdKeyboardArrowDown } from 'react-icons/md'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useSelector } from 'react-redux';
-import { selectForm } from 'store/features/forms/formsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { useCreateCompanyMutation, useUploadCompanyImageMutation } from 'services/company';
 import { 
   Alert,
@@ -38,6 +37,8 @@ import {
 import { useInviteMutation } from 'services/user';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
+import { selectUser } from 'store/features/auth/authSlice';
+import { selectForm, setForm as setOnboardingForm } from 'store/features/forms/formsSlice'
 
 const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
   [`& .${cardHeaderClasses.action}`]: {
@@ -134,13 +135,13 @@ export default function OnboardingWizard() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped] = useState(new Set());
   const [form, setForm] = useState({});
+  const dispatch = useDispatch()
   const router = useRouter()
   const [members, setMembers] = useState<any>([]);
   const [createCompany, { isLoading: isCompanySaveLoading, data: companySaveData, error: companySaveError }] = useCreateCompanyMutation()
   const [uploadLogo, { isLoading: isUploadLogoLoading, data: uploadLogoData, error: uploadLogoError }] = useUploadCompanyImageMutation()
   const [invite, { isLoading: isInviteLoading, data: inviteData, error: inviteError }] = useInviteMutation()
-  const [initialData, _] = useState<any>({ publicURL: 'elitetechnology.prokur.com/'})
-  const { data: formData, errors = [] } = useSelector(selectForm('onboarding'))
+  const { data: formData, errors = [], ...rest } = useSelector(selectForm('onboarding'))
   const isDisabled = !formData || !!errors.length || isUploadLogoLoading || isCompanySaveLoading || isInviteLoading
   const isStepSkipped = (step: number) => skipped.has(step);
   const handleBack = () => { setActiveStep((prevActiveStep) => prevActiveStep - 1) };
@@ -172,6 +173,25 @@ export default function OnboardingWizard() {
       setMembers(members)
     }
   }
+
+  useEffect(() => {
+    console.warn({
+      op: formData.slug
+    });
+    
+    dispatch(
+      setOnboardingForm({
+        onboarding: {
+          errors,
+          ...rest,
+          data: {
+            ...(formData || {}),
+            publicURL: `${formData.slug}.prokur.com/`,
+          },
+        }
+      }
+    ))
+  }, [formData.slug])
 
   useEffect(() => {
     if(
@@ -229,7 +249,6 @@ export default function OnboardingWizard() {
           </Grid>
           {activeStep === 0 && (
             <Form
-              initialData={initialData}
               name='onboarding'
               schema={schema}
               uischema={uischema}

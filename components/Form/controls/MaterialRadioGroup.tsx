@@ -47,6 +47,7 @@ import {
 } from '@mui/material';
 import { useFocus } from '../util';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 const StyledRadioGroup = styled(RadioGroup)(({ theme, checked }: any) => ({
   paddingTop: '10px',
@@ -61,7 +62,7 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme, checked }: any) => ({
 const StyledTypography = styled(Typography)(({ theme, checked }: any) => ({
   [`&.${typographyClasses.root}`]: {
     marginTop: '-25px',
-    position: 'absolute',
+    // position: 'absolute',
     color: checked ? theme.palette.primary.main : theme.palette.secondary.dark,
     fontWeight: '700',
     left: '0',
@@ -116,6 +117,7 @@ export const MaterialRadioGroup = (props: ControlProps & OwnPropsOfEnum) => {
     path,
     enabled
   } = props;
+  
   const isValid = errors.length === 0;
   const appliedUiSchemaOptions = merge(
     {},
@@ -153,16 +155,29 @@ export const MaterialRadioGroup = (props: ControlProps & OwnPropsOfEnum) => {
             onChange={onChange}
           >
             {options.map((option, idx) => (
-              <Box component='span' sx={{ position: 'relative', marginRight: '10px', marginTop: '10px' }}>
+              <Box 
+                component='span'
+                sx={{ 
+                    position: 'relative',
+                    marginRight: '10px',
+                    marginTop: '10px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column'
+                }}
+              >
                 <StyledFormControlLabel
                   value={option.value}
                   key={option.label}
                   checked={data === option.value}
                   control={<Radio checked={data === option.value} sx={{ display: 'none' }} />}
-                  label={option.label}
+                  label={appliedUiSchemaOptions?.enum_images?.[idx] ? <Image src={appliedUiSchemaOptions?.enum_images?.[idx]} height='50' width='50' /> : option.label}
                   disabled={!enabled}
                 />
-                <StyledTypography variant='caption' checked={data === option.value}>{appliedUiSchemaOptions?.enum_titles?.[idx]}</StyledTypography>
+                <StyledTypography variant='caption' checked={data === option.value}>
+                  {appliedUiSchemaOptions?.enum_titles?.[idx]}
+                </StyledTypography>
               </Box>
             ))}
           </StyledRadioGroup>
