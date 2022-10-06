@@ -175,18 +175,20 @@ export default function OnboardingWizard() {
   }
 
   useEffect(() => {
-    dispatch(
-      setOnboardingForm({
-        onboarding: {
-          errors,
-          ...rest,
-          data: {
-            ...(formData || {}),
-            publicURL: formData.slug ? `${formData.slug}.prokur.com/` : '',
-          },
+    if(formData.slug) {
+      dispatch(
+        setOnboardingForm({
+          onboarding: {
+            errors,
+            ...rest,
+            data: {
+              ...(formData || {}),
+              publicURL: formData.slug ? `${formData.slug}.prokur.com/` : '',
+            },
+          }
         }
-      }
-    ))
+      ))
+    }
   }, [formData.slug])
 
   useEffect(() => {
