@@ -50,6 +50,7 @@ export default {
                 },
                 {
                   "type": "Control",
+                  "label": "EIN",
                   "scope": "#/properties/businessId"
                 }
               ]

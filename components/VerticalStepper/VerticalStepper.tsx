@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Grid, Stepper, useMediaQuery } from '@mui/material';
 import { VerticalStepperLabel, VerticalStepperConnector, VerticalStep, TopBottomConnector, VerticalStepperButton, Dot } from './VerticalStepper.styles'
 
-export const VerticalStepper = ({ children, steps, onSubmit }: any) => {
+export const VerticalStepper = ({ children, steps, onSubmit, saveDraft }: any) => {
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const matches = useMediaQuery(`(max-width:${theme.breakpoints.values.md}px)`)
@@ -14,6 +14,7 @@ export const VerticalStepper = ({ children, steps, onSubmit }: any) => {
     if(activeStep < steps.length - 1) setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  const handleSaveDraft = () => saveDraft && saveDraft(activeStep)
 
   return (
     <Grid container sx={{ padding: { xs: '0', sm: '25px' }}}>
@@ -61,7 +62,7 @@ export const VerticalStepper = ({ children, steps, onSubmit }: any) => {
             </VerticalStepperButton>
           </Grid>
           <Grid item container md={6} xs={12} justifyContent={{ xs: 'flex-start', md: 'flex-end' }} flexDirection={{ xs: 'column-reverse', md: 'row' }}>
-            <Button onClick={handleBack} fullWidth={matches} sx={{ margin: '10px' }}>Save draft</Button>
+            <Button disabled={activeStep === 0} onClick={handleSaveDraft} fullWidth={matches} sx={{ margin: '10px' }}>Save draft</Button>
             <VerticalStepperButton
               mt={3}
               variant="contained"

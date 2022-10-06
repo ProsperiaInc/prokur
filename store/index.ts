@@ -27,7 +27,7 @@ export const store = configureStore({
     authApi.middleware,
     rfpApi.middleware,
     companyApi.middleware,
-    // logger,
+    logger,
   ),
   devTools: false,
   // process.env.NODE_ENV !== 'production',

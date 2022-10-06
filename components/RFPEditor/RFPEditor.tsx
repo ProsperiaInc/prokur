@@ -52,25 +52,40 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
   const { data, ...rest } = useSelector(selectForm(FORM_NAME))
   const dispatch = useDispatch()
   const router = useRouter()
+  const [saveType, setSaveType] = useState<string>()
   const [saveRfpMutation, { data: saveRfpData }] = useSaveRfpMutation()
+
+  const save = () => {
+    const formData = { ...data }
+    formData.tags = data.tagsTags
+    formData.budget = data.budgetCurrency
+    delete formData.tagsTags
+    delete formData.budgetCurrency
+    saveRfpMutation(formData)
+  }
   
+  const saveDraft = () => {
+    setSaveType('draft')
+    save()
+  }
+
   const onSubmit = (activeStep: number) => {
-    console.warn({ activeStep, ln: steps.length });
     if(activeStep >= steps.length - 1) {
       router.push(`/rfp_viewer?id=${router.query.id}`)
       return
     } else {
-      const formData = { ...data }
-      formData.tags = data.tagsTags
-      formData.budget = data.budgetCurrency
-      delete formData.tagsTags
-      delete formData.budgetCurrency
-      saveRfpMutation(formData)
+      save()
     }
   }
 
   useEffect(() => {
-    if(saveRfpData) router.push(`/rfp_editor?id=${saveRfpData.id}`)
+    if(saveRfpData) {
+      if(saveType === 'draft') {
+        router.push(`/`)
+      } else {
+        router.push(`/rfp_editor?id=${saveRfpData.id}`)
+      }
+    }
   }, [saveRfpData])
 
   useEffect(() => {
@@ -109,7 +124,7 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
           }}
         />
         {!!steps.length && (
-          <VerticalStepper steps={steps} onSubmit={onSubmit}>
+          <VerticalStepper steps={steps} onSubmit={onSubmit} saveDraft={saveDraft}>
             {(activeStep: any) => (
               <Form
                 initialData={initialData}
