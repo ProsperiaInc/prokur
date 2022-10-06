@@ -33,8 +33,6 @@ const StyledDialogActions = styled(DialogActions)((
 export default function SharedModalActions() {
   const { t } = useTranslation('common')
   const { setSuccess, shareRfpToEmail, rfpShareLoading, emails, rfpShareError, rfpShareData } = useSharedModal() as any;
-  // const { newSnackbar } = useSnackbar();
-  console.warn({ rfpShareLoading, rfpShareError, rfpShareData });
 
   const handleClose = async () => {
     shareRfpToEmail(emails)

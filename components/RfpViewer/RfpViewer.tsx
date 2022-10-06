@@ -82,9 +82,6 @@ const RFPViewer = ({ error, data = {}, isLoading }: { error?: FetchBaseQueryErro
   const { first_name, last_name, email, number, assigned_role } = created_by || {}
   const { legal_name } = company || {}
 
-  console.warn({ attachments, fieldData });
-  
-
   return (
     <>
       <Box 

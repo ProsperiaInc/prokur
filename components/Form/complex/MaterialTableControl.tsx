@@ -190,7 +190,8 @@ const controlWithLabel = (scope: any) => ({
   variant: 'outlined'
 })
 
-const NonEmptyCellComponent = React.memo(({ path, propName, schema, rootSchema, errors, enabled, renderers, cells, isValid }: any) => {
+const NonEmptyCellComponent = React.memo(({ path, propName, schema, rootSchema, errors, enabled, renderers, cells, isValid, ...props }: any) => {
+  
   return (
     <NoBorderTableCell sx={{ paddingLeft: '0px', paddingTop: '16px', paddingBottom: '0' }}>
       {schema.properties ? (
@@ -200,7 +201,15 @@ const NonEmptyCellComponent = React.memo(({ path, propName, schema, rootSchema, 
             `#/properties/${encode(propName)}`,
             rootSchema
           )}
-          uischema={controlWithLabel(`#/properties/${encode(propName)}`) as any}
+          uischema={{
+            ...controlWithLabel(`#/properties/${encode(propName)}`) as any,
+            ...(schema.properties[propName].format === 'textarea' ? {
+              options: {
+                multi: true,
+                rows: '4'
+              }
+            } : {})
+          }}
           path={path}
           enabled={enabled}
           renderers={renderers}

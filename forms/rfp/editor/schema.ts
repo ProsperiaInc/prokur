@@ -1646,12 +1646,14 @@ export default [
       "inquiry_deadline": {
         "type": "string",
         "label": "Inquiry Deadline",
-        "format": "date"
+        "format": "date",
+        "description": "Inquiry deadline"
       },
       "close_date": {
         "type": "string",
         "label": "Close Date",
-        "format": "date"
+        "format": "date",
+        "description": "Close Date"
       },
       "budgetCurrency": {
         "type": "string",
@@ -1690,7 +1692,8 @@ export default [
           "type": "object",
           "properties": {
             "requirements": {
-              "type": "string"
+              "type": "string",
+              "format": "textarea"
             }
           }
         }

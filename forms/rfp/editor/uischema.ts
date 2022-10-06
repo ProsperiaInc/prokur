@@ -80,7 +80,11 @@ export default [
       },
       {
         "type": "Control",
-        "scope": "#/properties/scope_requirements"
+        "scope": "#/properties/scope_requirements",
+        "options": {
+          "multi": true,
+          "rows": "4"
+        }
       }
     ]
   },

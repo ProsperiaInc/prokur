@@ -1710,7 +1710,6 @@ export default {
     'companyTagLine',
     'companyDescription',
     'companySize',
-    'companyType',
-    'fileMediaUpload'
+    'companyType'
   ]
 }
