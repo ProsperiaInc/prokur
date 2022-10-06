@@ -111,6 +111,7 @@ export default {
             },
             {
               "type": "Control",
+              "label": "Logo",
               "scope": "#/properties/fileMediaUpload"
             }
           ]

@@ -175,10 +175,6 @@ export default function OnboardingWizard() {
   }
 
   useEffect(() => {
-    console.warn({
-      op: formData.slug
-    });
-    
     dispatch(
       setOnboardingForm({
         onboarding: {
@@ -186,7 +182,7 @@ export default function OnboardingWizard() {
           ...rest,
           data: {
             ...(formData || {}),
-            publicURL: `${formData.slug}.prokur.com/`,
+            publicURL: formData.slug ? `${formData.slug}.prokur.com/` : '',
           },
         }
       }
