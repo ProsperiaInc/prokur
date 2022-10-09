@@ -83,6 +83,7 @@
   "myrfp_nav_title": "MY RFX",
   "view_rfp": "View RFP",
   "view_responses": "View Responses",
+  "success_sent": "Your RFP was successfully sent!",
   "share": "Share",
   "share_modal_title": "Share RFP with people",
   "add_email_placeholder": "Add people’s email address (separated by commas).",
