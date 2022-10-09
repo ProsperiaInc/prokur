@@ -1647,13 +1647,13 @@ export default [
         "type": "string",
         "label": "Inquiry Deadline",
         "format": "date",
-        "description": "Inquiry deadline"
+        "description": "The final date for vendors to express interest in a specific procurement opportunity. This could be an RFP, RFQ or RFI."
       },
       "close_date": {
         "type": "string",
         "label": "Close Date",
         "format": "date",
-        "description": "Close Date"
+        "description": "The final date for vendors to consider and respond to proposals."
       },
       "budgetCurrency": {
         "type": "string",
