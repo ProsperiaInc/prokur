@@ -129,13 +129,36 @@ const MyRfps = () => {
       />
       <Grid container spacing={4} pb={10}>
         <Grid item md={4} sx={{ width: '100%' }}>
-          <ActivityCard variant='warning' />
+          <ActivityCard
+            variant='warning'
+            data={{
+              date: '2022 June 03',
+              title: 'Closing Soon',
+              subtitle: 'This RFP is closing soon and has not yet been assigned a winner.',
+              cta: 'Data Visualization Software'
+            }}
+          />
         </Grid>
         <Grid item md={4} sx={{ width: '100%' }}>
-          <ActivityCard />
+          <ActivityCard
+            data={{
+              date: '2022 June 03',
+              title: 'New Proposal',
+              subtitle: 'Congrats! You’ve received a new proposal from Octane Analytics. Check it out!',
+              cta: 'Data Visualization Software'
+            }}            
+          />
         </Grid>
         <Grid item md={4} sx={{ width: '100%' }}>
-          <ActivityCard variant='error' />
+          <ActivityCard
+            data={{
+              date: '2022 June 03',
+              title: 'New Inquiry',
+              subtitle: 'You have recieved a new inquiry for an RFP from New Wave Analytics. Check it out!',
+              cta: 'Data Visualization Software'
+            }}          
+            variant='error'
+          />
         </Grid>
       </Grid>
       <Grid container>

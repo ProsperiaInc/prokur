@@ -23,6 +23,7 @@ export default {
                 },
                 {
                   "type": "Control",
+                  "label": "Title",
                   "scope": "#/properties/title"
                 }
               ]
@@ -46,6 +47,7 @@ export default {
               "elements": [
                 {
                   "type": "Control",
+                  "label": "Industry Category",
                   "scope": "#/properties/industryCategory"
                 },
                 {
@@ -58,6 +60,7 @@ export default {
             {
               "type": "Control",
               "scope": "#/properties/companySize",
+              "label": "Company Size",
               "options": {
                 "format": "radio",
                 "enum_titles": [
@@ -71,6 +74,7 @@ export default {
             {
               "type": "Control",
               "scope": "#/properties/companyType",
+              "label": "Company Type",
               "options": {
                 "format": "radio",
                 "enum_titles": [
@@ -100,11 +104,13 @@ export default {
           "elements": [
             {
               "type": "Control",
+              "label": "Company Tag Line",
               "scope": "#/properties/companyTagLine"
             },
             {
               "type": "Control",
               "scope": "#/properties/companyDescription",
+              "label": "Company Description",
               "options": {
                 "multi": true,
                 "rows": 5

@@ -14,6 +14,7 @@ export const rfpApi = createApi({
   endpoints: (builder) => ({
     getRfpShareLink: builder.query({ query: (rfpId) => `/${rfpId}/share-links` }),
     saveRfp: builder.mutation({ query: (data) => ({ url: `/`, method: 'POST', body: data }) }),
+    editRfp: builder.mutation({ query: (data) => ({ url: `/${data.id}`, method: 'PUT', body: data }) }),
     getRfp: builder.query({ query: (id: string) => `/${id}` }),
     getRfpCategories: builder.query({ query: () => `/categories/` }),
     getRfpAttachment: builder.query({ query: ({ rfpId, sectionIndex }) => `/${rfpId}/attachments/${sectionIndex}` }),
@@ -66,6 +67,7 @@ export { RFP }
 export const {
   useLazyGetCompanyRfpsQuery,
   useSaveRfpMutation,
+  useEditRfpMutation,
   useLazyGetRfpQuery,
   useLazyGetRfpCategoriesQuery,
   useUploadRfpAttachementMutation,

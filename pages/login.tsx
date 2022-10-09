@@ -25,9 +25,22 @@ const Login = () => {
       <Grid
         container
         alignItems='center'
-        sx={{ background: '#f3f5fd', height: '100%' }}
+        sx={{
+          background: '#f3f5fd',
+          height: '100%',
+          padding: '16px'
+        }}
       >
-        <Box sx={{ width: '100%', maxWidth: '500px', margin: '50px auto', background: 'white', padding: '53px 98px' }}>
+        <Box sx={{
+          width: '100%',
+          maxWidth: '500px',
+          margin: '50px auto',
+          background: 'white',
+          padding: {
+            lg: '53px 98px',
+            xs: '32px'
+          }
+        }}>
           <Typography variant='h6' fontSize='18px' color='secondary.dark' fontWeight={600}  marginBottom='16px'>{t('login.subheader')}</Typography>
           <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}  marginBottom='14px'>{t('login.header')}</Typography>
           <Grid container columnSpacing='10' marginBottom='30px'>

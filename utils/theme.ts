@@ -15,19 +15,36 @@ const light = createTheme({
     warning: {
       main: '#E2B93B'
     },
-    error: {
-      main: '#F96A10'
+    // error: {
+    //   main: '#EB5757'
+    // },
+    primary: {
+      main: '#216FED'
     }
   },
   typography: {
-    fontFamily: ['Lato', 'sans-serif'].join(','),
-    // fontFamily: ['Plus Jakarta Sans', 'sans-serif'].join(','),
+    // fontFamily: ['Lato', 'sans-serif'].join(','),
+    fontFamily: ['Plus Jakarta Sans', 'sans-serif'].join(','),
   },
   components: {
     MuiDrawer: {
       styleOverrides: {
         paper: {
           backgroundColor: '#FAFAFA'
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: `${['"Plus Jakarta Sans"','sans-serif'].join(', ')} !important`
+        },
+      }
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginLeft: '0'
         }
       }
     },

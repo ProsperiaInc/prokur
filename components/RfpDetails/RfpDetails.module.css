@@ -1,11 +1,19 @@
 .rfp-details-container {
-  padding: 15px 35px 130px 45px;
+  /* padding: 15px 35px 130px 45px; */
   color: #252525;
 }
 .rfp-details-top {
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
 }
+
+@media (min-width: 1200px) {
+  .rfp-details-top {
+    margin-top: 0px;
+  }
+}
+
 .rfp-details-top-buttons {
   display: flex;
 }

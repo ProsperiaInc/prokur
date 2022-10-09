@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography, Paper, alpha, Chip, chipClasses } from "@mui/material"
 import { useTranslation } from "next-i18next"
-import { MdFace } from 'react-icons/md'
+import { MdAdd, MdFace } from 'react-icons/md'
 
 const StyledList = styled(ListItem)(({ theme }: any) => `
   width: 100%;
@@ -27,6 +27,9 @@ const StyledChip = styled(Chip)(({ theme }: any) => `
   & .${chipClasses.label} {
     padding: 0
   }
+  & .${chipClasses.iconSmall} {
+    margin: 0
+  }
 `)
 
 
@@ -36,7 +39,12 @@ const OrganizationForm = ({ onRegisterCompany, user }: any) => {
   const key = !!desired_company_name ? 'found' : 'not_found'
 
   return (
-    <Grid container>
+    <Grid
+      container
+      sx={{
+        pt: { xs: 12, lg: 10 }
+      }}
+    >
       <Grid container justifyContent='center' sx={{ marginBottom: '10px' }}>
         <Typography variant='h4'>{t(`organization.${key}.title`)}</Typography>
       </Grid>
@@ -57,9 +65,9 @@ const OrganizationForm = ({ onRegisterCompany, user }: any) => {
         <Grid container justifyContent='center'>
           <StyledList onClick={onRegisterCompany}>
             <ListItem secondaryAction={
-              <StyledChip variant="outlined" color="secondary" size="small" label='+' />
+              <StyledChip variant="outlined" sx={{ color: '#6980A5', borderColor: '#6980A5' }} size="small" icon={<MdAdd />} />
             }>
-              <ListItemText primary={`Register ${desired_company_name}`} />
+              <ListItemText primary={`Register ${desired_company_name}”`} />
             </ListItem>
           </StyledList>
         </Grid>

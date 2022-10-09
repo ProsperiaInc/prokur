@@ -73,7 +73,13 @@ const BorderlessTableCell = styled(TableCell)((
 ) => ({
   [`&.${tableCellClasses.root}`]: {
     borderBottom: 0,
-    paddingLeft: 0
+    padding: '8px',
+    paddingLeft: 0,
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '16px',
+    lineHeight: '22px',
+    color: '#282828'
   }
   // [`& .${classes.textField}`]: {
   //   minHeight: 35,
@@ -117,7 +123,12 @@ const generateCells = (
         enabled,
         cells
       };
-      return <Cell key={cellPath} {...props} />;
+      return (
+        <Cell
+          key={cellPath}
+          {...props}
+        />
+      )
     });
   } else {
     // primitives
@@ -127,7 +138,12 @@ const generateCells = (
       cellPath: rowPath,
       enabled
     };
-    return <Cell key={rowPath} {...props} />;
+    return (
+      <Cell
+        key={rowPath}
+        {...props}
+      />
+    );
   }
 };
 
@@ -193,7 +209,12 @@ const controlWithLabel = (scope: any) => ({
 const NonEmptyCellComponent = React.memo(({ path, propName, schema, rootSchema, errors, enabled, renderers, cells, isValid, ...props }: any) => {
   
   return (
-    <NoBorderTableCell sx={{ paddingLeft: '0px', paddingTop: '16px', paddingBottom: '0' }}>
+    <NoBorderTableCell 
+      sx={{
+        padding: '8px',
+        paddingLeft: '0px', 
+        paddingBottom: '0',
+      }}>
       {schema.properties ? (
         <DispatchCell
           schema={Resolve.schema(
@@ -289,6 +310,7 @@ const NonEmptyRowComponent =
               ) : null}
               <Grid item>
                 <IconButton
+                  sx={{ padding: '8px' }}
                   aria-label={`Delete`}
                   onClick={() => openDeleteDialog(childPath, rowIndex)}
                   size='large'

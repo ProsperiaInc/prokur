@@ -29,10 +29,11 @@ type IHeader = {
   withLogo: boolean,
   handleDrawerToggle: () => any,
   onLogout: () => any,
-  user: User | null
+  user: User | null,
+  noLink: boolean | undefined
 }
 
-const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: IHeader) => {
+const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, noLink, onLogout }: IHeader) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => setAnchorElUser(event.currentTarget);
   const handleCloseUserMenu = (index: number) => {
@@ -70,11 +71,14 @@ const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: I
             width: '126px'
           }}
         >
-          <Link href='/'>
-            <a>
-              <Image src={logo} alt="logo" />
-            </a>
-          </Link>
+          {noLink && (<Image src={logo} alt="logo" />)}
+          {!noLink && (
+            <Link href='/'>
+              <a>
+                <Image src={logo} alt="logo" />
+              </a>
+            </Link>
+          )}
         </Box>
         <Typography
           variant="h6"
@@ -89,7 +93,8 @@ const Header = ({ drawerWidth, handleDrawerToggle, withLogo, user, onLogout }: I
             width: '160px'
           }}
         >
-          {withLogo && (
+          {withLogo && noLink && (<Image src={logo} alt="logo" />)}
+          {withLogo && !noLink && (
             <Link href='/'>
               <a style={{ display: 'flex', alignItems: 'center' }}>
                 <Image src={logo} alt="logo" />

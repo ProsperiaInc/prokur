@@ -29,10 +29,24 @@ const PageHeader = (
     >
       {backButton && (
         <Grid container item xs={12} md={2} justifyContent={{ xs: 'flex-start', md: 'flex-end' }}>
-          <BackButton variant='text' color="primary" startIcon={<MdArrowBack />} size='small' onClick={() => {
-            onBack && onBack();
-            router.push('/');
-          }}>Back to Dashboard</BackButton>
+          <BackButton
+            variant='text'
+            color="primary"
+            startIcon={<MdArrowBack />}
+            size='small'
+            onClick={() => {
+              onBack && onBack();
+              router.push('/');
+            }}
+            sx={{
+              marginTop: {
+                xs: '32px',
+                lg: '0'
+              }
+            }}
+          >
+              Back to Dashboard
+          </BackButton>
         </Grid>
       )}
       <Grid md={10} xs={12} item container justifyContent='flex-end' flexDirection='column' {...extractOverrides(titlesContainer)}>

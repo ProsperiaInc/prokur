@@ -1704,7 +1704,6 @@ export default {
     'legal_name',
     'title',
     'slug',
-    'publicURL',
     'industryCategory',
     'businessId',
     'companyTagLine',

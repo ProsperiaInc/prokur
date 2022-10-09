@@ -19,19 +19,16 @@ import { useLazyGetCompanyDetailsQuery } from 'services/company';
 import { useLazyGetCompanyRfpsQuery, useLazyGetRfpAttachmentQuery, useLazyGetRfpQuery, useLazyGetRfpShareLinkQuery, useSetRfpShareEmailsMutation } from 'services/rfp';
 import clsx from 'clsx';
 import MenuButton from 'components/MenuButton/MenuButton';
-// import {
-//   companyDetails,
-//   getCompanyRfpsDetails,
-//   getShareRfpLink,
-//   setPasswordToRfpShareLink,
-//   setSharedRfpEmails,
-// } from 'store/slices/user';
-// import RfpService from 'api/rfp';
+import formatCurrency from 'utils/formatCurrency';
 
 const ShareButton = styled(Button)(() => `
   height: 60px;
   alignContent: center;
   justifyContent: center;
+  textTransform: none;
+  padding: 14px 55.5px;
+  fontSize: 18px;
+  borderRadius: 8px;
 `)
 
 const StyledImageIcon = styled(Box)(() => `
@@ -65,42 +62,6 @@ const StyledMenuButton = styled(MenuButton)(({ theme }: any) => `
   },
 `)
 
-// const useStyles = makeStyles((theme: any) => ({
-//   shareButton: {
-//     width: 80,
-//     height: 40,
-//     alignContent: 'center',
-//     justifyContent: 'center',
-//   },
-//   imageIcon: {
-//     width: 25,
-//     height: 25,
-//     padding: 20,
-//     borderRadius: 100,
-//     backgroundColor: '#f9f9f9',
-//     color: '#D4D4D4',
-//     marginRight: 10,
-//   },
-//   menuButton: {
-//     width: 35,
-//     minWidth: 35,
-//     alignContent: 'center',
-//     justifyContent: 'center',
-//     height: 40,
-//     borderRadius: 4,
-//     backgroundColor: theme.custom.menuButton.backgroundColor,
-//     color: theme.custom.menuButton.color,
-//     transition: theme.transitions.create(['box-shadow', 'background-color'], {
-//       duration: theme.transitions.duration.complex,
-//       easing: theme.transitions.easing.easeInOut,
-//     }),
-//     '&:hover': {
-//       backgroundColor: theme.custom.menuButton.backgroundColorHover,
-//       boxShadow: theme.shadows[2],
-//     },
-//   },
-// }));
-
 const mockHistory = [
   {
     name: 'Rfp v2',
@@ -119,25 +80,27 @@ export default function RfpDetails() {
   const router = useRouter()
   const [sharedModal, setSharedModal] = useState(false);
   const dispatch = useDispatch();
-  // const classes = useStyles();
   const { id: rfpId } = router.query as any;
-  const [attachments, setAttachments] = useState([]);
-
   const rfpShareToken = useSelector((state) => get(state, `auth.user.rfpShareTokens[${rfpId}]`, {}));
   const userRfps = useSelector((state) => get(state, 'rfp.list', []));
   const company = useSelector((state) => get(state, 'auth.user.company', {}));
   const rfp = useSelector((state) => get(state, `auth.user.rfpDetails[${rfpId}]`, {}));
-  const rfpDetails = get(rfp, 'template.sections[0].fields', []);
-  const attachments1 = get(rfp, 'template.sections[3]', []);
+  const rfpDetails = { 
+    inquiryDeadline: parseDate(rfp?.deadline_date || rfp?.values?.deadline_date),
+    closeDate: parseDate(rfp?.closed_date || rfp?.values?.closed_date),
+    primaryCategory: rfp?.categories || rfp?.values?.categories,
+    secondaryCategory: rfp?.rfpSecondaryCategory || rfp?.values?.rfpSecondaryCategory,
+    estimatedBudget: formatCurrency(rfp?.budget || rfp?.values?.budget),
+    responses: `${rfp?.proposals_count ?? rfp?.values?.proposals_count}`,
+  }
+
   const rfpHistory = get(rfpDetails, 'history', mockHistory);
   const [getCompanyDetails] = useLazyGetCompanyDetailsQuery();
   const [getRfpDetails] = useLazyGetRfpQuery();
-  const [getRfpAttachment, { data: rfpAttachments }] = useLazyGetRfpAttachmentQuery();
+  const [getRfpAttachment, { data: attachments }] = useLazyGetRfpAttachmentQuery();
   const [getCompanyRfps] = useLazyGetCompanyRfpsQuery()
   const [getRfpShareLink] = useLazyGetRfpShareLinkQuery();
   const [setRfpShareEmail, { isLoading: rfpShareLoading, data: rfpShareData, error: rfpShareError }] = useSetRfpShareEmailsMutation()
-
-  useEffect(() => { rfpAttachments && setAttachments(rfpAttachments) }, [rfpAttachments])
 
   const openSharedModal = () => setSharedModal(true);
   const closeSharedModal = () => setSharedModal(false);
@@ -146,18 +109,9 @@ export default function RfpDetails() {
     router.push(ROUTES.DASHBOARD_PROPOSALS_RFP.replace(':id', rfpId));
   };
   const handleContact = () => {};
-  const handleViewRfp = () => {
-    router.push(`/rfp_viewer?id=${rfpId}`);
-  };
-
-  const navigateToRfpEditor = async (id: any) => {
-    // if (id !== 0) await dispatch(getCompanyRfpsDetails(id));
-    router.push(`/rfp_editor?id=${id}`);
-  };
-
+  const handleViewRfp = () => router.push(`/rfp_viewer?id=${rfpId}`)
+  const navigateToRfpEditor = async (id: any) => router.push(`/rfp_editor?id=${id}`)
   const getShareLink = async () => { if (rfpId) getRfpShareLink(rfpId) };
-    // if (rfpId) { await dispatch(getShareRfpLink(rfpId)); }
-
   const getSharedLink = () => rfpShareToken.shareLink;
     // Config.isDevelopment
     //   ? `${window.location.origin}/rfp/share/${rfpShareToken.token}`
@@ -197,13 +151,14 @@ export default function RfpDetails() {
     );
   }
 
-  const renderAttachmentsSection = () =>
-    !!attachments.length && (
+  const renderAttachmentsSection = () => {
+    return !!attachments?.length && (
       <div className={clsx(classes["rfp-details-attachments"], classes["section"])}>
         {renderSectionTitle(t('attachments'))}
         <div className={classes["rfp-details-attachments-list"]}>{attachments.map(renderAttachment)}</div>
       </div>
     );
+  }
 
   const renderVersionHistoryRow = (item: any, index: any) => (
     <div key={`${index} - ${item.name}`} className={classes["rfp-details-history-row"]}>
@@ -216,12 +171,12 @@ export default function RfpDetails() {
 
   const renderVersionHistorySection = () =>
     !!rfpHistory.length && (
-      <div className="rfp-details-history section">
-        <div className="rfp-details-history-top">
+      <div className={clsx(classes["rfp-details-attachments"], classes["section"])}>
+        <div className={classes["rfp-details-history-top"]}>
           {renderSectionTitle(t('version_history'))}
           <Typography>{t('modified_on')}</Typography>
         </div>
-        <div className="rfp-details-history-list">{rfpHistory.map(renderVersionHistoryRow)}</div>
+        <div className={classes["rfp-details-history-list"]}>{rfpHistory.map(renderVersionHistoryRow)}</div>
       </div>
     );
 
@@ -332,10 +287,10 @@ export default function RfpDetails() {
           onViewResponses={handleViewResponses}
           onViewRfp={handleViewRfp}
         />
-        {attachments1.notIncluded === true ? null : renderAttachmentsSection()}
-        {/* {renderVersionHistorySection()} */}
+        {renderAttachmentsSection()}
         {renderAboutSection()}
         {renderOtherRfpSection()}
+        {renderVersionHistorySection()}
       </div>
       <SharedModal
         modal={sharedModal}

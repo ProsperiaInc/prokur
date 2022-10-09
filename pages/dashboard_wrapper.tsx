@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material'
 import Page from 'components/Page/Page'
 
-const Dashboard = ({ children, noDrawer, noPadding } : any) => {
+const Dashboard = ({ children, noDrawer, noPadding, noLink } : any) => {
   return (
     <Grid>
-      <Page noDrawer={noDrawer} noPadding={noPadding}>
+      <Page noLink={noLink} noDrawer={noDrawer} noPadding={noPadding}>
         {children}
       </Page>
     </Grid>

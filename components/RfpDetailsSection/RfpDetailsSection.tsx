@@ -6,11 +6,16 @@ import { Button } from '@mui/material';
 import classes from './RfpDetailsSection.module.css';
 import { useTranslation } from 'next-i18next';
 import styled from '@emotion/styled';
+import { upperFirst, words } from 'lodash';
 
 const SubmitProposalButton = styled(Button)(({ theme }: any) => ({
   marginRight: '15px',
   marginTop: '8px',
   // width: '100%',
+  textTransform: 'none',
+  padding: '14px 55.5px',
+  fontSize: '18px',
+  borderRadius: '8px',
   [theme.breakpoints.down('md')]: {
     width: '100%',
   }
@@ -18,6 +23,10 @@ const SubmitProposalButton = styled(Button)(({ theme }: any) => ({
 
 const ViewButton = styled(Button)(({ theme }: any) => ({
   marginTop: '8px',
+  textTransform: 'none',
+  padding: '14px 55.5px',
+  fontSize: '18px',
+  borderRadius: '8px',
   [theme.breakpoints.down('md')]: {
     width: '100%',
   }
@@ -44,7 +53,7 @@ export default function RfpDetailsSection({
   const renderRowItem = (label: any, value: any) => !!value && (
     <div key={label} className={classes["rfp-details-section-table-row"]}>
       <div className={classes["rfp-details-section-table-row-left"]}>
-        {label}
+        {words(label).map(item => upperFirst(item)).join(' ')}
       </div>
       <div className={classes["rfp-details-section-table-row-right"]}>
         {value}
@@ -52,20 +61,8 @@ export default function RfpDetailsSection({
     </div>
   );
 
-  const renderRow = (item: any) => {
-    if (item) {
-      const label = item.label || item.meta?.labels;
-      let { value } = item;
-
-      if (item.meta?.type === 'datetime') value = parseDate(value);
-      if (item.meta?.type === 'currency') value = !!value && `$${value}`;
-
-      if (typeof label === 'object' && typeof value === 'object') {
-        return Object
-          .keys(value)
-          .map((key) => renderRowItem(label[key], value[key]));
-      }
-
+  const renderRow = ({ label, value }: { label: string, value: any }) => {
+    if (label && value) {
       return (
         renderRowItem(label, value)
       );
@@ -84,9 +81,9 @@ export default function RfpDetailsSection({
         {statusBatch()}
       </div>
       <div className={classes["rfp-details-section-table"]}>
-        {rfpDetails
-          .slice(1, rfpDetails.length - 1)
-          .map((item: any) => renderRow(item))}
+        {Object.keys(rfpDetails).map(item => renderRow({ label: item, value: rfpDetails[item] }))}
+          {/* // .slice(1, rfpDetails.length - 1) */}
+          {/* .map((item: any) => renderRow(item)) */}
       </div>
       {(onViewResponses)
         && (

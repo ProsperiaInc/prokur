@@ -74,12 +74,14 @@
     "not_found.subtitle": "Register a new organization",
     "sendJoinRequest": "Send Join Request"
   },
+  "version_history": "Version History",
+  "modified_on": "Modified on",
   "about_of": "About {{name}}",
   "published_at": "Published: {{date}}",
   "deadline_at": "Deadline: {{date}}",
   "other_rfp_from": "Other RFPs from {{name}}",
   "myrfp_nav_title": "MY RFX",
-  "view_rfp": "View RFX",
+  "view_rfp": "View RFP",
   "view_responses": "View Responses",
   "share": "Share",
   "share_modal_title": "Share RFP with people",
@@ -88,5 +90,6 @@
   "add_password": "Add Password",
   "password_field": "Password",
   "email_field": "Email",
-  "link": "Link"
+  "link": "Link",
+  "attachments": "Attachments"
 }

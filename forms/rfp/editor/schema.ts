@@ -1683,7 +1683,7 @@ export default [
     "properties": {
       "scope_summary": {
         "type": "string",
-        "label": "Scope Summary"
+        "title": "Scope of Work"
       },
       "scope_requirements": {
         "type": "array",
@@ -1725,6 +1725,7 @@ export default [
               "type": "string",
               "label": "Weight",
               "enum": [
+                "1",
                 "2",
                 "3",
                 "4",

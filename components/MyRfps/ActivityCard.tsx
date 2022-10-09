@@ -50,7 +50,7 @@ const CtaButton = styled(Button)(({ theme, variant }: any) => ({
   }
 }))
 
-export default function ActivityCard({ variant = 'primary' }) {
+export default function ActivityCard({ variant = 'primary', data }: any) {
   const VariantIcon: { [x: string]: any } = {
     primary: MdLightbulb,
     warning: MdWatchLater,
@@ -65,19 +65,19 @@ export default function ActivityCard({ variant = 'primary' }) {
           <CardTitle variant={variant}>
             <VariantIconComp />
             <span>
-              Word of the Day
+              {data.date}
             </span>
           </CardTitle>
           <Typography variant="h5" component="div" mb='16px'>
-            Closing soon
+            {data.title}
           </Typography>
           <Typography variant="body2" mb='24px' maxWidth='300px' sx={{ color: '#4F4F4F' }}>
-            This RFX is closing soon and has not yet been assigned a winner.
+            {data.subtitle}
           </Typography>
         </CardContent>
         <Divider sx={{ marginRight: '16px', marginLeft: '16px' }} />
         <CardActions>
-          <CtaButton variant={variant} endIcon={<MdArrowForward />} disableRipple>Data Visualization Software</CtaButton>
+          <CtaButton variant={variant} endIcon={<MdArrowForward />} disableRipple>{data.cta}</CtaButton>
         </CardActions>
       </Card>
     </Root>

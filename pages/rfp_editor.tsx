@@ -14,6 +14,12 @@ const RFPEditorPage = () => {
   const fieldData = { ...(payload?.data?.values || {}) }
   fieldData.tagsTags = fieldData?.tags
   fieldData.budgetCurrency = typeof fieldData?.budget === 'number' ? fieldData?.budget : Number(fieldData?.budget?.replaceAll(',', ''))
+  if(!fieldData?.scope_requirements && !fieldData?.scope_requirements?.length) {
+    fieldData.scope_requirements = [{ requirements: '' }]
+  }
+  if(!fieldData?.evaluationMetrics && !fieldData?.evaluationMetrics?.length) {
+    fieldData.evaluationMetrics = [{ evaluationMetrics: '', weight: '1' }]
+  }
   delete fieldData?.tags
   delete fieldData?.budget
 

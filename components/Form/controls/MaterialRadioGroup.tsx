@@ -53,7 +53,7 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme, checked }: any) => ({
   paddingTop: '10px',
   paddingBottom: '10px',
   flexDirection: 'row',
-  [theme.breakpoints.down('lg')]: {
+  ['@media(max-width: 768px)']: {
     flexWrap: 'wrap'
   },
   flexWrap: 'initial'
@@ -62,7 +62,6 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme, checked }: any) => ({
 const StyledTypography = styled(Typography)(({ theme, checked }: any) => ({
   [`&.${typographyClasses.root}`]: {
     marginTop: '-25px',
-    // position: 'absolute',
     color: checked ? theme.palette.primary.main : theme.palette.secondary.dark,
     fontWeight: '700',
     left: '0',
@@ -74,8 +73,7 @@ const StyledTypography = styled(Typography)(({ theme, checked }: any) => ({
 
 const StyledFormControlLabel = styled(FormControlLabel)(({ theme, checked }: any) => ({
   [`&.${formControlLabelClasses.root}`]: {
-    height: '115px',
-    minWidth: '160px',
+    height: '140px',
     border: checked ? `3px solid ${theme.palette.primary.main}` : `1px solid ${theme.palette.secondary.dark}`,
     background: checked ? 'rgba(25, 118, 210, 0.2)' : '#fff',
     padding: '20px',
@@ -151,6 +149,7 @@ export const MaterialRadioGroup = (props: ControlProps & OwnPropsOfEnum) => {
 
         <Grid container>
           <StyledRadioGroup
+            sx={{ width: '100%' }}
             value={props.data}
             onChange={onChange}
           >
@@ -158,13 +157,18 @@ export const MaterialRadioGroup = (props: ControlProps & OwnPropsOfEnum) => {
               <Box 
                 component='span'
                 sx={{ 
-                    position: 'relative',
-                    marginRight: '10px',
-                    marginTop: '10px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column'
+                  position: 'relative',
+                  marginRight: '10px',
+                  '&:last-child': {
+                    marginRight: '0',
+                  },
+                  marginTop: '10px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                  width: '24%',
+                  minWidth: '160px'
                 }}
               >
                 <StyledFormControlLabel
@@ -174,6 +178,7 @@ export const MaterialRadioGroup = (props: ControlProps & OwnPropsOfEnum) => {
                   control={<Radio checked={data === option.value} sx={{ display: 'none' }} />}
                   label={appliedUiSchemaOptions?.enum_images?.[idx] ? <Image src={appliedUiSchemaOptions?.enum_images?.[idx]} height='50' width='50' /> : option.label}
                   disabled={!enabled}
+                  sx={{ width: '100%' }}
                 />
                 <StyledTypography variant='caption' checked={data === option.value}>
                   {appliedUiSchemaOptions?.enum_titles?.[idx]}

@@ -11,6 +11,7 @@ export default {
     }
   },
   "required": [
-    "email", "password"
+    "email",
+    "password"
   ]
 }

@@ -1,5 +1,5 @@
 import { JsonForms, JsonFormsInitStateProps } from '@jsonforms/react';
-import { JsonFormsCellRendererRegistryEntry, JsonFormsCore, JsonFormsRendererRegistryEntry } from '@jsonforms/core';
+import { createAjv, JsonFormsCellRendererRegistryEntry, JsonFormsCore, JsonFormsRendererRegistryEntry } from '@jsonforms/core';
 import {
   materialAllOfControlTester,
   MaterialAllOfRenderer,
@@ -161,12 +161,30 @@ export const materialCells: JsonFormsCellRendererRegistryEntry[] = [
 ];
 
 
+export const useTranslateError = () => {
+  return (
+    error: any,
+    _translate: any,
+    uischema: any
+  ): string => {
+    const params = error.params
+    switch(error.keyword) {
+      case 'required':
+        const fieldName = ((uischema as any)?.label || params.singProperty || '')
+        return `${fieldName} is a required property`
+      default:
+        return error.message
+    }
+  }
+}
+
 function Form(
   props: Omit<JsonFormsInitStateProps, "renderers" | "cells" | "data"> & 
   JsonFormsReactProps & 
   { initialData?: Pick<JsonFormsCore, 'data'>, name: string }
 ) {
 
+  const translateError = useTranslateError()
   const [additionalErrors, setAdditionalErrors] = useState<any>([])
   const { t } = useTranslation('common')
   const forms = useSelector(selectForms) as any
@@ -179,9 +197,7 @@ function Form(
     setAdditionalErrors((errors: any[]) => []);
     fieldErrorsKeys.map((errorKey: any) => {
       const newError = {
-          // AJV style path to the property in the schema
           instancePath: `/${errorKey}`,
-          // message to display
           message: fieldErrors[errorKey].join(', '),
           schemaPath: '',
           keyword: '',
@@ -209,6 +225,7 @@ function Form(
                 }
               })
             }}
+            i18n={{ translateError }}
             additionalErrors={additionalErrors}
             {...props}
           />

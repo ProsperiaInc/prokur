@@ -7,7 +7,7 @@ export default [
         "elements": [
           {
             "type": "Control",
-            "label": "Title",
+            "label": "RFP Title",
             "scope": "#/properties/title"
           },
           {
@@ -37,7 +37,7 @@ export default [
         "elements": [
           {
             "type": "Control",
-            "label": "RFP Primary Category",
+            "label": "Product Category",
             "scope": "#/properties/categories"
           },
           {
@@ -73,6 +73,7 @@ export default [
       {
         "type": "Control",
         "scope": "#/properties/scope_summary",
+        "label": "Scope of work",
         "options": {
           "multi": true,
           "rows": "4"

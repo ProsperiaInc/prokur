@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, KeyboardEvent } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -144,10 +144,11 @@ export default function OnboardingWizard() {
   const { data: formData, errors = [], ...rest } = useSelector(selectForm('onboarding'))
   const isDisabled = !formData || !!errors.length || isUploadLogoLoading || isCompanySaveLoading || isInviteLoading
   const isStepSkipped = (step: number) => skipped.has(step);
-  const handleBack = () => { setActiveStep((prevActiveStep) => prevActiveStep - 1) };
+  // const handleBack = () => { setActiveStep((prevActiveStep) => prevActiveStep - 1) };
   const handleNext = () => { 
     if(activeStep === 0) createCompany(formData)
     if(activeStep === 1) {
+      if(!members.length) router.push('/')
       members.forEach((member: any) => {
         invite({
           email: member.email,
@@ -156,6 +157,7 @@ export default function OnboardingWizard() {
       })
     }
   };
+  const onKeyPressed = (e: KeyboardEvent<HTMLDivElement>) => e.code === 'Enter' && handleNext()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
@@ -175,7 +177,7 @@ export default function OnboardingWizard() {
   }
 
   useEffect(() => {
-    if(formData.slug) {
+    if(formData?.slug) {
       dispatch(
         setOnboardingForm({
           onboarding: {
@@ -183,23 +185,28 @@ export default function OnboardingWizard() {
             ...rest,
             data: {
               ...(formData || {}),
-              publicURL: formData.slug ? `${formData.slug}.prokur.com/` : '',
+              publicURL: formData?.slug ? `${formData?.slug}.prokur.com/` : '',
             },
           }
         }
       ))
     }
-  }, [formData.slug])
+  }, [formData?.slug])
 
   useEffect(() => {
     if(
       activeStep === 0 &&
       !isCompanySaveLoading &&
-      companySaveData &&
-      formData.fileMediaUpload &&
-      formData.fileMediaUpload.length
+      companySaveData
     ) {
-      uploadLogo(formData)
+      if(
+        formData?.fileMediaUpload &&
+        formData?.fileMediaUpload.length
+      ) {
+        uploadLogo(formData)
+      } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      }
     }
   }, [isCompanySaveLoading, companySaveData, companySaveError])
 
@@ -220,7 +227,7 @@ export default function OnboardingWizard() {
   }, [inviteError, inviteData, isInviteLoading])
 
   return (
-    <Dashboard noDrawer noPadding>
+    <Dashboard noDrawer noPadding noLink>
       <Box sx={{ width: '100%', marginBottom: '20px' }}>
         <HorizontalStepper>
           <Stepper sx={{ margin: '65px auto 0 auto', maxWidth: '350px' }} alternativeLabel activeStep={activeStep} connector={<HorizontalStepperConnector />}>
@@ -237,10 +244,18 @@ export default function OnboardingWizard() {
             })}
           </Stepper>
         </HorizontalStepper>
-        <Box sx={{ pl: 5, pr: 5, maxWidth: '1300px', margin: '0 auto' }}>
-          <Grid container height='100px' sx={{ marginBottom: '50px', pl: '16px', mt: '40px' }}>
+        <Box
+          sx={{
+            p: { xs: 2, lg: 5 },
+            maxWidth: '1300px',
+            margin: '0 auto'
+          }}
+          tabIndex={0}
+          onKeyDown={onKeyPressed}
+        >
+          <Grid container height='100px'>
             <Grid lg={4} md={12} item></Grid>
-            <Grid lg={8} md={12} item>
+            <Grid lg={8} md={12} item sx={{ pl: '16px' }}>
               <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}>{stepData[activeStep].title}</Typography>
               <Typography variant='body2' sx={{ color: 'rgba(0, 0, 0, 0.6)', marginTop: '10px' }}><span>{stepData[activeStep].subtitle}</span></Typography>
             </Grid>
@@ -255,7 +270,7 @@ export default function OnboardingWizard() {
           {activeStep === 1 && (
             <>
               <Grid container>
-                <Grid item xs={12} lg={4}>
+                <Grid item xs={12} lg={4} sx={{ marginBottom: { xs: '16px', lg: '0' } }}>
                   <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}>Add new members</Typography>
                 </Grid>
                 <Grid container item xs={12} lg={8}>
@@ -298,20 +313,20 @@ export default function OnboardingWizard() {
                 </Grid>
               </Grid>
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={12} lg={4} sx={{ marginBottom: { xs: '16px', lg: '0' } }}>
                   <Typography variant='h5' fontWeight={600} sx={{ marginTop: '10px' }}>Current members</Typography>
                 </Grid>
-                <Grid container item xs={8}>
-                  <Grid item xs={2}><Typography sx={{ color: '#4F4F4F', fontWeight: '100' }}>Name</Typography></Grid>
+                <Grid container item xs={12} lg={8} sx={{ marginBottom: { xs: '16px', lg: '0' } }}>
+                  <Grid item xs={2}><Typography sx={{ color: '#4F4F4F', fontWeight: '100', textAlign: { xs: 'center', lg: 'left' } }}>Name</Typography></Grid>
                   <Grid item xs={6} />
-                  <Grid item xs={2}><Typography sx={{ color: '#4F4F4F' }}>Role</Typography></Grid>
-                  <Grid item xs={2}><Typography sx={{ color: '#4F4F4F' }}>Remove</Typography></Grid>
+                  <Grid item xs={2}><Typography sx={{ color: '#4F4F4F', textAlign: { xs: 'center', lg: 'left' } }}>Role</Typography></Grid>
+                  <Grid item xs={2}><Typography sx={{ color: '#4F4F4F', textAlign: { xs: 'center', lg: 'left' } }}>Remove</Typography></Grid>
                 </Grid>
                 {members.map((member: any, idx: any) => {
                   return (
                     <Grid key={`${idx}`} container sx={{ marginBottom: '10px' }}>
-                      <Grid item xs={4} />
-                      <Grid container item xs={6}>
+                      <Grid item xs={12} lg={4} />
+                      <Grid container item xs={10} lg={6}>
                         <Card elevation={0} variant='outlined' sx={{ width: '100%' }}>
                           <StyledCardHeader
                             avatar={<Avatar aria-label="recipe">{member?.first_name?.[0]}</Avatar>}
@@ -373,8 +388,8 @@ export default function OnboardingWizard() {
                 })}
                 {inviteError && inviteError.data && inviteError.data.errors && (
                   <Grid container sx={{ marginBottom: '10px' }}>
-                    <Grid item xs={4} />
-                    <Grid item xs={8}>
+                    <Grid item xs={12} lg={4} />
+                    <Grid item xs={12} lg={8} >
                       <Alert severity="error">
                         {Object.keys(inviteError.data.errors).map(key => {
                           return (
@@ -392,8 +407,8 @@ export default function OnboardingWizard() {
           )}
           {uploadLogoError && uploadLogoError.data && uploadLogoError.data.errors && (
             <Grid container sx={{ marginBottom: '10px' }}>
-              <Grid item xs={4} />
-              <Grid item xs={8}>
+              <Grid item xs={12} lg={4} />
+              <Grid item xs={12} lg={8} >
                 <Alert severity="error">
                   {Object.keys(uploadLogoError.data.errors).map(key => {
                     return (
@@ -408,8 +423,8 @@ export default function OnboardingWizard() {
           )}
           {companySaveError && companySaveError.data && companySaveError.data.errors && (
             <Grid container sx={{ marginBottom: '10px' }}>
-              <Grid item xs={4} />
-              <Grid item xs={8}>
+              <Grid item xs={12} lg={4} />
+              <Grid item xs={12} lg={8} >
                 <Alert severity="error">
                   {Object.keys(companySaveError.data.errors).map(key => {
                     return (
@@ -423,7 +438,7 @@ export default function OnboardingWizard() {
             </Grid>
           )}
           <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-            {activeStep !== 0 && (
+            {/* {activeStep !== 0 && (
               <Button
                 color="primary"
                 disabled={activeStep === 0}
@@ -432,7 +447,7 @@ export default function OnboardingWizard() {
               >
                 Back
               </Button>
-            )}
+            )} */}
             {(
               isCompanySaveLoading ||
               isUploadLogoLoading ||
@@ -440,13 +455,21 @@ export default function OnboardingWizard() {
             ) ? (
               <LoadingButton loading variant="contained">Complete</LoadingButton>
             ) : (
-              <Button 
+              <Button
+                sx={{
+                  textTransform: 'none',
+                  padding: '14px 55.5px',
+                  fontSize: '18px',
+                  borderRadius: '8px',
+                  marginTop: '16px',
+                  marginRight: '16px',
+                }}
                 onClick={handleNext} 
                 variant="contained"
                 color="primary"
                 disabled={isDisabled}
               >
-                {activeStep === steps.length - 1 ? 'Complete' : 'Save and continue'}
+              Save and continue
               </Button>
             )}
           </Box>

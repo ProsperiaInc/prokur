@@ -9,7 +9,7 @@ import { selectUser, userLogout } from 'store/features/auth/authSlice';
 const drawerWidth = 240;
 
 export default function Page(props: any) {
-  const { children, noDrawer, noPadding } = props;
+  const { children, noDrawer, noLink, noPadding } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
   const user = useSelector(selectUser)
@@ -21,6 +21,7 @@ export default function Page(props: any) {
       <Header
         user={user}
         withLogo={noDrawer}
+        noLink={noLink}
         drawerWidth={noDrawer ? 0 : drawerWidth}
         handleDrawerToggle={handleDrawerToggle}
         onLogout={onLogout}

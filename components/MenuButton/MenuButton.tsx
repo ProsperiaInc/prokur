@@ -42,7 +42,6 @@ export default function MenuButton({
         }}
         id={name}
         open={Boolean(anchorEl)}
-        // onClose={handleClose}
         anchorEl={anchorEl}
         role={undefined}
         transition

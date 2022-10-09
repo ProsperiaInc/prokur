@@ -8,7 +8,7 @@ import Form from 'components/Form'
 import schema from 'forms/rfp/editor/schema'
 import uischema from 'forms/rfp/editor/uischema'
 import { selectForm, setForm } from 'store/features/forms/formsSlice'
-import { useSaveRfpMutation } from 'services/rfp'
+import { useEditRfpMutation, useSaveRfpMutation } from 'services/rfp'
 import { useRouter } from 'next/router'
 
 const FORM_NAME = 'rfp_editor'
@@ -54,6 +54,7 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
   const router = useRouter()
   const [saveType, setSaveType] = useState<string>()
   const [saveRfpMutation, { data: saveRfpData }] = useSaveRfpMutation()
+  const [editRfpMutation, { data: editRfpData }] = useEditRfpMutation()
 
   const save = () => {
     const formData = { ...data }
@@ -61,7 +62,13 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
     formData.budget = data.budgetCurrency
     delete formData.tagsTags
     delete formData.budgetCurrency
-    saveRfpMutation(formData)
+
+    if(router.query.id && router.query.id !== '0') {
+      formData.id = router.query.id
+      editRfpMutation(formData)
+    } else {
+      saveRfpMutation(formData)
+    }
   }
   
   const saveDraft = () => {
@@ -100,7 +107,7 @@ export default function RfpEditor({ id, categories, initialData, viewRfp }: any)
   }, [])
 
   return (
-    <Box mt='88px'>
+    <Box>
       <Grid
         container
         alignItems="center"

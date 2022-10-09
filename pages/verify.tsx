@@ -40,7 +40,7 @@ const Verify: NextPage = () => {
   }, [verifyEmailError])
 
   return (
-    <Dashboard noDrawer>
+    <Dashboard noDrawer noLink>
       <Snackbar open={!!error}>
         <Alert severity="error" sx={{ width: '100%' }}>
           {t('verification.error.invalid_code')}

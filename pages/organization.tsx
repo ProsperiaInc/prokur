@@ -21,7 +21,7 @@ const Organization = () => {
 
 
   return (
-    <Dashboard noDrawer>
+    <Dashboard noDrawer noLink>
       <OrganizationForm user={user} onRegisterCompany={onRegisterCompany} />
     </Dashboard>
   )
