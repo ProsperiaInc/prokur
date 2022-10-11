@@ -1707,8 +1707,6 @@ export default {
     'industryCategory',
     'businessId',
     'companyTagLine',
-    'companyDescription',
     'companySize',
-    'companyType'
   ]
 }
